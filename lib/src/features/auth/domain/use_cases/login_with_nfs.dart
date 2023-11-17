@@ -8,6 +8,6 @@ class LoginWithNfs implements UseCase<void, NoParams> {
 
   @override
   Future<void> call(NoParams params) {
-    return authRepository.signInWithGoogle();
+    return authRepository.signInWithNfs();
   }
 }

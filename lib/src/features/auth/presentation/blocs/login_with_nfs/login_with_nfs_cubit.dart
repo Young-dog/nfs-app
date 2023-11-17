@@ -23,10 +23,15 @@ class LoginWithNfsCubit extends Cubit<LoginWithNfsState> {
     );
   }
 
-  void signInWithGoogle() async {
+  void signInWithNfs() async {
     emit(state.copyWith(status: LoginWithNfsStatus.loading));
     try {
-      await _loginWithNfs(NoParams());
+
+      var fnsId = await _loginWithNfs(NoParams());
+
+      // TODO: проверить есть ли в базе данных пользвоатель с таким id. Если есть, то меняем статус на авторизован.
+
+      // TODO: Если нет, то вызываем анонимную авторизацию (firebase) и создаем нового пользователя с полученным id
 
 
       emit(state.copyWith(status: LoginWithNfsStatus.success));
