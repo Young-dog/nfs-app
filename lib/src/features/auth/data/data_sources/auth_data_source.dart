@@ -19,7 +19,7 @@ abstract class AuthDataSource {
 
   Future<user_entity.User> get user;
 
-  Future<void> signInWithNfs();
+  Future<void> signInWithNfs({String? rfidId});
 
   Future<void> logout();
 }
@@ -68,26 +68,19 @@ class AuthDataSourceImpl extends AuthDataSource {
   }
 
   @override
-  Future<void> signInWithNfs() async {
+  Future<void> signInWithNfs({String? rfidId}) async {
     return Future.delayed(
       const Duration(milliseconds: 300),
       () async {
         try {
-          // final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-          // final GoogleSignInAuthentication? googleAuth =
-          //     await googleUser?.authentication;
-          // final credential = GoogleAuthProvider.credential(
-          //   accessToken: googleAuth?.accessToken,
-          //   idToken: googleAuth?.idToken,
-          // );
-          //
-          // // Once signed in, return the UserCredential
-          // await _firebaseAuth.signInWithCredential(credential).then(
-          //   (value) {
-          //     _createUser(user: value.user!);
-          //     _controller.add(AuthStatus.authenticated);
-          //   },
-          // );
+
+          // Once signed in, return the UserCredential
+          await _firebaseAuth.signInAnonymously().then(
+                (value) {
+              _createUser(user: value.user!, rfidId: rfidId);
+              _controller.add(AuthStatus.authenticated);
+            },
+          );
           return;
         } on fire_base_auth.FirebaseAuthException catch (e) {
           throw SignupFailure.fromCode(e.code);
