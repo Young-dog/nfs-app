@@ -27,12 +27,11 @@ class LoginWithNfsCubit extends Cubit<LoginWithNfsState> {
     emit(state.copyWith(status: LoginWithNfsStatus.loading));
     try {
 
-      var fnsId = await _loginWithNfs(NoParams());
+      // TODO: get fnsId
 
-      // TODO: проверить есть ли в базе данных пользвоатель с таким id. Если есть, то меняем статус на авторизован.
-
-      // TODO: Если нет, то вызываем анонимную авторизацию (firebase) и создаем нового пользователя с полученным id
-
+      await _loginWithNfs(
+        const LoginWithNfsParams(rfidId: 'rfidId')
+      );
 
       emit(state.copyWith(status: LoginWithNfsStatus.success));
       emit(state.copyWith(status: LoginWithNfsStatus.initial));
