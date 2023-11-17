@@ -5,7 +5,7 @@ import 'package:app/src/shared/domain/use_cases/use_cases.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nfc_manager/nfc_manager.dart';
+import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
 
 import '../../../domain/use_cases/login_with_nfs.dart';
 
@@ -29,34 +29,38 @@ class LoginWithNfsCubit extends Cubit<LoginWithNfsState> {
   }
 
   Future<void> signInWithNfc() async {
+
+    var availability = await FlutterNfcKit.nfcAvailability;
+    if (availability != NFCAvailability.available) {
+      debugPrint('Nfc недоступно');
+      return;
+    }
+
+
     emit(state.copyWith(status: LoginWithNfsStatus.loading));
     try {
-      var isAvailable = await NfcManager.instance.isAvailable();
 
-      if (!isAvailable) {
-        debugPrint('Nfc недоступно');
-        return;
+      await FlutterNfcKit.finish();
+
+      var tag = await FlutterNfcKit.poll(
+          timeout: Duration(seconds: 50),
+          iosMultipleTagMessage: "Multiple tags found!",
+          iosAlertMessage: "Scan your tag");
+
+      print(tag);
+
+
+      if (tag.ndefAvailable!) {
+        var result = await FlutterNfcKit.readNDEFRecords(cached: false);
+        var record = result.isEmpty ? null : result.first;
+        String zoneId = record.toString().split("=").last;
+        var selectedZoneId = zoneId;
+
+        print(selectedZoneId);
       }
 
-      unawaited(NfcManager.instance.startSession(
-        onDiscovered: (NfcTag tag) async {
+      await FlutterNfcKit.finish();
 
-          // final ndef = Ndef.from(tag);
-          // final record = ndef?;
-
-          final id = tag.data['isodep']['identifier'] as List<int>;
-          id.join();
-          print('------> ${tag.data}');
-
-          //final decodedPayload = ascii.decode(record?.payload);
-          //debugPrint(decodedPayload);
-          emit(
-            state.copyWith(
-              status: LoginWithNfsStatus.success,
-            ),
-          );
-        },
-      ));
       await _loginWithNfs(
         const LoginWithNfsParams(rfidId: 'rfidId')
       );
