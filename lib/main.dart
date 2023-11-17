@@ -18,10 +18,7 @@ import 'src/features/auth/presentation/blocs/login_with_nfs/login_with_nfs_cubit
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    name: Platform.isAndroid ? 'AngryCorns' : null,
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // await Hive.initFlutter();
   // Hive.registerAdapter(CategoryModelAdapter()); // 0
   runApp(const MyApp());
@@ -76,4 +73,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
