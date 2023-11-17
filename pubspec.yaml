@@ -31,7 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  nfc_manager:
+  flutter_nfc_kit:
   get_it:
   cloud_firestore:
   hive_flutter:
