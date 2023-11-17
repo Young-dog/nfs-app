@@ -72,7 +72,7 @@ class _LoginWithNfs extends StatelessWidget {
           icon: 'google',
           text: 'Войти с помощью NFC',
           onPressed: () =>
-              context.read<LoginWithNfsCubit>().signInWithNfs(),
+              context.read<LoginWithNfsCubit>().signInWithNfc(),
         );
       },
     );
