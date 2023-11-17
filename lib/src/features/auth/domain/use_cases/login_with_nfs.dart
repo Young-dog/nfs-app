@@ -1,14 +1,13 @@
 import '../../../../shared/domain/use_cases/use_cases.dart';
 import '../repositories/auth_repository.dart';
 
-class SignInWithGoogle implements UseCase<void, NoParams> {
+class LoginWithNfs implements UseCase<void, NoParams> {
   final AuthRepository authRepository;
 
-  SignInWithGoogle(this.authRepository);
+  LoginWithNfs(this.authRepository);
 
   @override
   Future<void> call(NoParams params) {
     return authRepository.signInWithGoogle();
   }
-
 }
