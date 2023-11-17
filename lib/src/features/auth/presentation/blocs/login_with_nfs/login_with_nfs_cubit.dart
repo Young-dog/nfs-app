@@ -43,7 +43,10 @@ class LoginWithNfsCubit extends Cubit<LoginWithNfsState> {
 
           // final ndef = Ndef.from(tag);
           // final record = ndef?;
-          print('------> ${tag.data }');
+
+          final id = tag.data['isodep']['identifier'] as List<int>;
+          id.join();
+          print('------> ${tag.data}');
 
           //final decodedPayload = ascii.decode(record?.payload);
           //debugPrint(decodedPayload);
