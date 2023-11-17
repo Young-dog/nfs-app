@@ -1,8 +1,6 @@
 import 'dart:io';
 
 import 'package:app/src/features/auth/domain/use_cases/login_with_nfs.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,12 +13,13 @@ import 'src/features/auth/domain/use_cases/get_auth_user.dart';
 import 'src/features/auth/domain/use_cases/logout_user.dart';
 import 'src/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'src/features/auth/presentation/blocs/login_with_nfs/login_with_nfs_cubit.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    name: Platform.isAndroid ? 'AngryCorns' : null,
-    options: DefaultFirebaseOptions.currentPlatform,
+      options: DefaultFirebaseOptions.currentPlatform
   );
   // await Hive.initFlutter();
   // Hive.registerAdapter(CategoryModelAdapter()); // 0
