@@ -19,7 +19,7 @@ abstract class AuthDataSource {
 
   Future<user_entity.User> get user;
 
-  Future<void> signInWithGoogle();
+  Future<void> signInWithNfs();
 
   Future<void> logout();
 }
@@ -68,7 +68,7 @@ class AuthDataSourceImpl extends AuthDataSource {
   }
 
   @override
-  Future<void> signInWithGoogle() async {
+  Future<void> signInWithNfs() async {
     return Future.delayed(
       const Duration(milliseconds: 300),
       () async {
@@ -99,7 +99,7 @@ class AuthDataSourceImpl extends AuthDataSource {
     );
   }
 
-  Future<void> _createUser({User? user}) async {
+  Future<void> _createUser({User? user, String? rfidId}) async {
     try {
       await _firebaseFirestore
           .collection('users')
@@ -111,15 +111,17 @@ class AuthDataSourceImpl extends AuthDataSource {
         } else {
           var now = DateTime.now();
           final newUser = user_entity.User(
-            id: user.uid,
-            name: user.displayName ?? 'No name',
-            email: user.email ?? 'No email',
-            createdAt: now,
-            lastModified: now,
-            imageUrl: user.photoURL,
+            userId: user.uid,
+            lastName: 'No lastName',
+            firstName: user.displayName ?? 'No name',
+            middleName: 'No middleName',
+            employeeId: 'No employeeId',
+            position: 'No position',
+            role: 'агроном',
+            rfidId: rfidId!,
           );
 
-          await _firebaseFirestore.collection('users').doc(newUser.id).set(
+          await _firebaseFirestore.collection('users').doc(newUser.userId).set(
                 newUser.toDocument(),
               );
         }

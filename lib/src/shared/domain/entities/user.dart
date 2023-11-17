@@ -1,50 +1,59 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 class User extends Equatable {
-  final String id;
-  final String name;
-  final String email;
-  final DateTime? createdAt;
-  final DateTime? lastModified;
-  final String? imageUrl;
+  final String userId;
+  final String lastName;
+  final String firstName;
+  final String? middleName;
+  final String employeeId;
+  final String position;
+  final String role;
+  final String rfidId;
 
   const User({
-    required this.id,
-    required this.email,
-    required this.name,
-    this.createdAt,
-    this.lastModified,
-    this.imageUrl,
+    required this.userId,
+    required this.lastName,
+    required this.firstName,
+    this.middleName,
+    required this.employeeId,
+    required this.position,
+    required this.role,
+    required this.rfidId,
   });
 
   static const empty = User(
-    id: '-',
-    email: 'test@email.com',
-    name: 'TestName',
-    createdAt: null,
-    lastModified: null,
-    imageUrl: null,
+    userId: 'user_1',
+    lastName: 'Иванов',
+    firstName: 'Иван',
+    middleName: 'Ивнович',
+    employeeId: 'employee_1',
+    position: 'Зам директора',
+    role: 'агроном',
+    rfidId: '123',
   );
 
   Map<String, dynamic> toDocument() {
     return {
-      'id': id,
-      'name': name,
-      'email': email,
-      'created_at': Timestamp.fromDate(createdAt ?? DateTime.now()),
-      'last_modified': Timestamp.fromDate(lastModified ?? DateTime.now()),
-      'image_url': imageUrl,
+      'userId': userId,
+      'lastName': lastName,
+      'firstName': firstName,
+      'middleName': middleName,
+      'employeeId': employeeId,
+      'position': position,
+      'role': role,
+      'rfidId': rfidId,
     };
   }
 
   @override
   List<Object?> get props => [
-        id,
-        email,
-        name,
-        createdAt,
-        lastModified,
-        imageUrl,
+        userId,
+        lastName,
+        firstName,
+        middleName,
+        employeeId,
+        position,
+        role,
+        rfidId,
       ];
 }

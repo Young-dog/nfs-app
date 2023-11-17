@@ -1,8 +1,7 @@
-import 'dart:io';
-
 import 'package:app/src/features/auth/domain/use_cases/login_with_nfs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import 'firebase_options.dart';
 import 'src/config/app_router.dart';
@@ -15,14 +14,16 @@ import 'src/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'src/features/auth/presentation/blocs/login_with_nfs/login_with_nfs_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import 'src/shared/data/models/user_model.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform
   );
-  // await Hive.initFlutter();
-  // Hive.registerAdapter(CategoryModelAdapter()); // 0
+  await Hive.initFlutter();
+  Hive.registerAdapter(UserModelAdapter()); // 0
   runApp(const MyApp());
 }
 
