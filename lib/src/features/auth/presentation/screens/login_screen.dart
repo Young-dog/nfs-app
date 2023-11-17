@@ -109,13 +109,13 @@ class _Button extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              child: SvgPicture.asset(
-                'assets/icons/$icon.svg',
-                width: 24,
-                height: 24,
-              ),
-            ),
+            // SizedBox(
+            //   child: SvgPicture.asset(
+            //     'assets/icons/$icon.svg',
+            //     width: 24,
+            //     height: 24,
+            //   ),
+            // ),
             const SizedBox(width: 8),
             Text(
               text,

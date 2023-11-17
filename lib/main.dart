@@ -17,7 +17,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'src/shared/data/models/user_model.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+ 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform
@@ -76,4 +76,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

@@ -31,7 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-
+  nfc_manager:
   get_it:
   cloud_firestore:
   hive_flutter:
@@ -78,9 +78,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - assets/images/
-    - assets/icons/
+#  assets:
+#    - assets/images/
+#    - assets/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
