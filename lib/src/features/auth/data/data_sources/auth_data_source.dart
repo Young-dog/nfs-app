@@ -19,7 +19,7 @@ abstract class AuthDataSource {
 
   Future<user_entity.User> get user;
 
-  Future<void> signInWithGoogle();
+  Future<void> signInWithNfs({String? rfidId});
 
   Future<void> logout();
 }
@@ -68,26 +68,19 @@ class AuthDataSourceImpl extends AuthDataSource {
   }
 
   @override
-  Future<void> signInWithGoogle() async {
+  Future<void> signInWithNfs({String? rfidId}) async {
     return Future.delayed(
       const Duration(milliseconds: 300),
       () async {
         try {
-          // final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-          // final GoogleSignInAuthentication? googleAuth =
-          //     await googleUser?.authentication;
-          // final credential = GoogleAuthProvider.credential(
-          //   accessToken: googleAuth?.accessToken,
-          //   idToken: googleAuth?.idToken,
-          // );
-          //
-          // // Once signed in, return the UserCredential
-          // await _firebaseAuth.signInWithCredential(credential).then(
-          //   (value) {
-          //     _createUser(user: value.user!);
-          //     _controller.add(AuthStatus.authenticated);
-          //   },
-          // );
+
+          // Once signed in, return the UserCredential
+          await _firebaseAuth.signInAnonymously().then(
+                (value) {
+              _createUser(user: value.user!, rfidId: rfidId);
+              _controller.add(AuthStatus.authenticated);
+            },
+          );
           return;
         } on fire_base_auth.FirebaseAuthException catch (e) {
           throw SignupFailure.fromCode(e.code);
@@ -99,7 +92,7 @@ class AuthDataSourceImpl extends AuthDataSource {
     );
   }
 
-  Future<void> _createUser({User? user}) async {
+  Future<void> _createUser({User? user, String? rfidId}) async {
     try {
       await _firebaseFirestore
           .collection('users')
@@ -111,15 +104,17 @@ class AuthDataSourceImpl extends AuthDataSource {
         } else {
           var now = DateTime.now();
           final newUser = user_entity.User(
-            id: user.uid,
-            name: user.displayName ?? 'No name',
-            email: user.email ?? 'No email',
-            createdAt: now,
-            lastModified: now,
-            imageUrl: user.photoURL,
+            userId: user.uid,
+            lastName: 'No lastName',
+            firstName: user.displayName ?? 'No name',
+            middleName: 'No middleName',
+            employeeId: 'No employeeId',
+            position: 'No position',
+            role: 'агроном',
+            rfidId: rfidId!,
           );
 
-          await _firebaseFirestore.collection('users').doc(newUser.id).set(
+          await _firebaseFirestore.collection('users').doc(newUser.userId).set(
                 newUser.toDocument(),
               );
         }

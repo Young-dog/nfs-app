@@ -57,9 +57,9 @@ class LoginWithNfsCubit extends Cubit<LoginWithNfsState> {
           );
         },
       ));
-
-      await _loginWithNfs(NoParams());
-
+      await _loginWithNfs(
+        const LoginWithNfsParams(rfidId: 'rfidId')
+      );
 
     } catch (err) {
       emit(
