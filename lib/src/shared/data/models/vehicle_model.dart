@@ -7,7 +7,7 @@ import 'land_model.dart';
 
 part 'vehicle_model.g.dart';
 
-@HiveType(typeId: 8)
+@HiveType(typeId: 10)
 class VehicleModel {
   const VehicleModel({
     required this.vehicleId,

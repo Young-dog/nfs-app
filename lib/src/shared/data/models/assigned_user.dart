@@ -3,7 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 part 'assigned_user.g.dart';
 
-@HiveType(typeId: 7)
+@HiveType(typeId: 8)
 class AssignedUser {
   const AssignedUser({
     required this.userId,

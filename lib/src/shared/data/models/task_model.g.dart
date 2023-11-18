@@ -21,8 +21,8 @@ class TaskModelAdapter extends TypeAdapter<TaskModel> {
       title: fields[1] as String,
       description: fields[2] as String,
       landId: fields[3] as String,
-      creatorId: fields[4] as String,
-      executorId: fields[5] as String,
+      createdBy: fields[4] as UserInfoModel,
+      assignedTo: fields[5] as UserInfoModel?,
       status: fields[6] as String,
       createdAt: fields[7] as DateTime?,
       updatedAt: fields[8] as DateTime?,
@@ -42,9 +42,9 @@ class TaskModelAdapter extends TypeAdapter<TaskModel> {
       ..writeByte(3)
       ..write(obj.landId)
       ..writeByte(4)
-      ..write(obj.creatorId)
+      ..write(obj.createdBy)
       ..writeByte(5)
-      ..write(obj.executorId)
+      ..write(obj.assignedTo)
       ..writeByte(6)
       ..write(obj.status)
       ..writeByte(7)
