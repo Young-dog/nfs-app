@@ -1,0 +1,3 @@
+enum RoleUser {
+  machineOperator,
+}
