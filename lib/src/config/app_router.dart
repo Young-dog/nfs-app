@@ -124,15 +124,6 @@ class AppRouter {
       final onLoginScreen = state.matchedLocation == loginLocation;
       final onSignUpScreen = state.matchedLocation == signUpLocation;
 
-
-
-      if (!isLoggedIn && !onLoginScreen && !onSignUpScreen) {
-        debugPrint('-----> ');
-        return '/login';
-      } else if (onSignUpScreen) {
-        return '/signup';
-      }
-
       if (isLoggedIn && onLoginScreen) {
         return '/';
       }
