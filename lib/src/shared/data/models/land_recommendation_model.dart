@@ -34,7 +34,7 @@ class LandRecommendationModel {
   factory LandRecommendationModel.fromEntity(LandRecommendation recommendation) {
     return LandRecommendationModel(
       landId: recommendation.landId,
-      recommendationId: recommendation.title,
+      recommendationId: recommendation.recommendationId,
     );
   }
 
