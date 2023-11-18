@@ -32,7 +32,6 @@ class LoginWithNfsCubit extends Cubit<LoginWithNfsState> {
       ),
     );
 
-
     try {
       bool isAvailable = await NfcManager.instance.isAvailable();
 
@@ -40,24 +39,22 @@ class LoginWithNfsCubit extends Cubit<LoginWithNfsState> {
         return;
       }
 
-      NfcManager.instance.startSession(
+      await NfcManager.instance.startSession(
         onDiscovered: (NfcTag tag) async {
           try {
-            NdefMessage message =
-                NdefMessage([NdefRecord.createText('Hello, NFC!')]);
-            await Ndef.from(tag)?.write(message);
-            final payload = message.records.first.payload;
 
-            debugPrint("Written data: $payload");
-
-            NfcManager.instance.stopSession();
-
-            final rfidId = payload.join();
+            final rfidId = tag.data['nfca']['identifier'].join();
 
             debugPrint(rfidId);
 
+            if (rfidId == null) {
+              throw Exception();
+            }
+
             await _loginWithNfs(
-                const LoginWithNfsParams(rfidId: 'rfidId')
+              LoginWithNfsParams(
+                rfidId: rfidId,
+              ),
             );
           } catch (e) {
             debugPrint('Error emitting NFC data: $e');
@@ -72,6 +69,12 @@ class LoginWithNfsCubit extends Cubit<LoginWithNfsState> {
         },
       );
 
+      emit(
+        state.copyWith(
+          status: LoginWithNfsStatus.success,
+        ),
+      );
+      await NfcManager.instance.stopSession();
     } catch (err) {
       emit(
         state.copyWith(
