@@ -14,6 +14,14 @@ class LandRepositoryImpl extends LandRepository {
 
   @override
   Future<void> addLand(Land land) async {
+
+    // TODO: отправить запрос на проверку интернета
+
+    // TODO: кладем в local - await localLandDataSource.addLand(land);
+
+    // TODO: Если есть инет: то отправляем в firestore - await firestoreLandDataSource.addLand(land);
+
+
     // return appConfig.environment == 'local'
     //     ? await localLandDataSource.addLand(land)
     //     : await firestoreLandDataSource.addLand(land);
