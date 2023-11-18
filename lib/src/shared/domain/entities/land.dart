@@ -6,7 +6,7 @@ class Land extends Equatable {
   final String landId;
   final String title;
   final int square;
-  final List coordinates;
+  final List<double> coordinates;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final UserInfo createdBy;

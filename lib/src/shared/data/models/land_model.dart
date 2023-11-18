@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,7 +17,7 @@ class LandModel {
   @HiveField(2)
   final int square;
   @HiveField(3)
-  final List coordinates;
+  final List<double> coordinates;
   @HiveField(4)
   final DateTime? createdAt;
   @HiveField(5)

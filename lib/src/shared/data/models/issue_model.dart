@@ -1,14 +1,24 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
-import '../../domain/entities/issue.dart';
-import 'user_info_model.dart';
+
+import '../../domain/entities/assigned_user.dart';
 
 part 'issue_model.g.dart';
 
 @HiveType(typeId: 11)
 class IssueModel {
+  const IssueModel({
+    required this.issueId,
+    required this.state,
+    required this.title,
+    required this.description,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.createdBy,
+    this.assignedTo,
+    this.closedAt,
+  });
+
   @HiveField(0)
   final String issueId;
   @HiveField(1)
@@ -18,27 +28,15 @@ class IssueModel {
   @HiveField(3)
   final String description;
   @HiveField(4)
-  final UserInfoModel createdBy;
+  final AssignedUser createdBy;
   @HiveField(5)
-  final UserInfoModel? assignedTo;
+  final AssignedUser? assignedTo;
   @HiveField(6)
   final DateTime? closedAt;
   @HiveField(7)
-  final DateTime? createdAt;
+  final DateTime createdAt;
   @HiveField(8)
-  final DateTime? updatedAt;
-
-  IssueModel({
-    required this.issueId,
-    required this.state,
-    required this.title,
-    required this.description,
-    this.createdAt,
-    this.updatedAt,
-    this.closedAt,
-    required this.createdBy,
-    this.assignedTo,
-  });
+  final DateTime updatedAt;
 
   factory IssueModel.fromJson(Map<String, dynamic> json) {
     return IssueModel(
@@ -46,59 +44,57 @@ class IssueModel {
       state: json['state'],
       title: json['title'],
       description: json['description'],
-      closedAt: json['closedAt'] != null ? json['closedAt']!.toDate() : null,
-      createdAt: json['createdAt'] != null ? json['createdAt']!.toDate() : null,
-      updatedAt: json['updatedAt'] != null ? json['updatedAt']!.toDate() : null,
-      createdBy: UserInfoModel.fromJson(json['createdBy']),
-      assignedTo: json['assignedTo'] != null ? UserInfoModel.fromJson(json['createdBy']) : null,
+      createdBy: json['createdBy'],
+      assignedTo: json['assignedTo'],
+      closedAt: json['closedAt'],
+      createdAt: json['createdAt'],
+      updatedAt: json['updatedAt'],
     );
   }
 
   factory IssueModel.fromSnapshot(DocumentSnapshot snap) {
     return IssueModel(
-        issueId: snap['issueId'],
-        state: snap['state'],
-        title: snap['title'],
-        description: snap['description'],
-        closedAt: snap.data().toString().contains('closedAt')
-            ? snap['closedAt'].toDate()
-            : null,
-        createdAt: snap.data().toString().contains('createdAt')
-            ? snap['createdAt'].toDate()
-            : null,
-        updatedAt: snap.data().toString().contains('updatedAt')
-            ? snap['updatedAt'].toDate()
-            : null,
-        createdBy: UserInfoModel.fromSnapshot(snap['createdBy']),
-        assignedTo: snap['assignedTo'] != null ? UserInfoModel.fromSnapshot(snap['assignedTo']) : null,
+      issueId: snap['issueId'],
+      state: snap['state'],
+      title: snap['title'],
+      description: snap['description'],
+      createdBy: snap['createdBy'],
+      assignedTo: snap.data().toString().contains('assignedTo')
+          ? snap['assignedTo']
+          : null,
+      closedAt: snap.data().toString().contains('closedAt')
+          ? snap['closedAt']
+          : null,
+      createdAt: snap['createdAt'],
+      updatedAt: snap['updatedAt'],
     );
   }
 
-  factory IssueModel.fromEntity(Issue issue) {
+  factory IssueModel.fromEntity(IssueModel issue) {
     return IssueModel(
       issueId: issue.issueId,
-      title: issue.title,
       state: issue.state,
+      title: issue.title,
       description: issue.description,
-      assignedTo: issue.assignedTo != null ? UserInfoModel.fromEntity(issue.assignedTo!) : null,
+      createdBy: issue.createdBy,
+      assignedTo: issue.assignedTo,
       closedAt: issue.closedAt,
-      createdBy: UserInfoModel.fromEntity(issue.createdBy),
-      updatedAt: issue.updatedAt,
       createdAt: issue.createdAt,
+      updatedAt: issue.updatedAt,
     );
   }
 
-  Issue toEntity() {
-    return Issue(
+  IssueModel toEntity() {
+    return IssueModel(
       issueId: issueId,
-      title: title,
       state: state,
+      title: title,
       description: description,
-      createdBy: createdBy.toEntity(),
-      assignedTo: assignedTo != null ? createdBy.toEntity() : null,
+      createdBy: createdBy,
+      assignedTo: assignedTo,
+      closedAt: closedAt,
       createdAt: createdAt,
       updatedAt: updatedAt,
-      closedAt: closedAt,
     );
   }
 }

@@ -1,6 +1,10 @@
 import 'package:app/src/features/auth/domain/use_cases/login_with_nfs.dart';
+import 'package:app/src/shared/data/models/assigned_user_model.dart';
+import 'package:app/src/shared/data/models/issue_model.dart';
+import 'package:app/src/shared/data/models/point_adapter.dart';
 import 'package:app/src/shared/data/models/unit_model.dart';
 import 'package:app/src/shared/data/models/vehicle_model.dart';
+import 'package:app/src/features/land/domain/repositories/land_repository.dart';
 import 'package:app/src/features/land/presentation/blocs/add_land/add_land_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,7 +32,6 @@ import 'src/features/land/domain/use_cases/add_land.dart';
 import 'src/features/task/data/data_sources/firestore_task_data_source.dart';
 import 'src/features/task/data/data_sources/local_task_data_source.dart';
 import 'src/features/task/data/repositories/task_repository_impl.dart';
-import 'src/shared/data/models/issue_model.dart';
 import 'src/shared/data/models/land_model.dart';
 import 'src/shared/data/models/land_plant_condition_model.dart';
 import 'src/shared/data/models/land_recommendation_model.dart';
@@ -43,7 +46,9 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   /// Кеш
-  final cacheService = CacheService();
+  final cacheService = CacheService(
+    firestoreLandDataSource: FirestoreLandDataSourceImpl(),
+  );
   await cacheService.init();
 
   await Hive.initFlutter();
@@ -55,9 +60,10 @@ void main() async {
   Hive.registerAdapter(LandReportModelAdapter()); // 5
   Hive.registerAdapter(TaskModelAdapter()); // 6
   Hive.registerAdapter(UserInfoModelAdapter()); // 7
-  Hive.registerAdapter(UnitModelAdapter()); // 9
+  Hive.registerAdapter(AssignedUserModelAdapter()); // 8
+  Hive.registerAdapter(UnitModelAdapter()); //9
   Hive.registerAdapter(VehicleModelAdapter()); // 10
-  Hive.registerAdapter(IssueModelAdapter()); // 11
+  Hive.registerAdapter(IssueModelAdapter()); //11
 
   runApp(MyApp(cacheService: cacheService));
 }

@@ -26,6 +26,7 @@ class AddLandCubit extends Cubit<AddLandState> {
     );
   }
 
+
   void submit() async {
     emit(state.copyWith(status: AddLandStatus.loading));
     try {
