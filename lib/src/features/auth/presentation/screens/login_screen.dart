@@ -69,7 +69,6 @@ class _LoginWithNfs extends StatelessWidget {
           );
         }
         return _Button(
-          icon: 'google',
           text: 'Войти с помощью NFC',
           onPressed: () =>
               context.read<LoginWithNfsCubit>().signInWithNfc(),
@@ -82,12 +81,12 @@ class _LoginWithNfs extends StatelessWidget {
 class _Button extends StatelessWidget {
   const _Button({
     super.key,
-    required this.icon,
+    this.icon,
     required this.text,
     required this.onPressed,
   });
 
-  final String icon;
+  final String? icon;
   final String text;
   final VoidCallback onPressed;
 
@@ -106,16 +105,16 @@ class _Button extends StatelessWidget {
       ),
       onPressed: onPressed,
       child: Center(
-        child: Row(
+        child: icon != null ? Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // SizedBox(
-            //   child: SvgPicture.asset(
-            //     'assets/icons/$icon.svg',
-            //     width: 24,
-            //     height: 24,
-            //   ),
-            // ),
+            SizedBox(
+              child: SvgPicture.asset(
+                'assets/icons/$icon.svg',
+                width: 24,
+                height: 24,
+              ),
+            ),
             const SizedBox(width: 8),
             Text(
               text,
@@ -124,6 +123,11 @@ class _Button extends StatelessWidget {
               ),
             ),
           ],
+        ) : Text(
+          text,
+          style: const TextStyle(
+            color: Colors.black,
+          ),
         ),
       ),
     );

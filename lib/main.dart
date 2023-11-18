@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'firebase_options.dart';
+import 'src/config/app_colors.dart';
 import 'src/config/app_router.dart';
+import 'src/config/app_text_styles.dart';
 import 'src/features/auth/data/data_sources/auth_data_source.dart';
 import 'src/features/auth/data/repositories/auth_repository_impl.dart';
 import 'src/features/auth/domain/use_cases/get_auth_status.dart';
@@ -68,7 +70,26 @@ class MyApp extends StatelessWidget {
           return MaterialApp.router(
             title: 'AngryCorns',
             debugShowCheckedModeBanner: false,
-            // theme: context.theme.appThemeData,
+            theme: ThemeData(
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+              useMaterial3: true,
+              primaryColor: AppColors.lightBlue,
+              scaffoldBackgroundColor: AppColors.background,
+              canvasColor: AppColors.white,
+              shadowColor: AppColors.grey,
+              iconTheme: IconThemeData(
+                color: AppColors.grey,
+              ),
+              brightness: Brightness.light,
+              appBarTheme: AppBarTheme(
+                elevation: 1,
+                centerTitle: false,
+                backgroundColor: AppColors.white,
+                titleTextStyle: AppTextStyles.headline1Style.copyWith(
+                  color: AppColors.blue,
+                ),
+              ),
+            ),
             routerConfig: AppRouter(context.read<AuthBloc>()).router,
           );
         }),

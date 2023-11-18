@@ -116,8 +116,8 @@ class AuthDataSourceImpl extends AuthDataSource {
           );
 
           await _firebaseFirestore.collection('users').doc(newUser.userId).set(
-                newUser.toDocument(),
-              );
+            newUser.toDocument(),
+          );
         }
       });
     } catch (e, st) {
