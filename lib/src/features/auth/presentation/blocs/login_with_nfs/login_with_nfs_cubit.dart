@@ -37,6 +37,12 @@ class LoginWithNfsCubit extends Cubit<LoginWithNfsState> {
       bool isAvailable = await NfcManager.instance.isAvailable();
 
       if (!isAvailable) {
+        emit(
+          state.copyWith(
+            status: LoginWithNfsStatus.error,
+            errorText: 'NFC не доступен',
+          ),
+        );
         return;
       }
 
@@ -57,7 +63,7 @@ class LoginWithNfsCubit extends Cubit<LoginWithNfsState> {
             debugPrint(rfidId);
 
             await _loginWithNfs(
-                const LoginWithNfsParams(rfidId: 'rfidId')
+                LoginWithNfsParams(rfidId: rfidId)
             );
           } catch (e) {
             debugPrint('Error emitting NFC data: $e');

@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
             title: 'AngryCorns',
             debugShowCheckedModeBanner: false,
             // theme: context.theme.appThemeData,
-            routerConfig: AppRouter().router,
+            routerConfig: AppRouter(context.read<AuthBloc>()).router,
           );
         }),
       ),

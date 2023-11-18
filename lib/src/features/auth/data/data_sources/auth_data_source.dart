@@ -103,6 +103,7 @@ class AuthDataSourceImpl extends AuthDataSource {
           return;
         } else {
           var now = DateTime.now();
+
           final newUser = user_entity.User(
             userId: user.uid,
             lastName: 'No lastName',
@@ -119,7 +120,11 @@ class AuthDataSourceImpl extends AuthDataSource {
               );
         }
       });
-    } catch (e) {
+    } catch (e, st) {
+      debugPrintStack(
+        label: e.toString(),
+        stackTrace: st,
+      );
       throw Exception(e.toString());
     }
   }
