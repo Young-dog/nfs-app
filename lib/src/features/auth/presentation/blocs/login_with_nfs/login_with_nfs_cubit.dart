@@ -1,16 +1,13 @@
 import 'dart:async';
-import 'dart:convert';
-
-import 'package:app/src/shared/domain/use_cases/use_cases.dart';
+import 'dart:typed_data';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
+import 'package:nfc_manager/nfc_manager.dart';
 
 import '../../../domain/use_cases/login_with_nfs.dart';
 
 part 'login_with_nfs_state.dart';
-
 
 class LoginWithNfsCubit extends Cubit<LoginWithNfsState> {
   final LoginWithNfs _loginWithNfs;
@@ -29,40 +26,50 @@ class LoginWithNfsCubit extends Cubit<LoginWithNfsState> {
   }
 
   Future<void> signInWithNfc() async {
+    emit(
+      state.copyWith(
+        status: LoginWithNfsStatus.loading,
+      ),
+    );
 
-    var availability = await FlutterNfcKit.nfcAvailability;
-    if (availability != NFCAvailability.available) {
-      debugPrint('Nfc недоступно');
-      return;
-    }
 
-
-    emit(state.copyWith(status: LoginWithNfsStatus.loading));
     try {
+      bool isAvailable = await NfcManager.instance.isAvailable();
 
-      await FlutterNfcKit.finish();
-
-      var tag = await FlutterNfcKit.poll(
-          timeout: Duration(seconds: 50),
-          iosMultipleTagMessage: "Multiple tags found!",
-          iosAlertMessage: "Scan your tag");
-
-      print(tag);
-
-
-      if (tag.ndefAvailable!) {
-        var result = await FlutterNfcKit.readNDEFRecords(cached: false);
-        var record = result.isEmpty ? null : result.first;
-        String zoneId = record.toString().split("=").last;
-        var selectedZoneId = zoneId;
-
-        print(selectedZoneId);
+      if (!isAvailable) {
+        return;
       }
 
-      await FlutterNfcKit.finish();
+      NfcManager.instance.startSession(
+        onDiscovered: (NfcTag tag) async {
+          try {
+            NdefMessage message =
+                NdefMessage([NdefRecord.createText('Hello, NFC!')]);
+            await Ndef.from(tag)?.write(message);
+            final payload = message.records.first.payload;
 
-      await _loginWithNfs(
-        const LoginWithNfsParams(rfidId: 'rfidId')
+            debugPrint("Written data: $payload");
+
+            NfcManager.instance.stopSession();
+
+            final rfidId = payload.join();
+
+            debugPrint(rfidId);
+
+            await _loginWithNfs(
+                const LoginWithNfsParams(rfidId: 'rfidId')
+            );
+          } catch (e) {
+            debugPrint('Error emitting NFC data: $e');
+            emit(
+              state.copyWith(
+                status: LoginWithNfsStatus.error,
+                errorText: e.toString(),
+              ),
+            );
+            return;
+          }
+        },
       );
 
     } catch (err) {
