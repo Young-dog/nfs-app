@@ -46,7 +46,9 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   /// Кеш
-  final cacheService = CacheService();
+  final cacheService = CacheService(
+    firestoreLandDataSource: FirestoreLandDataSourceImpl(),
+  );
   await cacheService.init();
 
   await Hive.initFlutter();
@@ -62,7 +64,7 @@ void main() async {
   Hive.registerAdapter(UnitModelAdapter()); //9
   Hive.registerAdapter(VehicleModelAdapter()); // 10
   Hive.registerAdapter(IssueModelAdapter()); //11
-  //Hive.registerAdapter(PointAdapter()); //12
+
   runApp(MyApp(cacheService: cacheService));
 }
 

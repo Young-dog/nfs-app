@@ -1,11 +1,12 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:hive/hive.dart';
 
 import '../../../../shared/data/models/land_model.dart';
 import '../../../../shared/domain/entities/land.dart';
 
-
 abstract class LocalLandDataSource {
   Future<List<Land>> getLands();
+
   Future<void> addLand(Land land);
 }
 
@@ -17,7 +18,15 @@ class LocalLandDataSourceImpl extends LocalLandDataSource {
   @override
   Future<void> addLand(Land land) async {
     Box box = await _openBox();
-    await box.put(land.landId, LandModel.fromEntity(land));
+    final id = DateTime.now();
+    await Connectivity().checkConnectivity().then((value) async {
+      if (value != ConnectivityResult.mobile &&
+          value != ConnectivityResult.wifi) {
+        await Hive.box('cachedData')
+            .put('land.landId', LandModel.fromEntity(land));
+      }
+    });
+    print(Hive.box('cachedData').length);
   }
 
   @override
@@ -25,5 +34,4 @@ class LocalLandDataSourceImpl extends LocalLandDataSource {
     Box<LandModel> box = await _openBox() as Box<LandModel>;
     return box.values.toList().map((item) => item.toEntity()).toList();
   }
-
 }

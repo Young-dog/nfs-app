@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../features/app/app_core.dart';
-import '../features/app/home_screen.dart';
 import '../features/auth/data/data_sources/auth_data_source.dart';
 import '../features/auth/presentation/blocs/auth/auth_bloc.dart';
 import '../features/auth/presentation/screens/login_screen.dart';

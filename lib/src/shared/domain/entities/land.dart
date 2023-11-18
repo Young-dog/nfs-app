@@ -31,7 +31,7 @@ class Land extends Equatable {
       'updatedAt': Timestamp.fromDate(updatedAt ?? DateTime.now()),
       'createdBy': {
         'id': createdBy.id,
-        'name' : createdBy.name,
+        'name': createdBy.name,
       },
     };
   }
