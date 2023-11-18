@@ -75,20 +75,10 @@ class _LoginWithNfs extends StatelessWidget {
             child: CustomIndicator(),
           );
         }
-        return Column(
-          children: [
-            _Button(
-              text: 'Войти с помощью NFC',
-              onPressed: () =>
-                  context.read<LoginWithNfsCubit>().signInWithNfc(),
-            ),
-            const SizedBox(height: 20),
-            _Button(
-              text: 'signup',
-              onPressed: () =>
-                  context.goNamed('signup'),
-            ),
-          ],
+        return _Button(
+          text: 'Войти с помощью NFC',
+          onPressed: () =>
+              context.read<LoginWithNfsCubit>().signInWithNfc(),
         );
       },
     );

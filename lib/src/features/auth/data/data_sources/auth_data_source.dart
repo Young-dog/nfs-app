@@ -62,9 +62,16 @@ class AuthDataSourceImpl extends AuthDataSource {
   @override
   Future<void> logout() {
     return Future.delayed(const Duration(milliseconds: 300), () async {
-
-      await _firebaseAuth.signOut();
-      _controller.add(AuthStatus.unauthenticated);
+      try {
+        await _firebaseAuth.signOut();
+        _controller.add(AuthStatus.unauthenticated);
+      } catch (e, st) {
+        debugPrintStack(
+          label: '$e',
+          stackTrace: st,
+        );
+        throw Exception('$e');
+      }
     });
   }
 
@@ -95,7 +102,7 @@ class AuthDataSourceImpl extends AuthDataSource {
   @override
   Future<bool> checkUser({String? rfidId}) async {
 
-    final docs = await _firebaseFirestore
+    final doc = await _firebaseFirestore
         .collection('users')
         .where(
           'rfidId',
@@ -103,9 +110,9 @@ class AuthDataSourceImpl extends AuthDataSource {
         )
         .get();
 
-    print('--------> ${docs.docs}');
+    print('--------> ${doc.docs}');
 
-    return docs.docs.isNotEmpty;
+    return doc.docs.isNotEmpty;
   }
 
   Future<void> _createUser({User? user, String? rfidId}) async {
