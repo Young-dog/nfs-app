@@ -61,8 +61,9 @@ class AuthDataSourceImpl extends AuthDataSource {
 
   @override
   Future<void> logout() {
-    return Future.delayed(const Duration(milliseconds: 300), () {
-      _firebaseAuth.signOut().catchError(debugPrint);
+    return Future.delayed(const Duration(milliseconds: 300), () async {
+
+      await _firebaseAuth.signOut();
       _controller.add(AuthStatus.unauthenticated);
     });
   }
