@@ -5,7 +5,7 @@ import 'package:app/src/features/land/presentation/screens/land_list_screen.dart
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../features/app/app_core.dart';
+import '../features/app/presentation/screens/app_core_screen.dart';
 import '../features/auth/data/data_sources/auth_data_source.dart';
 import '../features/auth/presentation/blocs/auth/auth_bloc.dart';
 import '../features/auth/presentation/screens/login_screen.dart';
@@ -56,7 +56,7 @@ class AppRouter {
       ShellRoute(
         navigatorKey: _shellNavigatorKey,
         builder: (context, state, child) {
-          return AppCore(
+          return AppCoreScreen(
             location: state.matchedLocation,
             child: child,
           );
