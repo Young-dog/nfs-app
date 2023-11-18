@@ -114,8 +114,6 @@ class AppRouter {
         GoRouterState state,
         ) async {
 
-
-
       final loginLocation = state.namedLocation('login');
       final signUpLocation = state.namedLocation('signup');
 
@@ -124,9 +122,16 @@ class AppRouter {
       final onLoginScreen = state.matchedLocation == loginLocation;
       final onSignUpScreen = state.matchedLocation == signUpLocation;
 
+      if (!isLoggedIn && !onLoginScreen && !onSignUpScreen) {
+        return '/login';
+      } else  if (onSignUpScreen) {
+        return '/signup';
+      }
+
       if (isLoggedIn && onLoginScreen) {
         return '/';
       }
+
 
       return null;
     },

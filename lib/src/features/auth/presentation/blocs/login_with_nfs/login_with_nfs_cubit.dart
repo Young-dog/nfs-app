@@ -85,9 +85,33 @@ class LoginWithNfsCubit extends Cubit<LoginWithNfsState> {
       if (!isAvailable) {
         return;
       }
-      var userNew = false;
 
       await NfcManager.instance.startSession(onDiscovered: (NfcTag tag) async {
+        var nfca = tag.data['nfca'];
+
+
+        if (nfca == null) {
+          emit(
+            state.copyWith(
+              status: LoginWithNfsStatus.error,
+              errorText: 'NFC-метка не найдена',
+            ),
+          );
+          emit(state.copyWith(status: LoginWithNfsStatus.initial));
+        }
+
+        var identifier = nfca['identifier'];
+
+        if (identifier == null) {
+          emit(
+            state.copyWith(
+              status: LoginWithNfsStatus.error,
+              errorText: 'NFC-метка не найдена',
+            ),
+          );
+          emit(state.copyWith(status: LoginWithNfsStatus.initial));
+        }
+
         final rfidId = tag.data['nfca']['identifier'].join();
 
         final check = await _authRepository.checkUser(rfidId: rfidId);
