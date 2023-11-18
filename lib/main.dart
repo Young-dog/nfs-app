@@ -63,7 +63,6 @@ void main() async {
   Hive.registerAdapter(VehicleModelAdapter()); // 9
   Hive.registerAdapter(UnitModelAdapter()); //10
   Hive.registerAdapter(IssueModelAdapter()); //11
-  Hive.registerAdapter(PointAdapter()); //12
 
   runApp(MyApp(cacheService: cacheService));
 }
