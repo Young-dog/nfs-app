@@ -1,3 +1,4 @@
+import 'package:app/src/features/app/presentation/blocs/navigation/navigation_cubit.dart';
 import 'package:app/src/features/auth/domain/use_cases/login_with_nfs.dart';
 import 'package:app/src/shared/data/models/assigned_user_model.dart';
 import 'package:app/src/shared/data/models/issue_model.dart';
@@ -133,6 +134,9 @@ class MyApp extends StatelessWidget {
                 context.read<LandRepositoryImpl>(),
               ),
             ),
+          ),
+          BlocProvider(
+            create: (context) => NavigationCubit(),
           ),
         ],
         child: Builder(builder: (context) {
