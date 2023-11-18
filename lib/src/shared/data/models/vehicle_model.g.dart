@@ -18,8 +18,8 @@ class VehicleModelAdapter extends TypeAdapter<VehicleModel> {
     };
     return VehicleModel(
       vehicleId: fields[1] as String,
-      createdBy: fields[2] as AssignedUserModel,
-      assignedTo: fields[3] as AssignedUserModel?,
+      createdBy: fields[2] as UserInfoModel,
+      assignedTo: fields[3] as UserInfoModel?,
       name: fields[0] as String,
       operation: fields[6] as String,
       workingSpeed: fields[8] as String,
