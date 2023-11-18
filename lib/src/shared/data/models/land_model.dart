@@ -4,13 +4,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
 import '../../domain/entities/land.dart';
 
-// part 'land_model.g.dart';
+part 'land_model.g.dart';
 
-// @HiveType(typeId: 1)
+@HiveType(typeId: 1)
 class LandModel {
+  @HiveField(0)
   final String landId;
+  @HiveField(1)
   final String title;
+  @HiveField(2)
   final int square;
+  @HiveField(3)
   final Point coordinates;
 
   LandModel({

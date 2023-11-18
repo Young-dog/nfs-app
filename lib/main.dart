@@ -27,6 +27,8 @@ void main() async {
   );
   await Hive.initFlutter();
   Hive.registerAdapter(UserModelAdapter()); // 0
+  Hive.registerAdapter(LandModelAdapter()); // 1
+  Hive.registerAdapter(LandPlantConditionModelAdapter()); // 2
   runApp(const MyApp());
 }
 
