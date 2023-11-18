@@ -16,7 +16,7 @@ class LandModel {
   @HiveField(2)
   final int square;
   @HiveField(3)
-  final Point coordinates;
+  final List coordinates;
   @HiveField(4)
   final DateTime? createdAt;
   @HiveField(5)

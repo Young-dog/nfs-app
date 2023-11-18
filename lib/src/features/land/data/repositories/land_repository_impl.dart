@@ -1,4 +1,5 @@
 
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../shared/domain/entities/land.dart';
@@ -21,22 +22,15 @@ class LandRepositoryImpl extends LandRepository {
     print('start -----');
 
     // TODO: отправить запрос на проверку интернета
-
-    // TODO: кладем в local - await localLandDataSource.addLand(land);
-
-    // TODO: Если есть инет: то отправляем в firestore - await firestoreLandDataSource.addLand(land);
-
-    await localLandDataSource.addLand(land);
-
-
-    await firestoreLandDataSource.addLand(land);
-
-
-
-    // return appConfig.environment == 'local'
-    //     ? await localLandDataSource.addLand(land)
-    //     : await firestoreLandDataSource.addLand(land);
-    return await firestoreLandDataSource.addLand(land);
+    Connectivity().checkConnectivity().then((ConnectivityResult result) async {
+      if (result == ConnectivityResult.mobile || result == ConnectivityResult.wifi) {
+        // TODO: Если есть инет: то отправляем в firestore - await firestoreLandDataSource.addLand(land);
+        await firestoreLandDataSource.addLand(land);
+      } else {
+        // TODO: кладем в local - await localLandDataSource.addLand(land);
+        await localLandDataSource.addLand(land).then((value) => debugPrint('---> '));
+      }
+    });
   }
 
   @override
