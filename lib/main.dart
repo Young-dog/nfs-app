@@ -1,7 +1,9 @@
 import 'package:app/src/features/auth/domain/use_cases/login_with_nfs.dart';
-import 'package:app/src/shared/data/models/assigned_user.dart';
+import 'package:app/src/shared/data/models/assigned_user_model.dart';
 import 'package:app/src/shared/data/models/unit_model.dart';
 import 'package:app/src/shared/data/models/vehicle_model.dart';
+import 'package:app/src/features/land/domain/repositories/land_repository.dart';
+import 'package:app/src/features/land/presentation/blocs/add_land/add_land_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -54,15 +56,11 @@ void main() async {
   Hive.registerAdapter(TaskModelAdapter()); // 6
   Hive.registerAdapter(UserInfoModelAdapter()); // 7
 
-
- 
-
-  Hive.registerAdapter(AssignedUserAdapter()); // 8
+  Hive.registerAdapter(AssignedUserModelAdapter()); // 8
   Hive.registerAdapter(VehicleModelAdapter()); // 9
   Hive.registerAdapter(UnitModelAdapter()); //10
-
+  
   runApp(MyApp(cacheService: cacheService));
-
 }
 
 class MyApp extends StatelessWidget {
@@ -122,6 +120,11 @@ class MyApp extends StatelessWidget {
               logoutUser: LogoutUser(
                 context.read<AuthRepositoryImpl>(),
               ),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => AddLandCubit(
+              landRepository: context.read<LandRepository>(),
             ),
           ),
         ],

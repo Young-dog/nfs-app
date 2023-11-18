@@ -1,4 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:flutter/material.dart';
+
 import '../../../../shared/data/models/land_model.dart';
 import '../../../../shared/domain/entities/land.dart';
 
@@ -37,6 +40,10 @@ class FirestoreLandDataSourceImpl extends FirestoreLandDataSource {
         'id': docId,
       });
     });
+
+
+    debugPrint('Записан в firestore');
+
   }
 
 }
