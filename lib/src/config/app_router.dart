@@ -43,8 +43,8 @@ class AppRouter {
         },
       ),
       GoRoute(
-        path: '/sign_up',
-        name: 'sign_up',
+        path: '/signup',
+        name: 'signup',
         pageBuilder: (BuildContext context, GoRouterState state) {
           return customTransitionPage<void>(
             context: context,
@@ -113,24 +113,19 @@ class AppRouter {
         BuildContext context,
         GoRouterState state,
         ) async {
-      final loginLocation = state.namedLocation('login');
 
-      final signUpLocation = state.namedLocation('sign_up');
+
+
+      final loginLocation = state.namedLocation('login');
+      final signUpLocation = state.namedLocation('signup');
 
       final bool isLoggedIn = authBloc.state.status == AuthStatus.authenticated;
 
       final onLoginScreen = state.matchedLocation == loginLocation;
-
       final onSignUpScreen = state.matchedLocation == signUpLocation;
 
-      // if (!isLoggedIn && !onLoginScreen) {
-      //   return '/login';
-      // }
       if (isLoggedIn && onLoginScreen) {
         return '/';
-      }
-      if (!isLoggedIn && onSignUpScreen) {
-        return '/sign_up';
       }
 
       return null;

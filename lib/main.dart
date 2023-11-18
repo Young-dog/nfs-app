@@ -17,6 +17,11 @@ import 'src/features/auth/presentation/blocs/login_with_nfs/login_with_nfs_cubit
 import 'package:firebase_core/firebase_core.dart';
 
 import 'src/features/auth/presentation/blocs/logout/logout_cubit.dart';
+import 'src/shared/data/models/land_model.dart';
+import 'src/shared/data/models/land_plant_condition_model.dart';
+import 'src/shared/data/models/land_recommendation_model.dart';
+import 'src/shared/data/models/land_report_model.dart';
+import 'src/shared/data/models/land_soil_condition_model.dart';
 import 'src/shared/data/models/user_model.dart';
 
 void main() async {
@@ -27,6 +32,11 @@ void main() async {
   );
   await Hive.initFlutter();
   Hive.registerAdapter(UserModelAdapter()); // 0
+  Hive.registerAdapter(LandModelAdapter()); // 1
+  Hive.registerAdapter(LandPlantConditionModelAdapter()); // 2
+  Hive.registerAdapter(LandSoilConditionModelAdapter()); // 3
+  Hive.registerAdapter(LandRecommendationModelAdapter()); // 4
+  Hive.registerAdapter(LandReportModelAdapter()); // 5
   runApp(const MyApp());
 }
 

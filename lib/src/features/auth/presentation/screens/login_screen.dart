@@ -61,9 +61,12 @@ class _LoginWithNfs extends StatelessWidget {
         if (state.status == LoginWithNfsStatus.success) {
           context.goNamed('home');
         }
-        print(state.status);
+
+        print('---> state.status= ${state.status}');
+
         if (state.status == LoginWithNfsStatus.signUp) {
-          context.goNamed('sign_up');
+
+          context.goNamed('signup');
         }
       },
       builder: (context, state) {
@@ -72,10 +75,20 @@ class _LoginWithNfs extends StatelessWidget {
             child: CustomIndicator(),
           );
         }
-        return _Button(
-          text: 'Войти с помощью NFC',
-          onPressed: () =>
-              context.read<LoginWithNfsCubit>().signInWithNfc(),
+        return Column(
+          children: [
+            _Button(
+              text: 'Войти с помощью NFC',
+              onPressed: () =>
+                  context.read<LoginWithNfsCubit>().signInWithNfc(),
+            ),
+            const SizedBox(height: 20),
+            _Button(
+              text: 'signup',
+              onPressed: () =>
+                  context.goNamed('signup'),
+            ),
+          ],
         );
       },
     );

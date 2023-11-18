@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nfc_manager/nfc_manager.dart';
+import 'package:app/src/shared/domain/entities/user.dart' as user_entity;
 
 import '../../../domain/repositories/auth_repository.dart';
 import '../../../domain/use_cases/login_with_nfs.dart';
@@ -18,8 +19,7 @@ class LoginWithNfsCubit extends Cubit<LoginWithNfsState> {
   LoginWithNfsCubit({
     required AuthRepository authRepository,
     required LoginWithNfs loginWithNfs,
-  })
-      : _loginWithNfs = loginWithNfs,
+  })  : _loginWithNfs = loginWithNfs,
         _authRepository = authRepository,
         super(LoginWithNfsState.initial());
 
@@ -29,6 +29,46 @@ class LoginWithNfsCubit extends Cubit<LoginWithNfsState> {
         status: LoginWithNfsStatus.loading,
       ),
     );
+  }
+
+  Future<void> signUp({
+    required String lastName,
+    required String firstName,
+    required String middleName,
+    required String role,
+  }) async {
+    emit(
+      state.copyWith(
+        status: LoginWithNfsStatus.loading,
+      ),
+    );
+
+    try {
+      if (state.rfidId != null) {
+        final user = user_entity.User(
+          userId: state.rfidId!,
+          lastName: lastName,
+          firstName: firstName,
+          middleName: middleName,
+          employeeId: 'No employeeId',
+          position: 'No position',
+          role: role,
+          rfidId: state.rfidId!,
+        );
+
+        await _authRepository.signUp(user: user);
+
+        emit(state.copyWith(status: LoginWithNfsStatus.success));
+        emit(state.copyWith(status: LoginWithNfsStatus.initial));
+      }
+    } catch (e) {
+      debugPrint('-----> $e');
+      emit(
+        state.copyWith(
+          status: LoginWithNfsStatus.error,
+        ),
+      );
+    }
   }
 
   Future<void> signInWithNfc() async {
@@ -47,42 +87,28 @@ class LoginWithNfsCubit extends Cubit<LoginWithNfsState> {
       }
       var userNew = false;
 
-      await NfcManager.instance.startSession(
-          onDiscovered: (NfcTag tag) async {
-            final rfidId = tag.data['nfca']['identifier'].join();
+      await NfcManager.instance.startSession(onDiscovered: (NfcTag tag) async {
+        final rfidId = tag.data['nfca']['identifier'].join();
 
-            debugPrint(rfidId);
+        final check = await _authRepository.checkUser(rfidId: rfidId);
 
-            userNew = true;
-
-            if (userNew) {
-              emit(
-                state.copyWith(
-                  status: LoginWithNfsStatus.signUp,
-                ),
-              );
-            }
-
-            final check = await _authRepository.checkUser(rfidId: rfidId);
-
-            if (!check) {
-              emit(
-                state.copyWith(
-                  status: LoginWithNfsStatus.signUp,
-                ),
-              );
-            }
-
-            /*await _loginWithNfs(
-              LoginWithNfsParams(
-                rfidId: rfidId,
-              ),
-            );*/
-            // emit(state.copyWith(status: LoginWithNfsStatus.success));
-            // emit(state.copyWith(status: LoginWithNfsStatus.initial));
-            }
-      );
-
+        if (!check) {
+          emit(
+            state.copyWith(
+              status: LoginWithNfsStatus.signUp,
+              rfidId: rfidId,
+            ),
+          );
+        } else {
+          await _loginWithNfs(
+            LoginWithNfsParams(
+              rfidId: rfidId,
+            ),
+          );
+          emit(state.copyWith(status: LoginWithNfsStatus.success));
+          emit(state.copyWith(status: LoginWithNfsStatus.initial));
+        }
+      });
     } catch (err) {
       emit(
         state.copyWith(

@@ -22,6 +22,8 @@ abstract class AuthDataSource {
 
   Future<void> logout();
 
+  Future<void> signUp({required user_entity.User user});
+
   Future<bool> checkUser({String? rfidId});
 }
 
@@ -60,7 +62,7 @@ class AuthDataSourceImpl extends AuthDataSource {
   @override
   Future<void> logout() {
     return Future.delayed(const Duration(milliseconds: 300), () {
-      _firebaseAuth.signOut();
+      _firebaseAuth.signOut().catchError(debugPrint);
       _controller.add(AuthStatus.unauthenticated);
     });
   }
@@ -91,7 +93,6 @@ class AuthDataSourceImpl extends AuthDataSource {
 
   @override
   Future<bool> checkUser({String? rfidId}) async {
-    var docExists = false;
 
     final docs = await _firebaseFirestore
         .collection('users')
@@ -101,9 +102,9 @@ class AuthDataSourceImpl extends AuthDataSource {
         )
         .get();
 
-    print('--------> $docs');
+    print('--------> ${docs.docs}');
 
-    return true;
+    return docs.docs.isNotEmpty;
   }
 
   Future<void> _createUser({User? user, String? rfidId}) async {
@@ -134,6 +135,28 @@ class AuthDataSourceImpl extends AuthDataSource {
               );
         }
       });
+    } catch (e, st) {
+      debugPrintStack(
+        label: e.toString(),
+        stackTrace: st,
+      );
+      throw Exception(e.toString());
+    }
+  }
+
+  @override
+  Future<void> signUp({required user_entity.User user}) async {
+
+    try {
+      await _firebaseAuth.signInAnonymously().then(
+            (value) async {
+              await _firebaseFirestore.collection('users').doc(user.userId).set(
+                user.toDocument(),
+              );
+          _controller.add(AuthStatus.authenticated);
+        },
+      );
+
     } catch (e, st) {
       debugPrintStack(
         label: e.toString(),
