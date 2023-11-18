@@ -5,21 +5,31 @@ import 'package:go_router/go_router.dart';
 
 import '../features/app/app_core.dart';
 import '../features/app/home_screen.dart';
+import '../features/auth/data/data_sources/auth_data_source.dart';
+import '../features/auth/presentation/blocs/auth/auth_bloc.dart';
 import '../features/auth/presentation/screens/login_screen.dart';
+import '../features/issue/presentation/screens/issue_list_screen.dart';
+import '../features/task/presentation/screens/task_list_screen.dart';
+import '../features/user/presentation/screens/profile_screen.dart';
 
 
 class AppRouter {
+  final AuthBloc authBloc;
+
+  AppRouter(this.authBloc);
+
+
   final GlobalKey<NavigatorState> _rootNavigatorKey =
       GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> _shellNavigatorKey =
       GlobalKey<NavigatorState>();
 
   late final GoRouter router = GoRouter(
-    initialLocation: '/',
+    initialLocation: '/login',
     navigatorKey: _rootNavigatorKey,
     routes: <RouteBase>[
       GoRoute(
-        path: '/',
+        path: '/login',
         name: 'login',
         pageBuilder: (BuildContext context, GoRouterState state) {
           return customTransitionPage<void>(
@@ -39,7 +49,7 @@ class AppRouter {
         },
         routes: [
           GoRoute(
-              path: "/home",
+              path: "/",
               name: "home",
               pageBuilder: (BuildContext context, GoRouterState state) {
                 return customTransitionPage<void>(
@@ -49,31 +59,65 @@ class AppRouter {
                 );
               },
           ),
+          GoRoute(
+            path: "/tasks",
+            name: "tasks",
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return customTransitionPage<void>(
+                context: context,
+                state: state,
+                child: const TaskListScreen(),
+              );
+            },
+          ),
+          GoRoute(
+            path: "/issues",
+            name: "issues",
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return customTransitionPage<void>(
+                context: context,
+                state: state,
+                child: const IssueListScreen(),
+              );
+            },
+          ),
+          GoRoute(
+            path: "/profile",
+            name: "profile",
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return customTransitionPage<void>(
+                context: context,
+                state: state,
+                child: const ProfileScreen(),
+              );
+            },
+          ),
         ],
       ),
     ],
-    // redirect: (
-    //   BuildContext context,
-    //   GoRouterState state,
-    // ) async {
-    //
-    //   // if the user is not logged in, they need to login
-    //   final loggedIn = authBloc.state.status == AuthStatus.authenticated;
-    //   final loggingIn =  state.subloc == '/login';
-    //
-    //   // bundle the location the user is coming from into a query parameter
-    //   final fromp = state.subloc == '/' ? '' : '?from=${state.subloc}';
-    //   if (!loggedIn) return loggingIn ? null : '/login$fromp';
-    //
-    //   // if the user is logged in, send them where they were going before (or
-    //   // home if they weren't going anywhere)
-    //   if (loggingIn) return state.queryParams['from'] ?? '/';
-    //
-    //   // no need to redirect at all
-    //   return null;
-    //
-    // },
-    // refreshListenable: GoRouterRefreshStream(authBloc.stream),
+    redirect: (
+        BuildContext context,
+        GoRouterState state,
+        ) async {
+      final loginLocation = state.namedLocation('login');
+
+      final bool isLoggedIn = authBloc.state.status == AuthStatus.authenticated;
+
+      final onLoginScreen = state.matchedLocation == loginLocation;
+
+      if (!isLoggedIn && !onLoginScreen) {
+        return '/login';
+      }
+      if (isLoggedIn && onLoginScreen) {
+        return '/';
+      }
+      // if (isLoggedIn) {
+      //   return '/';
+      // }
+
+      return null;
+    },
+    refreshListenable: GoRouterRefreshStream(authBloc.stream),
   );
 
   CustomTransitionPage customTransitionPage<T>({

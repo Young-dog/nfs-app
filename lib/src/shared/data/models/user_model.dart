@@ -2,67 +2,99 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
 import '../../domain/entities/user.dart';
 
-// part 'user_model.g.dart';
+part 'user_model.g.dart';
 
+@HiveType(typeId: 1)
 class UserModel {
-  final String id;
-  final String name;
-  final String email;
-  final DateTime? createdAt;
-  final DateTime? lastModified;
-  final String? imageUrl;
+  @HiveField(0)
+  final String userId;
+  @HiveField(1)
+  final String lastName;
+  @HiveField(2)
+  final String firstName;
+  @HiveField(3)
+  final String? middleName;
+  @HiveField(4)
+  final String employeeId;
+  @HiveField(5)
+  final String position;
+  @HiveField(6)
+  final String role;
+  @HiveField(7)
+  final String rfidId;
 
   UserModel({
-    required this.id,
-    required this.email,
-    required this.name,
-    this.createdAt,
-    this.lastModified,
-    this.imageUrl,
+    required this.userId,
+    required this.lastName,
+    required this.firstName,
+    this.middleName,
+    required this.employeeId,
+    required this.position,
+    required this.role,
+    required this.rfidId,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      id: json['id'],
-      email: json['email'],
-      name: json['name'],
-      createdAt: json['createdAt'].toDate(),
-      lastModified: json['lastModified'].toDate(),
-      imageUrl: json['imageUrl'],
+      userId: json['userId'],
+      lastName: json['lastName'],
+      firstName: json['firstName'],
+      middleName: json['middleName'],
+      employeeId: json['employeeId'],
+      position: json['position'],
+      role: json['role'],
+      rfidId: json['rfidId'],
     );
   }
 
   factory UserModel.fromSnapshot(DocumentSnapshot snap) {
     return UserModel(
-      id: snap.get('id'),
-      email: snap.data().toString().contains('email') ? snap['email'] : 'No Email',
-      name: snap.data().toString().contains('name') ? snap['name'] : 'No Name',
-      createdAt: snap.data().toString().contains('createdAt') ? snap['createdAt'].toDate() : null,
-      lastModified: snap.data().toString().contains('lastModified') ? snap['lastModified'].toDate() : null,
-      imageUrl: snap.data().toString().contains('imageUrl') ? snap.get('imageUrl') : null,
+      userId: snap.get('userId'),
+      lastName: snap.data().toString().contains('lastName')
+          ? snap['lastName']
+          : 'No lastName',
+      firstName: snap.data().toString().contains('firstName')
+          ? snap['firstName']
+          : 'No firstName',
+      middleName: snap.data().toString().contains('middleName')
+          ? snap['middleName']
+          : 'No middleName',
+      employeeId: snap.data().toString().contains('employeeId')
+          ? snap['employeeId']
+          : 'No employeeId',
+      position: snap.data().toString().contains('position')
+          ? snap['position']
+          : 'No position',
+      role: snap.data().toString().contains('role') ? snap['role'] : 'No role',
+      rfidId: snap.data().toString().contains('rfidId')
+          ? snap['rfidId']
+          : 'No rfidId',
     );
   }
 
   factory UserModel.fromEntity(User user) {
     return UserModel(
-      id: user.id,
-      email: user.email,
-      name: user.name,
-      createdAt: user.createdAt,
-      lastModified: user.lastModified,
-      imageUrl: user.imageUrl,
+      userId: user.userId,
+      lastName: user.lastName,
+      firstName: user.firstName,
+      middleName: user.middleName,
+      employeeId: user.employeeId,
+      position: user.position,
+      role: user.role,
+      rfidId: user.rfidId,
     );
   }
 
   User toEntity() {
     return User(
-      id: id,
-      email: email,
-      name: name,
-      createdAt: createdAt,
-      lastModified: lastModified,
-      imageUrl: imageUrl,
+      userId: userId,
+      lastName: lastName,
+      firstName: firstName,
+      middleName: middleName,
+      employeeId: employeeId,
+      position: position,
+      role: role,
+      rfidId: rfidId,
     );
   }
 }
-
