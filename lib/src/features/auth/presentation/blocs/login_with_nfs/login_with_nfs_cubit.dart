@@ -39,34 +39,43 @@ class LoginWithNfsCubit extends Cubit<LoginWithNfsState> {
       if (!isAvailable) {
         return;
       }
+      var userNew = false;
 
-      NfcManager.instance.startSession(
+     await NfcManager.instance.startSession(
         onDiscovered: (NfcTag tag) async {
-          try {
-
             final rfidId = tag.data['nfca']['identifier'].join();
 
             debugPrint(rfidId);
 
-            await _loginWithNfs(
-              LoginWithNfsParams(
-                rfidId: rfidId,
-              ),
-            );
-            emit(state.copyWith(status: LoginWithNfsStatus.success));
-            emit(state.copyWith(status: LoginWithNfsStatus.initial));
-          } catch (e) {
-            debugPrint('Error emitting NFC data: $e');
-            emit(
-              state.copyWith(
-                status: LoginWithNfsStatus.error,
-                errorText: e.toString(),
-              ),
-            );
-            return;
+            userNew = true;
+
+            if (userNew) {
+              emit(
+                state.copyWith(
+                  status: LoginWithNfsStatus.signUp,
+                ),
+              );
+            }
+
+            // await _loginWithNfs(
+            //   LoginWithNfsParams(
+            //     rfidId: rfidId,
+            //   ),
+            // );
+            // emit(state.copyWith(status: LoginWithNfsStatus.success));
+            // emit(state.copyWith(status: LoginWithNfsStatus.initial));
           }
-        },
       );
+
+
+      if (userNew) {
+        emit(
+          state.copyWith(
+            status: LoginWithNfsStatus.signUp,
+          ),
+        );
+      }
+
     } catch (err) {
       emit(
         state.copyWith(

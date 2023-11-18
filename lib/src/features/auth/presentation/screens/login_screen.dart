@@ -61,6 +61,10 @@ class _LoginWithNfs extends StatelessWidget {
         if (state.status == LoginWithNfsStatus.success) {
           context.goNamed('home');
         }
+        print(state.status);
+        if (state.status == LoginWithNfsStatus.signUp) {
+          context.goNamed('sign_up');
+        }
       },
       builder: (context, state) {
         if (state.status == LoginWithNfsStatus.loading) {

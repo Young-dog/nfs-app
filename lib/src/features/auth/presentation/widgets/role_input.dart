@@ -1,21 +1,23 @@
 import 'package:formz/formz.dart';
 
+import '../../../../shared/data/models/role_user.dart';
+
 enum RoleInputError {
   empty;
 }
 
-class RoleInput extends FormzInput<String, RoleInputError> {
+class RoleInput extends FormzInput<RoleUser?, RoleInputError> {
   const RoleInput.pure({
     required this.isRequired,
-  }) : super.pure('');
+  }) : super.pure(null);
 
   const RoleInput.dirty({
     required this.isRequired,
-    required String value,
+    required RoleUser? value,
   }) : super.dirty(value);
 
   RoleInput toDirty({
-    required String value,
+    required RoleUser? value,
     String? serverError,
   }) {
     return RoleInput.dirty(
@@ -27,9 +29,9 @@ class RoleInput extends FormzInput<String, RoleInputError> {
   final bool isRequired;
 
   @override
-  RoleInputError? validator(String value) {
+  RoleInputError? validator(RoleUser? value) {
     if (isRequired) {
-      return value.isEmpty ? RoleInputError.empty : null;
+      return value == null ? RoleInputError.empty : null;
     } else {
       return null;
     }

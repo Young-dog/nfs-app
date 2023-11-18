@@ -15,6 +15,7 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<void> signInWithNfs({String? rfidId}) {
+
     return authDataSource.signInWithNfs(rfidId: rfidId);
   }
 
