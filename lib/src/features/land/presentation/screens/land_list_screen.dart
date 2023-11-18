@@ -5,6 +5,7 @@ class LandListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(),
       body: ListView(
@@ -16,5 +17,8 @@ class LandListScreen extends StatelessWidget {
         ],
       ),
     );
+
+    return const Placeholder();
+
   }
 }

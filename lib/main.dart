@@ -23,6 +23,12 @@ import 'src/features/auth/presentation/blocs/login_with_nfs/login_with_nfs_cubit
 import 'package:firebase_core/firebase_core.dart';
 
 import 'src/features/auth/presentation/blocs/logout/logout_cubit.dart';
+import 'src/features/land/data/data_sources/firestore_land_data_source.dart';
+import 'src/features/land/data/data_sources/local_land_data_source.dart';
+import 'src/features/land/data/repositories/land_repository_impl.dart';
+import 'src/features/task/data/data_sources/firestore_task_data_source.dart';
+import 'src/features/task/data/data_sources/local_task_data_source.dart';
+import 'src/features/task/data/repositories/task_repository_impl.dart';
 import 'src/shared/data/models/land_model.dart';
 import 'src/shared/data/models/land_plant_condition_model.dart';
 import 'src/shared/data/models/land_recommendation_model.dart';
@@ -49,9 +55,11 @@ void main() async {
   Hive.registerAdapter(LandReportModelAdapter()); // 5
   Hive.registerAdapter(TaskModelAdapter()); // 6
   Hive.registerAdapter(UserInfoModelAdapter()); // 7
+
   Hive.registerAdapter(AssignedUserModelAdapter()); // 8
   Hive.registerAdapter(VehicleModelAdapter()); // 9
   Hive.registerAdapter(UnitModelAdapter()); //10
+  
   runApp(MyApp(cacheService: cacheService));
 }
 
@@ -69,6 +77,18 @@ class MyApp extends StatelessWidget {
         RepositoryProvider(
           create: (context) => AuthRepositoryImpl(
             AuthDataSourceImpl(),
+          ),
+        ),
+        RepositoryProvider(
+          create: (context) => LandRepositoryImpl(
+            LocalLandDataSourceImpl(),
+            FirestoreLandDataSourceImpl(),
+          ),
+        ),
+        RepositoryProvider(
+          create: (context) => TaskRepositoryImpl(
+            LocalTaskDataSourceImpl(),
+            FirestoreTaskDataSourceImpl(),
           ),
         ),
       ],

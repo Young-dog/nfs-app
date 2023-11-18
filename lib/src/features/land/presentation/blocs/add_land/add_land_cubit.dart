@@ -1,5 +1,4 @@
 
-
 import 'dart:math';
 
 import 'package:app/src/shared/domain/entities/land.dart';
@@ -9,9 +8,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../domain/repositories/land_repository.dart';
 
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+
+
 part 'add_land_state.dart';
 
 class AddLandCubit extends Cubit<AddLandState> {
+
   AddLandCubit({required LandRepository landRepository})
       : _landRepository = landRepository,
         super(AddLandInitial());
@@ -32,4 +36,7 @@ class AddLandCubit extends Cubit<AddLandState> {
       ),
     );
   }
+
+  AddLandCubit() : super(AddLandInitial());
+
 }
