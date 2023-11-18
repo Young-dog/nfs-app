@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:app/src/features/auth/presentation/screens/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -35,7 +36,19 @@ class AppRouter {
           return customTransitionPage<void>(
             context: context,
             state: state,
-            child: const LoginScreen(),
+            child: const SignUpScreen(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: '/signUp',
+        name: 'signUp',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return customTransitionPage<void>(
+            context: context,
+            state: state,
+            child: const SignUpScreen(),
           );
         },
       ),

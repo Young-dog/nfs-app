@@ -1,6 +1,12 @@
 part of 'login_with_nfs_cubit.dart';
 
-enum LoginWithNfsStatus { initial, loading, success, error }
+enum LoginWithNfsStatus {
+  initial,
+  loading,
+  success,
+  error,
+  signUp,
+}
 
 class LoginWithNfsState extends Equatable {
   final LoginWithNfsStatus status;
