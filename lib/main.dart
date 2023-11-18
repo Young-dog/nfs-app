@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'firebase_options.dart';
+import 'services/cache_service.dart';
 import 'src/config/app_colors.dart';
 import 'src/config/app_router.dart';
 import 'src/config/app_text_styles.dart';
@@ -30,11 +31,13 @@ import 'src/shared/data/models/user_info_model.dart';
 import 'src/shared/data/models/user_model.dart';
 
 void main() async {
- 
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  /// Кеш
+  final cacheService = CacheService();
+  await cacheService.init();
+
   await Hive.initFlutter();
   Hive.registerAdapter(UserModelAdapter()); // 0
   Hive.registerAdapter(LandModelAdapter()); // 1
@@ -44,14 +47,23 @@ void main() async {
   Hive.registerAdapter(LandReportModelAdapter()); // 5
   Hive.registerAdapter(TaskModelAdapter()); // 6
   Hive.registerAdapter(UserInfoModelAdapter()); // 7
+
+
+ 
+
   Hive.registerAdapter(AssignedUserAdapter()); // 8
   Hive.registerAdapter(VehicleModelAdapter()); // 9
   Hive.registerAdapter(UnitModelAdapter()); //10
-  runApp(const MyApp());
+
+  runApp(MyApp(cacheService: cacheService));
+
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({
+    super.key,
+    required CacheService cacheService,
+  });
 
   // This widget is the root of your application.
   @override
@@ -83,7 +95,8 @@ class MyApp extends StatelessWidget {
             create: (context) => LoginWithNfsCubit(
               loginWithNfs: LoginWithNfs(
                 context.read<AuthRepositoryImpl>(),
-              ), authRepository: context.read<AuthRepositoryImpl>(),
+              ),
+              authRepository: context.read<AuthRepositoryImpl>(),
             ),
           ),
           BlocProvider(
