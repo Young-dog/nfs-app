@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-part 'assigned_user.g.dart';
+part 'assigned_user_model.g.dart';
 
 @HiveType(typeId: 8)
-class AssignedUser {
-  const AssignedUser({
+class AssignedUserModel {
+  const AssignedUserModel({
     required this.userId,
     required this.fullName,
   });
@@ -17,16 +17,16 @@ class AssignedUser {
   final String fullName;
 
 
-  factory AssignedUser.fromJson(Map<String, dynamic> json) {
-    return AssignedUser(
+  factory AssignedUserModel.fromJson(Map<String, dynamic> json) {
+    return AssignedUserModel(
       userId: json['userId'],
       fullName: json['fullName'],
 
     );
   }
 
-  factory AssignedUser.fromSnapshot(DocumentSnapshot snap) {
-    return AssignedUser(
+  factory AssignedUserModel.fromSnapshot(DocumentSnapshot snap) {
+    return AssignedUserModel(
       userId: snap.data().toString().contains('userId') ? snap.get('userId') : '',
       fullName: snap.data().toString().contains('fullName')
           ? snap['fullName']
@@ -34,15 +34,15 @@ class AssignedUser {
     );
   }
 
-  factory AssignedUser.fromEntity(AssignedUser user) {
-    return AssignedUser(
+  factory AssignedUserModel.fromEntity(AssignedUserModel user) {
+    return AssignedUserModel(
       userId: user.userId,
       fullName: user.fullName,
     );
   }
 
-  AssignedUser toEntity() {
-    return AssignedUser(
+  AssignedUserModel toEntity() {
+    return AssignedUserModel(
       userId: userId,
       fullName: fullName,
     );

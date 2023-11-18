@@ -2,7 +2,7 @@ import 'package:app/src/shared/data/models/unit_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'assigned_user.dart';
+import 'assigned_user_model.dart';
 import 'land_model.dart';
 
 part 'vehicle_model.g.dart';
@@ -28,10 +28,10 @@ class VehicleModel {
   final String vehicleId;
 
   @HiveField(2)
-  final AssignedUser createdBy;
+  final AssignedUserModel createdBy;
 
   @HiveField(3)
-  final AssignedUser? assignedTo;
+  final AssignedUserModel? assignedTo;
 
   @HiveField(4)
   final DateTime? createdAt;

@@ -1,5 +1,5 @@
 import 'package:app/src/features/auth/domain/use_cases/login_with_nfs.dart';
-import 'package:app/src/shared/data/models/assigned_user.dart';
+import 'package:app/src/shared/data/models/assigned_user_model.dart';
 import 'package:app/src/shared/data/models/unit_model.dart';
 import 'package:app/src/shared/data/models/vehicle_model.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +44,7 @@ void main() async {
   Hive.registerAdapter(LandReportModelAdapter()); // 5
   Hive.registerAdapter(TaskModelAdapter()); // 6
   Hive.registerAdapter(UserInfoModelAdapter()); // 7
-  Hive.registerAdapter(AssignedUserAdapter()); // 8
+  Hive.registerAdapter(AssignedUserModelAdapter()); // 8
   Hive.registerAdapter(VehicleModelAdapter()); // 9
   Hive.registerAdapter(UnitModelAdapter()); //10
   runApp(const MyApp());
