@@ -23,10 +23,10 @@ class LogoutCubit extends Cubit<LogoutState> {
     );
   }
 
-  void submit() {
+  void submit() async {
     emit(state.copyWith(status: LogoutStatus.loading));
     try {
-      _logoutUser(NoParams());
+      await _logoutUser(NoParams());
       emit(state.copyWith(status: LogoutStatus.success));
       emit(state.copyWith(status: LogoutStatus.initial));
     } catch (err) {
