@@ -22,6 +22,9 @@ import 'src/features/auth/presentation/blocs/login_with_nfs/login_with_nfs_cubit
 import 'package:firebase_core/firebase_core.dart';
 
 import 'src/features/auth/presentation/blocs/logout/logout_cubit.dart';
+import 'src/features/issue/data/data_sources/firestore_issue_data_source.dart';
+import 'src/features/issue/data/data_sources/local_issue_data_source.dart';
+import 'src/features/issue/data/repositories/issue_repository_impl.dart';
 import 'src/features/land/data/data_sources/firestore_land_data_source.dart';
 import 'src/features/land/data/data_sources/local_land_data_source.dart';
 import 'src/features/land/data/repositories/land_repository_impl.dart';
@@ -89,6 +92,12 @@ class MyApp extends StatelessWidget {
           create: (context) => LandRepositoryImpl(
             LocalLandDataSourceImpl(),
             FirestoreLandDataSourceImpl(),
+          ),
+        ),
+        RepositoryProvider(
+          create: (context) => IssueRepositoryImpl(
+            LocalIssueDataSourceImpl(),
+            FirestoreIssueDataSourceImpl(),
           ),
         ),
       ],
