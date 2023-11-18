@@ -62,7 +62,9 @@ class LoginWithNfsCubit extends Cubit<LoginWithNfsState> {
             //     rfidId: rfidId,
             //   ),
             // );
-        },
+            // emit(state.copyWith(status: LoginWithNfsStatus.success));
+            // emit(state.copyWith(status: LoginWithNfsStatus.initial));
+          }
       );
 
 

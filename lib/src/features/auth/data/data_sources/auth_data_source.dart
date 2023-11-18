@@ -44,6 +44,7 @@ class AuthDataSourceImpl extends AuthDataSource {
   Future<user_entity.User> get user {
     return Future.delayed(const Duration(milliseconds: 300), () {
       if (_firebaseAuth.currentUser != null) {
+
         return _firebaseFirestore
             .collection('users')
             .doc(_firebaseAuth.currentUser!.uid)
@@ -94,30 +95,32 @@ class AuthDataSourceImpl extends AuthDataSource {
 
   Future<void> _createUser({User? user, String? rfidId}) async {
     try {
+
       await _firebaseFirestore
           .collection('users')
           .doc(user!.uid)
           .get()
           .then((doc) async {
+
         if (doc.exists) {
           return;
         } else {
           var now = DateTime.now();
 
           final newUser = user_entity.User(
-            userId: user.uid,
+            userId: rfidId!,
             lastName: 'No lastName',
             firstName: user.displayName ?? 'No name',
             middleName: 'No middleName',
             employeeId: 'No employeeId',
             position: 'No position',
             role: 'агроном',
-            rfidId: rfidId!,
+            rfidId: rfidId,
           );
 
           await _firebaseFirestore.collection('users').doc(newUser.userId).set(
-                newUser.toDocument(),
-              );
+            newUser.toDocument(),
+          );
         }
       });
     } catch (e, st) {

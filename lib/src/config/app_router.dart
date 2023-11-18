@@ -22,6 +22,8 @@ class AppRouter {
 
   final GlobalKey<NavigatorState> _rootNavigatorKey =
       GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> _signUpNavigatorKey =
+  GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> _shellNavigatorKey =
       GlobalKey<NavigatorState>();
 
@@ -36,14 +38,13 @@ class AppRouter {
           return customTransitionPage<void>(
             context: context,
             state: state,
-            child: const SignUpScreen(),
+            child: const LoginScreen(),
           );
         },
       ),
-
       GoRoute(
-        path: '/signUp',
-        name: 'signUp',
+        path: '/sign_up',
+        name: 'sign_up',
         pageBuilder: (BuildContext context, GoRouterState state) {
           return customTransitionPage<void>(
             context: context,
@@ -114,9 +115,13 @@ class AppRouter {
         ) async {
       final loginLocation = state.namedLocation('login');
 
+      final signUpLocation = state.namedLocation('sign_up');
+
       final bool isLoggedIn = authBloc.state.status == AuthStatus.authenticated;
 
       final onLoginScreen = state.matchedLocation == loginLocation;
+
+      final onSignUpScreen = state.matchedLocation == signUpLocation;
 
       if (!isLoggedIn && !onLoginScreen) {
         return '/login';
@@ -124,9 +129,9 @@ class AppRouter {
       if (isLoggedIn && onLoginScreen) {
         return '/';
       }
-      // if (isLoggedIn) {
-      //   return '/';
-      // }
+      if (!isLoggedIn && onSignUpScreen) {
+        return '/sign_up';
+      }
 
       return null;
     },
