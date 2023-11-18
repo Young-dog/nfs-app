@@ -29,6 +29,7 @@ void main() async {
   Hive.registerAdapter(UserModelAdapter()); // 0
   Hive.registerAdapter(LandModelAdapter()); // 1
   Hive.registerAdapter(LandPlantConditionModelAdapter()); // 2
+  Hive.registerAdapter(LandSoilConditionModelAdapter()); // 3
   runApp(const MyApp());
 }
 
