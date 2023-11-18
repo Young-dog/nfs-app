@@ -1,4 +1,7 @@
 import 'package:app/src/features/auth/domain/use_cases/login_with_nfs.dart';
+import 'package:app/src/shared/data/models/assigned_user.dart';
+import 'package:app/src/shared/data/models/unit_model.dart';
+import 'package:app/src/shared/data/models/vehicle_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -37,6 +40,9 @@ void main() async {
   Hive.registerAdapter(LandSoilConditionModelAdapter()); // 3
   Hive.registerAdapter(LandRecommendationModelAdapter()); // 4
   Hive.registerAdapter(LandReportModelAdapter()); // 5
+  Hive.registerAdapter(AssignedUserAdapter()); // 7
+  Hive.registerAdapter(VehicleModelAdapter()); // 8
+  Hive.registerAdapter(UnitModelAdapter()); //9
   runApp(const MyApp());
 }
 

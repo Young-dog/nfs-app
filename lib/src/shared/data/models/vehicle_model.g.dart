@@ -1,47 +1,56 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'land_model.dart';
+part of 'vehicle_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class LandModelAdapter extends TypeAdapter<LandModel> {
+class VehicleModelAdapter extends TypeAdapter<VehicleModel> {
   @override
-  final int typeId = 1;
+  final int typeId = 8;
 
   @override
-  LandModel read(BinaryReader reader) {
+  VehicleModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return LandModel(
-      landId: fields[0] as String,
-      title: fields[1] as String,
-      square: fields[2] as int,
-      coordinates: fields[3] as Point<num>,
+    return VehicleModel(
+      vehicleId: fields[1] as String,
+      createdBy: fields[2] as AssignedUser,
+      assignedTo: fields[3] as AssignedUser?,
+      name: fields[0] as String,
+      operation: fields[6] as String,
+      workingSpeed: fields[8] as String,
+      unit: fields[9] as UnitModel?,
       createdAt: fields[4] as DateTime?,
       updatedAt: fields[5] as DateTime?,
     );
   }
 
   @override
-  void write(BinaryWriter writer, LandModel obj) {
+  void write(BinaryWriter writer, VehicleModel obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(9)
       ..writeByte(0)
-      ..write(obj.landId)
+      ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.title)
+      ..write(obj.vehicleId)
       ..writeByte(2)
-      ..write(obj.square)
+      ..write(obj.createdBy)
       ..writeByte(3)
-      ..write(obj.coordinates)
+      ..write(obj.assignedTo)
       ..writeByte(4)
       ..write(obj.createdAt)
       ..writeByte(5)
-      ..write(obj.updatedAt);
+      ..write(obj.updatedAt)
+      ..writeByte(6)
+      ..write(obj.operation)
+      ..writeByte(8)
+      ..write(obj.workingSpeed)
+      ..writeByte(9)
+      ..write(obj.unit);
   }
 
   @override
@@ -50,7 +59,7 @@ class LandModelAdapter extends TypeAdapter<LandModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is LandModelAdapter &&
+      other is VehicleModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
