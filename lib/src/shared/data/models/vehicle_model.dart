@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../domain/entities/vehicle.dart';
-import '../../domain/entities/unit.dart' as u;
 import 'user_info_model.dart';
 
 part 'vehicle_model.g.dart';
