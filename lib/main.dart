@@ -28,6 +28,7 @@ import 'src/features/auth/presentation/blocs/logout/logout_cubit.dart';
 import 'src/features/land/data/data_sources/firestore_land_data_source.dart';
 import 'src/features/land/data/data_sources/local_land_data_source.dart';
 import 'src/features/land/data/repositories/land_repository_impl.dart';
+import 'src/features/land/domain/use_cases/add_land.dart';
 import 'src/features/task/data/data_sources/firestore_task_data_source.dart';
 import 'src/features/task/data/data_sources/local_task_data_source.dart';
 import 'src/features/task/data/repositories/task_repository_impl.dart';
@@ -63,7 +64,7 @@ void main() async {
   Hive.registerAdapter(UnitModelAdapter()); //10
   Hive.registerAdapter(IssueModelAdapter()); //11
   Hive.registerAdapter(PointAdapter()); //12
-  
+
   runApp(MyApp(cacheService: cacheService));
 }
 
@@ -81,12 +82,6 @@ class MyApp extends StatelessWidget {
         RepositoryProvider(
           create: (context) => AuthRepositoryImpl(
             AuthDataSourceImpl(),
-          ),
-        ),
-        RepositoryProvider(
-          create: (context) => LandRepositoryImpl(
-            LocalLandDataSourceImpl(),
-            FirestoreLandDataSourceImpl(),
           ),
         ),
         RepositoryProvider(
@@ -134,7 +129,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => AddLandCubit(
-              landRepository: context.read<LandRepositoryImpl>(),
+              addLand: AddLand(
+                context.read<LandRepositoryImpl>(),
+              ),
             ),
           ),
         ],

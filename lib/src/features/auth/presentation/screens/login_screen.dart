@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../shared/widgets/custom_indicator.dart';
 import '../../../../shared/widgets/custom_logo.dart';
+import '../../../../shared/widgets/custom_widget.dart';
 import '../blocs/login_with_nfs/login_with_nfs_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -75,7 +76,7 @@ class _LoginWithNfs extends StatelessWidget {
             child: CustomIndicator(),
           );
         }
-        return _Button(
+        return CustomButton(
           text: 'Войти с помощью NFC',
           onPressed: () =>
               context.read<LoginWithNfsCubit>().signInWithNfc(),
@@ -85,58 +86,4 @@ class _LoginWithNfs extends StatelessWidget {
   }
 }
 
-class _Button extends StatelessWidget {
-  const _Button({
-    super.key,
-    this.icon,
-    required this.text,
-    required this.onPressed,
-  });
 
-  final String? icon;
-  final String text;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: const BorderSide(
-            color: Colors.grey,
-          ),
-        ),
-        fixedSize: const Size(250, 50),
-      ),
-      onPressed: onPressed,
-      child: Center(
-        child: icon != null ? Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              child: SvgPicture.asset(
-                'assets/icons/$icon.svg',
-                width: 24,
-                height: 24,
-              ),
-            ),
-            const SizedBox(width: 8),
-            Text(
-              text,
-              style: const TextStyle(
-                color: Colors.black,
-              ),
-            ),
-          ],
-        ) : Text(
-          text,
-          style: const TextStyle(
-            color: Colors.black,
-          ),
-        ),
-      ),
-    );
-  }
-}
