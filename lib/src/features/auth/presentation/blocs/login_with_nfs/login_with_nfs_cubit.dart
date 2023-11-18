@@ -36,13 +36,18 @@ class LoginWithNfsCubit extends Cubit<LoginWithNfsState> {
       bool isAvailable = await NfcManager.instance.isAvailable();
 
       if (!isAvailable) {
+        emit(
+          state.copyWith(
+            status: LoginWithNfsStatus.error,
+            errorText: 'NFC не доступен',
+          ),
+        );
         return;
       }
 
       await NfcManager.instance.startSession(
         onDiscovered: (NfcTag tag) async {
           try {
-
             final rfidId = tag.data['nfca']['identifier'].join();
 
             debugPrint(rfidId);
