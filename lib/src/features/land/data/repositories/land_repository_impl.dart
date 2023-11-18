@@ -16,6 +16,7 @@ class LandRepositoryImpl extends LandRepository {
 
   @override
   Future<void> addLand(Land land) async {
+    print('start');
 
     // TODO: отправить запрос на проверку интернета
 
