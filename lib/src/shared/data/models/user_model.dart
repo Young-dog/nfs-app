@@ -49,7 +49,7 @@ class UserModel {
 
   factory UserModel.fromSnapshot(DocumentSnapshot snap) {
     return UserModel(
-      userId: snap.get('userId'),
+      userId: snap.data().toString().contains('userId') ? snap.get('userId') : '',
       lastName: snap.data().toString().contains('lastName')
           ? snap['lastName']
           : 'No lastName',
