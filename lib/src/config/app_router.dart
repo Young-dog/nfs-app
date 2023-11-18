@@ -8,6 +8,9 @@ import '../features/app/home_screen.dart';
 import '../features/auth/data/data_sources/auth_data_source.dart';
 import '../features/auth/presentation/blocs/auth/auth_bloc.dart';
 import '../features/auth/presentation/screens/login_screen.dart';
+import '../features/issue/presentation/screens/issue_list_screen.dart';
+import '../features/task/presentation/screens/task_list_screen.dart';
+import '../features/user/presentation/screens/profile_screen.dart';
 
 
 class AppRouter {
@@ -55,6 +58,39 @@ class AppRouter {
                   child: const HomeScreen(),
                 );
               },
+          ),
+          GoRoute(
+            path: "/tasks",
+            name: "tasks",
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return customTransitionPage<void>(
+                context: context,
+                state: state,
+                child: const TaskListScreen(),
+              );
+            },
+          ),
+          GoRoute(
+            path: "/issues",
+            name: "issues",
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return customTransitionPage<void>(
+                context: context,
+                state: state,
+                child: const IssueListScreen(),
+              );
+            },
+          ),
+          GoRoute(
+            path: "/profile",
+            name: "profile",
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return customTransitionPage<void>(
+                context: context,
+                state: state,
+                child: const ProfileScreen(),
+              );
+            },
           ),
         ],
       ),
