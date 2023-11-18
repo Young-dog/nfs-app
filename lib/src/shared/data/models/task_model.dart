@@ -1,100 +1,110 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
-import '../../domain/entities/user.dart';
+import '../../domain/entities/task.dart';
 
-part 'user_model.g.dart';
+part 'task_model.g.dart';
 
-@HiveType(typeId: 0)
-class UserModel {
+@HiveType(typeId: 6)
+class TaskModel {
   @HiveField(0)
-  final String userId;
+  final String taskId;
   @HiveField(1)
-  final String lastName;
+  final String title;
   @HiveField(2)
-  final String firstName;
+  final String description;
   @HiveField(3)
-  final String? middleName;
+  final String landId;
   @HiveField(4)
-  final String employeeId;
+  final String creatorId;
   @HiveField(5)
-  final String position;
+  final String executorId;
   @HiveField(6)
-  final String role;
+  final String status;
   @HiveField(7)
-  final String rfidId;
+  final DateTime? createdAt;
+  @HiveField(8)
+  final DateTime? updatedAt;
 
-  UserModel({
-    required this.userId,
-    required this.lastName,
-    required this.firstName,
-    this.middleName,
-    required this.employeeId,
-    required this.position,
-    required this.role,
-    required this.rfidId,
+
+  TaskModel({
+    required this.taskId,
+    required this.title,
+    required this.description,
+    required this.landId,
+    required this.creatorId,
+    required this.executorId,
+    required this.status,
+    this.createdAt,
+    this.updatedAt,
   });
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
-      userId: json['userId'],
-      lastName: json['lastName'],
-      firstName: json['firstName'],
-      middleName: json['middleName'],
-      employeeId: json['employeeId'],
-      position: json['position'],
-      role: json['role'],
-      rfidId: json['rfidId'],
+  factory TaskModel.fromJson(Map<String, dynamic> json) {
+    return TaskModel(
+      taskId: json['taskId'],
+      title: json['title'],
+      description: json['description'],
+      landId: json['landId'],
+      creatorId: json['creatorId'],
+      executorId: json['executorId'],
+      status: json['status'],
+      createdAt: json['createdAt'].toDate(),
+      updatedAt: json['updatedAt'].toDate(),
     );
   }
 
-  factory UserModel.fromSnapshot(DocumentSnapshot snap) {
-    return UserModel(
-      userId: snap.data().toString().contains('userId') ? snap.get('userId') : '',
-      lastName: snap.data().toString().contains('lastName')
-          ? snap['lastName']
-          : 'No lastName',
-      firstName: snap.data().toString().contains('firstName')
-          ? snap['firstName']
-          : 'No firstName',
-      middleName: snap.data().toString().contains('middleName')
-          ? snap['middleName']
-          : 'No middleName',
-      employeeId: snap.data().toString().contains('employeeId')
-          ? snap['employeeId']
-          : 'No employeeId',
-      position: snap.data().toString().contains('position')
-          ? snap['position']
-          : 'No position',
-      role: snap.data().toString().contains('role') ? snap['role'] : 'No role',
-      rfidId: snap.data().toString().contains('rfidId')
-          ? snap['rfidId']
-          : 'No rfidId',
+  factory TaskModel.fromSnapshot(DocumentSnapshot snap) {
+    return TaskModel(
+      taskId: snap.data().toString().contains('taskId') ? snap.get('taskId') : '',
+      title: snap.data().toString().contains('title')
+          ? snap['title']
+          : 'No title',
+      description: snap.data().toString().contains('description')
+          ? snap['description']
+          : 'No description',
+      landId: snap.data().toString().contains('landId')
+          ? snap['landId']
+          : 'No landId',
+      creatorId: snap.data().toString().contains('creatorId')
+          ? snap['creatorId']
+          : 'No creatorId',
+      executorId: snap.data().toString().contains('executorId')
+          ? snap['executorId']
+          : 'No executorId',
+      status: snap.data().toString().contains('status') ? snap['status'] : 'No status',
+      createdAt: snap.data().toString().contains('createdAt')
+          ? snap['createdAt'].toDate()
+          : null,
+      updatedAt: snap.data().toString().contains('updatedAt')
+          ? snap['updatedAt'].toDate()
+          : null,
     );
   }
 
-  factory UserModel.fromEntity(User user) {
-    return UserModel(
-      userId: user.userId,
-      lastName: user.lastName,
-      firstName: user.firstName,
-      middleName: user.middleName,
-      employeeId: user.employeeId,
-      position: user.position,
-      role: user.role,
-      rfidId: user.rfidId,
+  factory TaskModel.fromEntity(Task task) {
+    return TaskModel(
+      taskId: task.taskId,
+      title: task.title,
+      description: task.description,
+      landId: task.landId,
+      creatorId: task.creatorId,
+      executorId: task.executorId,
+      status: task.status,
+      createdAt: task.createdAt,
+      updatedAt: task.updatedAt,
     );
   }
 
-  User toEntity() {
-    return User(
-      userId: userId,
-      lastName: lastName,
-      firstName: firstName,
-      middleName: middleName,
-      employeeId: employeeId,
-      position: position,
-      role: role,
-      rfidId: rfidId,
+  Task toEntity() {
+    return Task(
+      taskId: taskId,
+      title: title,
+      description: description,
+      landId: landId,
+      creatorId: creatorId,
+      executorId: executorId,
+      status: status,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
     );
   }
 }

@@ -16,12 +16,18 @@ class LandModel {
   final int square;
   @HiveField(3)
   final Point coordinates;
+  @HiveField(4)
+  final DateTime? createdAt;
+  @HiveField(5)
+  final DateTime? updatedAt;
 
   LandModel({
     required this.landId,
     required this.title,
     required this.square,
     required this.coordinates,
+    this.createdAt,
+    this.updatedAt,
   });
 
   factory LandModel.fromJson(Map<String, dynamic> json) {
@@ -30,6 +36,8 @@ class LandModel {
       title: json['title'],
       square: json['square'],
       coordinates: json['coordinates'],
+      createdAt: json['createdAt'].toDate(),
+      updatedAt: json['updatedAt'].toDate(),
     );
   }
 
@@ -45,6 +53,12 @@ class LandModel {
       coordinates: snap.data().toString().contains('coordinates')
           ? snap['coordinates']
           : 'No coordinates',
+      createdAt: snap.data().toString().contains('createdAt')
+          ? snap['createdAt'].toDate()
+          : null,
+      updatedAt: snap.data().toString().contains('updatedAt')
+          ? snap['updatedAt'].toDate()
+          : null,
     );
   }
 
