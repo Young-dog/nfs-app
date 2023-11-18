@@ -16,6 +16,7 @@ import 'src/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'src/features/auth/presentation/blocs/login_with_nfs/login_with_nfs_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import 'src/features/auth/presentation/blocs/logout/logout_cubit.dart';
 import 'src/shared/data/models/user_model.dart';
 
 void main() async {
@@ -61,6 +62,13 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => LoginWithNfsCubit(
               loginWithNfs: LoginWithNfs(
+                context.read<AuthRepositoryImpl>(),
+              ),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => LogoutCubit(
+              logoutUser: LogoutUser(
                 context.read<AuthRepositoryImpl>(),
               ),
             ),
