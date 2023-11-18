@@ -1,6 +1,7 @@
 import 'package:app/src/features/auth/domain/use_cases/login_with_nfs.dart';
 import 'package:app/src/shared/data/models/assigned_user_model.dart';
 import 'package:app/src/shared/data/models/issue_model.dart';
+import 'package:app/src/shared/data/models/point_adapter.dart';
 import 'package:app/src/shared/data/models/unit_model.dart';
 import 'package:app/src/shared/data/models/vehicle_model.dart';
 import 'package:app/src/features/land/domain/repositories/land_repository.dart';
@@ -24,6 +25,13 @@ import 'src/features/auth/presentation/blocs/login_with_nfs/login_with_nfs_cubit
 import 'package:firebase_core/firebase_core.dart';
 
 import 'src/features/auth/presentation/blocs/logout/logout_cubit.dart';
+import 'src/features/land/data/data_sources/firestore_land_data_source.dart';
+import 'src/features/land/data/data_sources/local_land_data_source.dart';
+import 'src/features/land/data/repositories/land_repository_impl.dart';
+import 'src/features/land/domain/use_cases/add_land.dart';
+import 'src/features/task/data/data_sources/firestore_task_data_source.dart';
+import 'src/features/task/data/data_sources/local_task_data_source.dart';
+import 'src/features/task/data/repositories/task_repository_impl.dart';
 import 'src/shared/data/models/land_model.dart';
 import 'src/shared/data/models/land_plant_condition_model.dart';
 import 'src/shared/data/models/land_recommendation_model.dart';
@@ -51,9 +59,10 @@ void main() async {
   Hive.registerAdapter(TaskModelAdapter()); // 6
   Hive.registerAdapter(UserInfoModelAdapter()); // 7
   Hive.registerAdapter(AssignedUserModelAdapter()); // 8
-  Hive.registerAdapter(VehicleModelAdapter()); // 9
-  Hive.registerAdapter(UnitModelAdapter()); //10
+  Hive.registerAdapter(UnitModelAdapter()); //9
+  Hive.registerAdapter(VehicleModelAdapter()); // 10
   Hive.registerAdapter(IssueModelAdapter()); //11
+  //Hive.registerAdapter(PointAdapter()); //12
   runApp(MyApp(cacheService: cacheService));
 }
 
@@ -71,6 +80,18 @@ class MyApp extends StatelessWidget {
         RepositoryProvider(
           create: (context) => AuthRepositoryImpl(
             AuthDataSourceImpl(),
+          ),
+        ),
+        RepositoryProvider(
+          create: (context) => TaskRepositoryImpl(
+            LocalTaskDataSourceImpl(),
+            FirestoreTaskDataSourceImpl(),
+          ),
+        ),
+        RepositoryProvider(
+          create: (context) => LandRepositoryImpl(
+            LocalLandDataSourceImpl(),
+            FirestoreLandDataSourceImpl(),
           ),
         ),
       ],
@@ -106,7 +127,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => AddLandCubit(
-              landRepository: context.read<LandRepository>(),
+              addLand: AddLand(
+                context.read<LandRepositoryImpl>(),
+              ),
             ),
           ),
         ],

@@ -1,9 +1,13 @@
+import 'dart:async';
+
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../../../../services/cache_service.dart';
 import '../../../../shared/domain/entities/land.dart';
 import '../../domain/repositories/land_repository.dart';
 import '../data_sources/firestore_land_data_source.dart';
-import '../data_sources/local_firestore_data_source.dart';
+import '../data_sources/local_land_data_source.dart';
 
 class LandRepositoryImpl extends LandRepository {
   final LocalLandDataSource localLandDataSource;
@@ -24,17 +28,20 @@ class LandRepositoryImpl extends LandRepository {
 
     // TODO: Если есть инет: то отправляем в firestore - await firestoreLandDataSource.addLand(land);
 
-    await localLandDataSource.addLand(land);
-
-
-    await firestoreLandDataSource.addLand(land);
-
-
+    await localLandDataSource.addLand(land).then((value) {
+      debugPrint('-----> Success');
+    });
+    Connectivity().checkConnectivity().then((value) async {
+      if (value == ConnectivityResult.mobile ||
+          value == ConnectivityResult.wifi) {
+        await firestoreLandDataSource.addLand(land);
+      }
+    });
 
     // return appConfig.environment == 'local'
     //     ? await localLandDataSource.addLand(land)
     //     : await firestoreLandDataSource.addLand(land);
-    return await firestoreLandDataSource.addLand(land);
+    //return await firestoreLandDataSource.addLand(land);
   }
 
   @override
@@ -57,6 +64,4 @@ class LandRepositoryImpl extends LandRepository {
     //   return localLandDataSource.getLands();
     // }
   }
-
-
 }

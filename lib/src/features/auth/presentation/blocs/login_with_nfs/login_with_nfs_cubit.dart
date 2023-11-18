@@ -61,8 +61,11 @@ class LoginWithNfsCubit extends Cubit<LoginWithNfsState> {
         emit(state.copyWith(status: LoginWithNfsStatus.success));
         emit(state.copyWith(status: LoginWithNfsStatus.initial));
       }
-    } catch (e) {
-      debugPrint('-----> $e');
+    } catch (e, s) {
+      debugPrintStack(
+        label: '$e',
+        stackTrace: s,
+      );
       emit(
         state.copyWith(
           status: LoginWithNfsStatus.error,
@@ -133,11 +136,15 @@ class LoginWithNfsCubit extends Cubit<LoginWithNfsState> {
           emit(state.copyWith(status: LoginWithNfsStatus.initial));
         }
       });
-    } catch (err) {
+    } catch (e, s) {
+      debugPrintStack(
+        label: '$e',
+        stackTrace: s,
+      );
       emit(
         state.copyWith(
           status: LoginWithNfsStatus.error,
-          errorText: err.toString(),
+          errorText: e.toString(),
         ),
       );
     }

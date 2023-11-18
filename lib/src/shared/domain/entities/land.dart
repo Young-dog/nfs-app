@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:app/src/shared/domain/entities/user_info.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
@@ -8,7 +6,7 @@ class Land extends Equatable {
   final String landId;
   final String title;
   final int square;
-  final Point coordinates;
+  final List<double> coordinates;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final UserInfo createdBy;
@@ -31,7 +29,10 @@ class Land extends Equatable {
       'coordinates': coordinates,
       'createdAt': Timestamp.fromDate(createdAt ?? DateTime.now()),
       'updatedAt': Timestamp.fromDate(updatedAt ?? DateTime.now()),
-      'createdBy': createdBy,
+      'createdBy': {
+        'id': createdBy.id,
+        'name' : createdBy.name,
+      },
     };
   }
 

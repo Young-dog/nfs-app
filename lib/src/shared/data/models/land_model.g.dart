@@ -20,7 +20,7 @@ class LandModelAdapter extends TypeAdapter<LandModel> {
       landId: fields[0] as String,
       title: fields[1] as String,
       square: fields[2] as int,
-      coordinates: fields[3] as Point<num>,
+      coordinates: (fields[3] as List).cast<double>(),
       createdAt: fields[4] as DateTime?,
       updatedAt: fields[5] as DateTime?,
       createdBy: fields[6] as UserInfoModel,

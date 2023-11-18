@@ -40,15 +40,15 @@ class IssueModel {
 
   factory IssueModel.fromJson(Map<String, dynamic> json) {
     return IssueModel(
-    issueId: json['issueId'],
-    state: json['state'],
-    title: json['title'],
-    description: json['description'],
-    createdBy: json['createdBy'],
-    assignedTo: json['assignedTo'],
-    closedAt: json['closedAt'],
-    createdAt: json['createdAt'],
-    updatedAt: json['updatedAt'],
+      issueId: json['issueId'],
+      state: json['state'],
+      title: json['title'],
+      description: json['description'],
+      createdBy: json['createdBy'],
+      assignedTo: json['assignedTo'],
+      closedAt: json['closedAt'],
+      createdAt: json['createdAt'],
+      updatedAt: json['updatedAt'],
     );
   }
 
