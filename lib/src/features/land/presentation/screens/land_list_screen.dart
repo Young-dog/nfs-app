@@ -1,4 +1,6 @@
+import 'package:app/src/features/land/presentation/blocs/add_land/add_land_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LandListScreen extends StatelessWidget {
   const LandListScreen({Key? key}) : super(key: key);
@@ -11,7 +13,9 @@ class LandListScreen extends StatelessWidget {
       body: ListView(
         children: [
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              context.read<AddLandCubit>().addLand();
+            },
             child: Text('Добавить'),
           ),
         ],

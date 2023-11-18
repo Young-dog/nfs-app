@@ -23,6 +23,7 @@ class AddLandCubit extends Cubit<AddLandState> {
   final LandRepository _landRepository;
 
   Future<void> addLand() async {
+    print('-------> hhh');
     await _landRepository.addLand(
       const Land(
         landId: 'land_id',
@@ -37,6 +38,6 @@ class AddLandCubit extends Cubit<AddLandState> {
     );
   }
 
-  AddLandCubit() : super(AddLandInitial());
+  //AddLandCubit(this._landRepository) : super(AddLandInitial());
 
 }
