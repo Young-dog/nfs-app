@@ -104,24 +104,20 @@ class AuthDataSourceImpl extends AuthDataSource {
         } else {
           var now = DateTime.now();
 
-          if (rfidId != null || rfidId != '') {
-            final newUser = user_entity.User(
-              userId: user.uid,
-              lastName: 'No lastName',
-              firstName: user.displayName ?? 'No name',
-              middleName: 'No middleName',
-              employeeId: 'No employeeId',
-              position: 'No position',
-              role: 'агроном',
-              rfidId: rfidId!,
-            );
+          final newUser = user_entity.User(
+            userId: user.uid,
+            lastName: 'No lastName',
+            firstName: user.displayName ?? 'No name',
+            middleName: 'No middleName',
+            employeeId: 'No employeeId',
+            position: 'No position',
+            role: 'агроном',
+            rfidId: rfidId!,
+          );
 
-            await _firebaseFirestore.collection('users').doc(newUser.userId).set(
-              newUser.toDocument(),
-            );
-          } else {
-            return;
-          }
+          await _firebaseFirestore.collection('users').doc(newUser.userId).set(
+            newUser.toDocument(),
+          );
         }
       });
     } catch (e, st) {
