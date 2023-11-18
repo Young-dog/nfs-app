@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
 import '../../domain/entities/land.dart';
+import 'user_info_model.dart';
 
 part 'land_model.g.dart';
 
@@ -20,6 +21,9 @@ class LandModel {
   final DateTime? createdAt;
   @HiveField(5)
   final DateTime? updatedAt;
+  @HiveField(6)
+  final UserInfoModel createdBy;
+
 
   LandModel({
     required this.landId,
@@ -28,6 +32,7 @@ class LandModel {
     required this.coordinates,
     this.createdAt,
     this.updatedAt,
+    required this.createdBy,
   });
 
   factory LandModel.fromJson(Map<String, dynamic> json) {
@@ -38,6 +43,7 @@ class LandModel {
       coordinates: json['coordinates'],
       createdAt: json['createdAt'].toDate(),
       updatedAt: json['updatedAt'].toDate(),
+      createdBy: UserInfoModel.fromJson(json['createdBy']),
     );
   }
 
@@ -59,6 +65,7 @@ class LandModel {
       updatedAt: snap.data().toString().contains('updatedAt')
           ? snap['updatedAt'].toDate()
           : null,
+      createdBy: UserInfoModel.fromSnapshot(snap['createdBy'])
     );
   }
 
@@ -68,6 +75,9 @@ class LandModel {
       title: land.title,
       square: land.square,
       coordinates: land.coordinates,
+      createdBy: UserInfoModel.fromEntity(land.createdBy),
+      updatedAt: land.updatedAt,
+      createdAt: land.createdAt,
     );
   }
 
@@ -77,6 +87,9 @@ class LandModel {
       title: title,
       square: square,
       coordinates: coordinates,
+      createdBy: createdBy.toEntity(),
+      createdAt: createdAt,
+      updatedAt: updatedAt,
     );
   }
 }

@@ -21,13 +21,16 @@ class LandModelAdapter extends TypeAdapter<LandModel> {
       title: fields[1] as String,
       square: fields[2] as int,
       coordinates: fields[3] as Point<num>,
+      createdAt: fields[4] as DateTime?,
+      updatedAt: fields[5] as DateTime?,
+      createdBy: fields[6] as UserInfoModel,
     );
   }
 
   @override
   void write(BinaryWriter writer, LandModel obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.landId)
       ..writeByte(1)
@@ -35,7 +38,13 @@ class LandModelAdapter extends TypeAdapter<LandModel> {
       ..writeByte(2)
       ..write(obj.square)
       ..writeByte(3)
-      ..write(obj.coordinates);
+      ..write(obj.coordinates)
+      ..writeByte(4)
+      ..write(obj.createdAt)
+      ..writeByte(5)
+      ..write(obj.updatedAt)
+      ..writeByte(6)
+      ..write(obj.createdBy);
   }
 
   @override

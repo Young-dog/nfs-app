@@ -1,3 +1,4 @@
+import 'package:app/src/shared/domain/entities/user_info.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
@@ -6,8 +7,8 @@ class Task extends Equatable {
   final String title;
   final String description;
   final String landId;
-  final String creatorId;
-  final String executorId;
+  final UserInfo createdBy;
+  final UserInfo? assignedTo;
   final String status;
   final DateTime? createdAt;
   final DateTime? updatedAt;
@@ -17,8 +18,8 @@ class Task extends Equatable {
     required this.title,
     required this.description,
     required this.landId,
-    required this.creatorId,
-    required this.executorId,
+    required this.createdBy,
+    this.assignedTo,
     required this.status,
     this.createdAt,
     this.updatedAt,
@@ -30,8 +31,14 @@ class Task extends Equatable {
       'title': title,
       'description': description,
       'landId': landId,
-      'creatorId': creatorId,
-      'executorId': executorId,
+      'createdBy': {
+        'id': createdBy.id,
+        'name': createdBy.name,
+      },
+      'assignedTo': assignedTo != null ? {
+        'id': assignedTo?.id,
+        'name': assignedTo?.name,
+      } : null,
       'status': status,
       'createdAt': Timestamp.fromDate(createdAt ?? DateTime.now()),
       'updatedAt': Timestamp.fromDate(updatedAt ?? DateTime.now()),
@@ -44,8 +51,8 @@ class Task extends Equatable {
         title,
         description,
         landId,
-        creatorId,
-        executorId,
+        createdBy,
+      assignedTo,
         status,
         createdAt,
         updatedAt,
