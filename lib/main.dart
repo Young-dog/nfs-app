@@ -22,6 +22,8 @@ import 'src/shared/data/models/land_plant_condition_model.dart';
 import 'src/shared/data/models/land_recommendation_model.dart';
 import 'src/shared/data/models/land_report_model.dart';
 import 'src/shared/data/models/land_soil_condition_model.dart';
+import 'src/shared/data/models/task_model.dart';
+import 'src/shared/data/models/user_info_model.dart';
 import 'src/shared/data/models/user_model.dart';
 
 void main() async {
@@ -37,6 +39,9 @@ void main() async {
   Hive.registerAdapter(LandSoilConditionModelAdapter()); // 3
   Hive.registerAdapter(LandRecommendationModelAdapter()); // 4
   Hive.registerAdapter(LandReportModelAdapter()); // 5
+  Hive.registerAdapter(LandReportModelAdapter()); // 5
+  Hive.registerAdapter(TaskModelAdapter()); // 6
+  Hive.registerAdapter(UserInfoModelAdapter()); // 7
   runApp(const MyApp());
 }
 
