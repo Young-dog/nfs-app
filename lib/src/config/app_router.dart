@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:app/src/features/auth/presentation/screens/sign_up_screen.dart';
+import 'package:app/src/features/land/presentation/screens/land_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -69,7 +70,7 @@ class AppRouter {
                 return customTransitionPage<void>(
                   context: context,
                   state: state,
-                  child: const HomeScreen(),
+                  child: const LandListScreen(),
                 );
               },
           ),

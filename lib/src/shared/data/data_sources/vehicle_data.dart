@@ -1,7 +1,7 @@
 Map<String, dynamic> vehicleData = {
   'vehicleId': 'vehicleId_1', // Идентификатор техники
 
-  'name' : '	RSM 3535 #7089', // Название техникик
+  'name' : 'RSM 3535 #7089', // Название техникик
 
   "createdBy" : {
     'id': 'userId',
