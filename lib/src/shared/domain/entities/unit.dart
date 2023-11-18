@@ -25,7 +25,6 @@ class Unit {
     };
   }
 
-  @override
   List<Object?> get props => [
         name,
         depth,
