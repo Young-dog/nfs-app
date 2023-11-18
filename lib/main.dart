@@ -1,4 +1,6 @@
 import 'package:app/src/features/auth/domain/use_cases/login_with_nfs.dart';
+import 'package:app/src/features/land/domain/repositories/land_repository.dart';
+import 'package:app/src/features/land/presentation/blocs/add_land/add_land_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -41,7 +43,6 @@ void main() async {
   Hive.registerAdapter(LandPlantConditionModelAdapter()); // 2
   Hive.registerAdapter(LandSoilConditionModelAdapter()); // 3
   Hive.registerAdapter(LandRecommendationModelAdapter()); // 4
-  Hive.registerAdapter(LandReportModelAdapter()); // 5
   Hive.registerAdapter(LandReportModelAdapter()); // 5
   Hive.registerAdapter(TaskModelAdapter()); // 6
   Hive.registerAdapter(UserInfoModelAdapter()); // 7
@@ -94,6 +95,11 @@ class MyApp extends StatelessWidget {
               logoutUser: LogoutUser(
                 context.read<AuthRepositoryImpl>(),
               ),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => AddLandCubit(
+              landRepository: context.read<LandRepository>(),
             ),
           ),
         ],

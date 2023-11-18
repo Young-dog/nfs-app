@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import '../../../../shared/domain/entities/land.dart';
 import '../../domain/repositories/land_repository.dart';
 import '../data_sources/firestore_land_data_source.dart';
@@ -20,6 +22,12 @@ class LandRepositoryImpl extends LandRepository {
     // TODO: кладем в local - await localLandDataSource.addLand(land);
 
     // TODO: Если есть инет: то отправляем в firestore - await firestoreLandDataSource.addLand(land);
+
+    await localLandDataSource.addLand(land);
+
+
+    await firestoreLandDataSource.addLand(land);
+
 
 
     // return appConfig.environment == 'local'

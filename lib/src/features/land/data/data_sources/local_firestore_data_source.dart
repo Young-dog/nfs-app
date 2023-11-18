@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 import '../../../../shared/data/models/land_model.dart';
@@ -18,6 +19,9 @@ class LocalLandDataSourceImpl extends LocalLandDataSource {
   Future<void> addLand(Land land) async {
     Box box = await _openBox();
     await box.put(land.landId, LandModel.fromEntity(land));
+
+
+    debugPrint('Записан в Hive');
   }
 
   @override
