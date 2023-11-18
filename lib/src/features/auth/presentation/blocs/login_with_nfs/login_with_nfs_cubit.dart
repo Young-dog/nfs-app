@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 
+import '../../../domain/repositories/auth_repository.dart';
 import '../../../domain/use_cases/login_with_nfs.dart';
 
 part 'login_with_nfs_state.dart';
@@ -12,9 +13,14 @@ part 'login_with_nfs_state.dart';
 class LoginWithNfsCubit extends Cubit<LoginWithNfsState> {
   final LoginWithNfs _loginWithNfs;
 
+  final AuthRepository _authRepository;
+
   LoginWithNfsCubit({
+    required AuthRepository authRepository,
     required LoginWithNfs loginWithNfs,
-  })  : _loginWithNfs = loginWithNfs,
+  })
+      : _loginWithNfs = loginWithNfs,
+        _authRepository = authRepository,
         super(LoginWithNfsState.initial());
 
   void loading() {
@@ -41,8 +47,8 @@ class LoginWithNfsCubit extends Cubit<LoginWithNfsState> {
       }
       var userNew = false;
 
-     await NfcManager.instance.startSession(
-        onDiscovered: (NfcTag tag) async {
+      await NfcManager.instance.startSession(
+          onDiscovered: (NfcTag tag) async {
             final rfidId = tag.data['nfca']['identifier'].join();
 
             debugPrint(rfidId);
@@ -57,24 +63,25 @@ class LoginWithNfsCubit extends Cubit<LoginWithNfsState> {
               );
             }
 
-            // await _loginWithNfs(
-            //   LoginWithNfsParams(
-            //     rfidId: rfidId,
-            //   ),
-            // );
+            final check = await _authRepository.checkUser(rfidId: rfidId);
+
+            if (!check) {
+              emit(
+                state.copyWith(
+                  status: LoginWithNfsStatus.signUp,
+                ),
+              );
+            }
+
+            /*await _loginWithNfs(
+              LoginWithNfsParams(
+                rfidId: rfidId,
+              ),
+            );*/
             // emit(state.copyWith(status: LoginWithNfsStatus.success));
             // emit(state.copyWith(status: LoginWithNfsStatus.initial));
-          }
+            }
       );
-
-
-      if (userNew) {
-        emit(
-          state.copyWith(
-            status: LoginWithNfsStatus.signUp,
-          ),
-        );
-      }
 
     } catch (err) {
       emit(

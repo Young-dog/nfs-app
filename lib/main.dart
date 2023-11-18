@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
             create: (context) => LoginWithNfsCubit(
               loginWithNfs: LoginWithNfs(
                 context.read<AuthRepositoryImpl>(),
-              ),
+              ), authRepository: context.read<AuthRepositoryImpl>(),
             ),
           ),
           BlocProvider(

@@ -20,6 +20,14 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
+  Future<bool> checkUser({String? rfidId}) async {
+
+    final check = await authDataSource.checkUser(rfidId: rfidId);
+
+    return check;
+  }
+
+  @override
   Future<void> logout() {
     return authDataSource.logout();
   }

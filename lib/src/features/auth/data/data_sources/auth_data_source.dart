@@ -7,7 +7,6 @@ import 'package:app/src/shared/domain/entities/user.dart' as user_entity;
 
 import '../../../../shared/data/models/user_model.dart';
 
-
 enum AuthStatus {
   unknown,
   authenticated,
@@ -22,13 +21,14 @@ abstract class AuthDataSource {
   Future<void> signInWithNfs({String? rfidId});
 
   Future<void> logout();
+
+  Future<bool> checkUser({String? rfidId});
 }
 
 class AuthDataSourceImpl extends AuthDataSource {
   final _controller = StreamController<AuthStatus>();
   final _firebaseAuth = fire_base_auth.FirebaseAuth.instance;
   final _firebaseFirestore = FirebaseFirestore.instance;
-
 
   @override
   Stream<AuthStatus> get status async* {
@@ -44,7 +44,6 @@ class AuthDataSourceImpl extends AuthDataSource {
   Future<user_entity.User> get user {
     return Future.delayed(const Duration(milliseconds: 300), () {
       if (_firebaseAuth.currentUser != null) {
-
         return _firebaseFirestore
             .collection('users')
             .doc(_firebaseAuth.currentUser!.uid)
@@ -55,8 +54,6 @@ class AuthDataSourceImpl extends AuthDataSource {
       } else {
         return user_entity.User.empty;
       }
-
-
     });
   }
 
@@ -74,10 +71,9 @@ class AuthDataSourceImpl extends AuthDataSource {
       const Duration(milliseconds: 300),
       () async {
         try {
-
           // Once signed in, return the UserCredential
           await _firebaseAuth.signInAnonymously().then(
-                (value) {
+            (value) {
               _createUser(user: value.user!, rfidId: rfidId);
               _controller.add(AuthStatus.authenticated);
             },
@@ -93,15 +89,30 @@ class AuthDataSourceImpl extends AuthDataSource {
     );
   }
 
+  @override
+  Future<bool> checkUser({String? rfidId}) async {
+    var docExists = false;
+
+    final docs = await _firebaseFirestore
+        .collection('users')
+        .where(
+          'rfidId',
+          isEqualTo: rfidId,
+        )
+        .get();
+
+    print('--------> $docs');
+
+    return true;
+  }
+
   Future<void> _createUser({User? user, String? rfidId}) async {
     try {
-
       await _firebaseFirestore
           .collection('users')
           .doc(user!.uid)
           .get()
           .then((doc) async {
-
         if (doc.exists) {
           return;
         } else {
@@ -119,8 +130,8 @@ class AuthDataSourceImpl extends AuthDataSource {
           );
 
           await _firebaseFirestore.collection('users').doc(newUser.userId).set(
-            newUser.toDocument(),
-          );
+                newUser.toDocument(),
+              );
         }
       });
     } catch (e, st) {
