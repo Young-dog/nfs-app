@@ -17,7 +17,7 @@ class LocalLandDataSourceImpl extends LocalLandDataSource {
   @override
   Future<void> addLand(Land land) async {
     Box box = await _openBox();
-    await box.put(land.landId, LandModel.fromEntity(land));
+    await Hive.box('cachedData').put(land.landId, LandModel.fromEntity(land));
   }
 
   @override
