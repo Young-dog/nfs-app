@@ -34,11 +34,11 @@ class AppRouter {
 
 
   final GlobalKey<NavigatorState> _rootNavigatorKey =
-      GlobalKey<NavigatorState>();
+  GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> _signUpNavigatorKey =
   GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> _shellNavigatorKey =
-      GlobalKey<NavigatorState>();
+  GlobalKey<NavigatorState>();
 
   late final GoRouter router = GoRouter(
     initialLocation: '/login',
@@ -325,7 +325,7 @@ class GoRouterRefreshStream extends ChangeNotifier {
     notifyListeners();
     _subscription = stream.asBroadcastStream().listen(
           (dynamic _) => notifyListeners(),
-        );
+    );
   }
 
   late final StreamSubscription<dynamic> _subscription;

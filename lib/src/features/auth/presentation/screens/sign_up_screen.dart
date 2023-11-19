@@ -19,7 +19,7 @@ class SignUpScreen extends StatelessWidget {
     return BlocConsumer<LoginWithNfsCubit, LoginWithNfsState>(
       listener: (context, state) {
         if (state.status == LoginWithNfsStatus.success) {
-          context.goNamed('home');
+          context.goNamed('f_task');
         }
       },
       builder: (context, state) {

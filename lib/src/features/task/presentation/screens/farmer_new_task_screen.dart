@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../land/presentation/screens/check_box_field.dart';
+import '../blocs/task/task_bloc.dart' as  tb;
 
 class FarmerNewTaskScreen extends StatelessWidget {
   const FarmerNewTaskScreen({super.key});
@@ -278,10 +279,12 @@ class FarmerNewTaskScreen extends StatelessWidget {
                     isTimeTracking: state.time,
                     isPriorite: state.priority,
                   );
+                  context.read<tb.TaskBloc>().add(tb.LoadTask());
                   context.read<AddTaskCubit>().submit(
                         taskR: task,
                         user: user,
                       );
+                  context.pop();
                 }
               },
             ),
