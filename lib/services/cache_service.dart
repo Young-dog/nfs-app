@@ -23,10 +23,13 @@ class CacheService {
   final String _issuesBoxName = 'cached_issues';
   final String _vehiclesBoxName = 'cached_vehicles';
 
-  late Box _tasksBox;
-  late Box _landsBox;
-  late Box _issuesBox;
-  late Box _vehiclesBox;
+  final String _tasksName = 'tasks';
+  final String _landsName = 'lands';
+  final String _issuesName = 'issues';
+  final String _vehiclesName = 'vehicles';
+
+  late Box _tasksBox, _landsBox, _issuesBox, _vehiclesBox;
+  late Box _tasks, _lands, _issues, _vehicles;
 
   Future<void> init() async {
     await Hive.initFlutter();
@@ -34,6 +37,11 @@ class CacheService {
     _landsBox = await Hive.openBox(_landsBoxName);
     _issuesBox = await Hive.openBox(_issuesBoxName);
     _vehiclesBox = await Hive.openBox(_vehiclesBoxName);
+
+    _tasks = await Hive.openBox(_tasksName);
+    _lands = await Hive.openBox(_landsName);
+    _issues = await Hive.openBox(_issuesName);
+    _vehicles = await Hive.openBox(_vehiclesName);
 
     _connectivitySubscription = Connectivity()
         .onConnectivityChanged
