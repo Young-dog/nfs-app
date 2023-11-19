@@ -31,9 +31,9 @@ class AddLandCubit extends Cubit<AddLandState> {
     emit(state.copyWith(status: AddLandStatus.loading));
     try {
       var land = const Land(
-        landId: 'landId_4',
-        title: 'Land 4',
-        square: 100,
+        landId: 'landId_5',
+        title: 'Land 5',
+        square: 200,
         coordinates: [],
         createdBy: UserInfo(
           id: 'userId_1',

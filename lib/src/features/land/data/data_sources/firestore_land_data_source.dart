@@ -33,7 +33,6 @@ class FirestoreLandDataSourceImpl extends FirestoreLandDataSource {
 
   @override
   Future<void> addLand(Land land) async {
-    print(land);
     var ref = _firebaseFirestore.collection('lands');
     await ref.add(land.toDocument()).then((doc) {
       var docId = doc.id;
