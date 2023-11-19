@@ -5,6 +5,7 @@ import 'package:app/src/shared/domain/entities/user_info.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../../../shared/domain/entities/user.dart';
 import '../../../domain/use_cases/add_task.dart';
@@ -27,27 +28,27 @@ class AddTaskCubit extends Cubit<AddTaskState> {
     );
   }
 
-  void submit({User? user}) async {
+  void submit({required Task taskR, required User? user}) async {
     emit(state.copyWith(status: AddTaskStatus.loading));
     try {
 
       var now = DateTime.now();
 
+      final uid = Uuid().v1();
+
+
       var task = Task(
-        taskId: 'taskId_1',
-        title: 'Taaask',
-        description: 'Description',
-        landId: 'landId_1',
-        createdBy: UserInfo(
-          id: user!.userId,
-          name: '${user.lastName} + ${user.firstName}',
-        ),
+        taskId: uid,
+        title: taskR.title,
+        description: taskR.description,
+        landId: taskR.landId,
+        createdBy: UserInfo(id: '', name: ''),
         status: 'open',
-        assignedTo: null,
+        assignedTo: taskR.assignedTo,
         updatedAt: now,
         createdAt: now,
-        isPriorite: false,
-        isTimeTracking: true,
+        isPriorite: taskR.isPriorite,
+        isTimeTracking: taskR.isTimeTracking,
         assignedAt: now,
         closedAt: null,
       );
@@ -59,6 +60,7 @@ class AddTaskCubit extends Cubit<AddTaskState> {
       );
       emit(state.copyWith(status: AddTaskStatus.success));
       emit(state.copyWith(status: AddTaskStatus.initial));
+
     } catch (e, s) {
       debugPrintStack(
         label: '$e',
