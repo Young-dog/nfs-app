@@ -1,3 +1,6 @@
+import 'package:connectivity/connectivity.dart';
+import 'package:flutter/material.dart';
+
 import '../../../../shared/domain/entities/task.dart';
 import '../../domain/repositories/task_repository.dart';
 import '../data_sources/firestore_task_data_source.dart';
@@ -15,17 +18,15 @@ class TaskRepositoryImpl extends TaskRepository {
   @override
   Future<void> addTask(Task task) async {
 
-    // TODO: отправить запрос на проверку интернета
+    await localTaskDataSource.addTask(task).then((value) => debugPrint('---> '));
 
-    // TODO: кладем в local - await localTaskDataSource.addTask(task);
+    Connectivity().checkConnectivity().then((value) async {
+      if (value == ConnectivityResult.mobile ||
+          value == ConnectivityResult.wifi) {
+        await firestoreTaskDataSource.addTask(task);
+      }
+    });
 
-    // TODO: Если есть инет: то отправляем в firestore - await firestoreTaskDataSource.addTask(task);
-
-
-    // return appConfig.environment == 'local'
-    //     ? await localTaskDataSource.addTask(task)
-    //     : await firestoreTaskDataSource.addTask(task);
-    return await firestoreTaskDataSource.addTask(task);
   }
 
   @override
