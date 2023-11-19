@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import '../../../../shared/data/models/task_model.dart';
 import '../../../../shared/domain/entities/task.dart';
 
@@ -37,6 +38,6 @@ class FirestoreTaskDataSourceImpl extends FirestoreTaskDataSource {
         'id': docId,
       });
     });
+    debugPrint('Записан в firestore');
   }
-
 }

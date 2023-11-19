@@ -20,19 +20,8 @@ class LandRepositoryImpl extends LandRepository {
 
   @override
   Future<void> addLand(Land land) async {
-    print('start');
-
     await localLandDataSource.addLand(land).then((value) => debugPrint('---> '));
 
-    // TODO: отправить запрос на проверку интернета
-
-    // TODO: кладем в local - await localLandDataSource.addLand(land);
-
-    // TODO: Если есть инет: то отправляем в firestore - await firestoreLandDataSource.addLand(land);
-
-    await localLandDataSource.addLand(land).then((value) {
-      debugPrint('-----> Success');
-    });
     Connectivity().checkConnectivity().then((value) async {
       if (value == ConnectivityResult.mobile ||
           value == ConnectivityResult.wifi) {

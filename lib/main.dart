@@ -1,5 +1,7 @@
 import 'package:app/src/features/app/presentation/blocs/navigation/navigation_cubit.dart';
 import 'package:app/src/features/auth/domain/use_cases/login_with_nfs.dart';
+import 'package:app/src/features/task/domain/use_cases/add_task.dart';
+import 'package:app/src/features/task/presentation/blocs/add_task/add_task_cubit.dart';
 import 'package:app/src/shared/data/models/issue_model.dart';
 import 'package:app/src/shared/data/models/unit_model.dart';
 import 'package:app/src/shared/data/models/vehicle_model.dart';
@@ -49,6 +51,7 @@ void main() async {
   /// Кеш
   final cacheService = CacheService(
     firestoreLandDataSource: FirestoreLandDataSourceImpl(),
+    firestoreTaskDataSource: FirestoreTaskDataSourceImpl(),
   );
   await cacheService.init();
 
@@ -137,6 +140,13 @@ class MyApp extends StatelessWidget {
             create: (context) => AddLandCubit(
               addLand: AddLand(
                 context.read<LandRepositoryImpl>(),
+              ),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => AddTaskCubit(
+              addTask: AddTask(
+                context.read<TaskRepositoryImpl>(),
               ),
             ),
           ),

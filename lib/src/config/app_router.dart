@@ -112,10 +112,9 @@ class AppRouter {
                 path: "f_new_land",
                 name: "f_new_land",
                 pageBuilder: (BuildContext context, GoRouterState state) {
-                  return customTransitionPage<void>(
-                    context: context,
-                    state: state,
-                    child: const FarmerNewLandScreen(),
+                  return const MaterialPage(
+                    fullscreenDialog: true,
+                    child: FarmerNewLandScreen(),
                   );
                 },
               ),

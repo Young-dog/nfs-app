@@ -7,7 +7,6 @@ class Task extends Equatable {
   final String title;
   final String description;
   final String landId;
-  final DateTime date;
   final UserInfo createdBy;
   final UserInfo? assignedTo;
   final String status;
@@ -17,7 +16,6 @@ class Task extends Equatable {
   const Task({
     required this.taskId,
     required this.title,
-    required this.date,
     required this.description,
     required this.landId,
     required this.createdBy,
@@ -33,7 +31,6 @@ class Task extends Equatable {
       'title': title,
       'description': description,
       'landId': landId,
-      'date' : Timestamp.fromDate(date),
       'createdBy': {
         'id': createdBy.id,
         'name': createdBy.name,

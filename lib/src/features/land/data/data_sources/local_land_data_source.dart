@@ -11,27 +11,25 @@ abstract class LocalLandDataSource {
 }
 
 class LocalLandDataSourceImpl extends LocalLandDataSource {
-  Future<Box> _openBox() async {
-    return Hive.openBox<LandModel>('lands');
+  final _box = Hive.box('lands');
+
+  Future<Box> _getBox() async {
+    return _box;
   }
 
   @override
   Future<void> addLand(Land land) async {
-    Box box = await _openBox();
-    final id = DateTime.now();
     await Connectivity().checkConnectivity().then((value) async {
       if (value != ConnectivityResult.mobile &&
           value != ConnectivityResult.wifi) {
-        await Hive.box('cachedData')
-            .put('land.landId', LandModel.fromEntity(land));
+        await _box.put(land.landId, LandModel.fromEntity(land));
       }
     });
-    print(Hive.box('cachedData').length);
   }
 
   @override
   Future<List<Land>> getLands() async {
-    Box<LandModel> box = await _openBox() as Box<LandModel>;
+    Box<LandModel> box = await _getBox() as Box<LandModel>;
     return box.values.toList().map((item) => item.toEntity()).toList();
   }
 }

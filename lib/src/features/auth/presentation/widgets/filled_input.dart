@@ -23,6 +23,7 @@ class FilledInput extends StatelessWidget {
     this.suffix,
     this.onTap,
     this.textAlign = TextAlign.start,
+    this.readOnly = false,
     super.key,
   });
 
@@ -44,6 +45,7 @@ class FilledInput extends StatelessWidget {
   final Widget? suffixIcon;
   final Widget? suffix;
   final TextAlign textAlign;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +54,7 @@ class FilledInput extends StatelessWidget {
     final theme = Theme.of(context);
 
     return TextFormField(
+      readOnly: readOnly,
       textAlign: textAlign,
       textInputAction: TextInputAction.done,
       style: style,
