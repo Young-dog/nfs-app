@@ -36,7 +36,7 @@ class DropdownField<T> extends StatelessWidget {
               onChanged: onChanged,
               style: theme.textTheme.bodyMedium,
               decoration: InputDecoration(
-                fillColor: AppColors.primary,
+                fillColor: Colors.transparent,
                 labelText: labelText,
                 iconColor: MaterialStateColor.resolveWith(
                   (Set<MaterialState> states) {

@@ -43,7 +43,8 @@ dependencies:
   firebase_core:
   flutter_svg:
   firebase_auth:
-  uuid:
+  uuid: ^4.2.1
+  intl:
   firebase_storage:
   url_launcher:
   connectivity:

@@ -38,7 +38,7 @@ class SignUpScreen extends StatelessWidget {
                 FocusScope.of(context).unfocus();
               },
               child: Scaffold(
-                backgroundColor: AppColors.primary,
+                backgroundColor: AppColors.white,
                 appBar: AppBar(
                   elevation: 0,
                   title: Text(
