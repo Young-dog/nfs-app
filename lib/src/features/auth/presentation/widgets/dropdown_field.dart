@@ -36,7 +36,7 @@ class DropdownField<T> extends StatelessWidget {
               onChanged: onChanged,
               style: theme.textTheme.bodyMedium,
               decoration: InputDecoration(
-                fillColor: AppColors.bgPrimary,
+                fillColor: AppColors.primary,
                 labelText: labelText,
                 iconColor: MaterialStateColor.resolveWith(
                   (Set<MaterialState> states) {
@@ -44,7 +44,7 @@ class DropdownField<T> extends StatelessWidget {
                       return AppColors.grey;
                     }
 
-                    return AppColors.greyishBlue;
+                    return AppColors.grey;
                   },
                 ),
                 focusedBorder: OutlineInputBorder(

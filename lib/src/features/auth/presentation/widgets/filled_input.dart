@@ -72,14 +72,14 @@ class FilledInput extends StatelessWidget {
         hintText: hintText,
         suffixIcon: suffixIcon,
         suffix: suffix,
-        fillColor: AppColors.bgPrimary,
+        fillColor: AppColors.primary,
         iconColor: MaterialStateColor.resolveWith(
           (Set<MaterialState> states) {
             if (states.contains(MaterialState.focused)) {
               return AppColors.grey;
             }
 
-            return AppColors.greyishBlue;
+            return AppColors.grey;
           },
         ),
         focusedBorder: OutlineInputBorder(

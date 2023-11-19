@@ -29,26 +29,26 @@ class _FarmerScreenState extends State<FarmerScreen> {
       AppNavBarItem(
         initialLocation: '/f_task',
         label: 'Задачи',
-        icon: AppIcons.list(null, AppColors.blue),
-        activeIcon: AppIcons.list(null, AppColors.lightBlue),
+        icon: AppIcons.list(null, AppColors.grey),
+        activeIcon: AppIcons.list(null, AppColors.primary),
       ),
       AppNavBarItem(
         initialLocation: '/f_land',
         label: 'Поле',
-        icon: AppIcons.field(null, AppColors.blue),
-        activeIcon: AppIcons.field(null, AppColors.lightBlue),
+        icon: AppIcons.field(null, AppColors.grey),
+        activeIcon: AppIcons.field(null, AppColors.primary),
       ),
       AppNavBarItem(
         initialLocation: '/f_support',
         label: 'Поддержка',
-        icon: AppIcons.support(null, AppColors.blue),
-        activeIcon: AppIcons.support(null, AppColors.lightBlue),
+        icon: AppIcons.support(null, AppColors.grey),
+        activeIcon: AppIcons.support(null, AppColors.primary),
       ),
       AppNavBarItem(
         initialLocation: '/f_profile',
         label: 'Профиль',
-        icon: AppIcons.profile(null, AppColors.blue),
-        activeIcon: AppIcons.profile(null, AppColors.lightBlue),
+        icon: AppIcons.profile(null, AppColors.grey),
+        activeIcon: AppIcons.profile(null, AppColors.primary),
       ),
     ];
     super.initState();
@@ -63,8 +63,8 @@ class _FarmerScreenState extends State<FarmerScreen> {
         onTap: (int index) => _goOtherTab(context, index),
         currentIndex: switchCurrentIndex(widget.location),
         backgroundColor: AppColors.white,
-        selectedItemColor: AppColors.lightBlue,
-        unselectedItemColor: AppColors.blue,
+        selectedItemColor: AppColors.primary,
+        unselectedItemColor: AppColors.grey,
         items: tabs,
       ),
     );

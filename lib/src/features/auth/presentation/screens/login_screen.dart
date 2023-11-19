@@ -59,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Stack(
                     children: [
-                      AppIcons.bgNfcIcon(null, AppColors.green),
+                      AppIcons.bgNfcIcon(null, AppColors.primary),
                       Positioned(
                         left: 6,
                         child: AppIcons.nfsIcon(

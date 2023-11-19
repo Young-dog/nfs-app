@@ -29,14 +29,14 @@ class _ControllerScreenState extends State<ControllerScreen> {
       AppNavBarItem(
         initialLocation: '/c_support',
         label: 'Поддержка',
-        icon: AppIcons.support(null, AppColors.blue),
-        activeIcon: AppIcons.support(null, AppColors.lightBlue),
+        icon: AppIcons.support(null, AppColors.grey),
+        activeIcon: AppIcons.support(null, AppColors.primary),
       ),
       AppNavBarItem(
         initialLocation: '/c_profile',
         label: 'Профиль',
-        icon: AppIcons.profile(null, AppColors.blue),
-        activeIcon: AppIcons.profile(null, AppColors.lightBlue),
+        icon: AppIcons.profile(null, AppColors.grey),
+        activeIcon: AppIcons.profile(null, AppColors.primary),
       ),
     ];
     super.initState();
@@ -51,8 +51,8 @@ class _ControllerScreenState extends State<ControllerScreen> {
         onTap: (int index) => _goOtherTab(context, index),
         currentIndex: switchCurrentIndex(widget.location),
         backgroundColor: AppColors.white,
-        selectedItemColor: AppColors.lightBlue,
-        unselectedItemColor: AppColors.blue,
+        // selectedItemColor: AppColors.primary,
+        // unselectedItemColor: AppColors.grey,
         items: tabs,
       ),
     );
