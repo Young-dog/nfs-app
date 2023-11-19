@@ -38,7 +38,7 @@ class SignUpScreen extends StatelessWidget {
                 FocusScope.of(context).unfocus();
               },
               child: Scaffold(
-                backgroundColor: AppColors.bgPrimary,
+                backgroundColor: AppColors.primary,
                 appBar: AppBar(
                   elevation: 0,
                   title: Text(
@@ -66,7 +66,7 @@ class SignUpScreen extends StatelessWidget {
                           Text(
                             'Пожалуйста представьтесь',
                             style: theme.textTheme.titleMedium!.copyWith(
-                              color: AppColors.greenSecondary,
+                              color: AppColors.secondary,
                               fontWeight: FontWeight.w700,
                               fontSize: 17,
                             ),
@@ -135,7 +135,7 @@ class SignUpScreen extends StatelessWidget {
                                 Text(
                                   'Добавьте транспорт',
                                   style: theme.textTheme.titleMedium!.copyWith(
-                                    color: AppColors.greenSecondary,
+                                    color: AppColors.primary,
                                     fontWeight: FontWeight.w700,
                                     fontSize: 17,
                                   ),
@@ -163,7 +163,7 @@ class SignUpScreen extends StatelessWidget {
                               ],
                             ),
                           Padding(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                               horizontal: 56,
                             ),
                             child: ElevatedButton(
@@ -174,7 +174,7 @@ class SignUpScreen extends StatelessWidget {
                                   ),
                                 ),
                                 backgroundColor:
-                                    MaterialStateProperty.all(AppColors.green),
+                                    MaterialStateProperty.all(AppColors.primary),
                                 padding: MaterialStateProperty.all(
                                   const EdgeInsets.symmetric(
                                     vertical: 16,

@@ -5,8 +5,8 @@ import '../../../../config/app_colors.dart';
 import '../../../../config/app_icons.dart';
 
 
-class ManagerScreen extends StatefulWidget {
-  const ManagerScreen({
+class ControllerScreen extends StatefulWidget {
+  const ControllerScreen({
     Key? key,
     required this.child,
     required this.location,
@@ -16,10 +16,10 @@ class ManagerScreen extends StatefulWidget {
   final String location;
 
   @override
-  State<ManagerScreen> createState() => _ManagerScreenState();
+  State<ControllerScreen> createState() => _ControllerScreenState();
 }
 
-class _ManagerScreenState extends State<ManagerScreen> {
+class _ControllerScreenState extends State<ControllerScreen> {
   int _currentIndex = 0;
   late List<AppNavBarItem> tabs;
 
@@ -27,28 +27,16 @@ class _ManagerScreenState extends State<ManagerScreen> {
   void initState() {
     tabs = [
       AppNavBarItem(
-        initialLocation: '/m_tasks',
-        label: 'Задачи',
-        icon: AppIcons.inbox(null, AppColors.blue),
-        activeIcon: AppIcons.inbox(null, AppColors.lightBlue),
+        initialLocation: '/c_support',
+        label: 'Поддержка',
+        icon: AppIcons.support(null, AppColors.grey),
+        activeIcon: AppIcons.support(null, AppColors.primary),
       ),
       AppNavBarItem(
-        initialLocation: '/m_tasks',
-        label: 'Задачи',
-        icon: AppIcons.inbox(null, AppColors.blue),
-        activeIcon: AppIcons.inbox(null, AppColors.lightBlue),
-      ),
-      AppNavBarItem(
-        initialLocation: '/issues',
-        label: 'Проблемы',
-        icon: AppIcons.inbox(null, AppColors.blue),
-        activeIcon: AppIcons.inbox(null, AppColors.lightBlue),
-      ),
-      AppNavBarItem(
-        initialLocation: '/profile',
+        initialLocation: '/c_profile',
         label: 'Профиль',
-        icon: AppIcons.person(null, AppColors.blue),
-        activeIcon: AppIcons.person(null, AppColors.lightBlue),
+        icon: AppIcons.profile(null, AppColors.grey),
+        activeIcon: AppIcons.profile(null, AppColors.primary),
       ),
     ];
     super.initState();
@@ -63,8 +51,8 @@ class _ManagerScreenState extends State<ManagerScreen> {
         onTap: (int index) => _goOtherTab(context, index),
         currentIndex: switchCurrentIndex(widget.location),
         backgroundColor: AppColors.white,
-        selectedItemColor: AppColors.lightBlue,
-        unselectedItemColor: AppColors.blue,
+        // selectedItemColor: AppColors.primary,
+        // unselectedItemColor: AppColors.grey,
         items: tabs,
       ),
     );
@@ -84,14 +72,10 @@ class _ManagerScreenState extends State<ManagerScreen> {
 
   switchCurrentIndex(String location) {
     switch (location) {
-      case '/':
+      case '/c_support':
         return 0;
-      case '/tasks':
+      case '/c_profile':
         return 1;
-      case '/issues':
-        return 2;
-      case '/profile':
-        return 3;
       default:
         return 0;
     }

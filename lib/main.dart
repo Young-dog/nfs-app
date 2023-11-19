@@ -151,8 +151,8 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               visualDensity: VisualDensity.adaptivePlatformDensity,
               useMaterial3: true,
-              primaryColor: AppColors.lightBlue,
-              scaffoldBackgroundColor: AppColors.background,
+              primaryColor: AppColors.primary,
+              scaffoldBackgroundColor: AppColors.white,
               canvasColor: AppColors.white,
               shadowColor: AppColors.grey,
               iconTheme: IconThemeData(
@@ -164,7 +164,7 @@ class MyApp extends StatelessWidget {
                 centerTitle: false,
                 backgroundColor: AppColors.white,
                 titleTextStyle: AppTextStyles.headline1Style.copyWith(
-                  color: AppColors.blue,
+                  color: AppColors.black,
                 ),
               ),
             ),

@@ -2,42 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class AppIcons {
-  static Widget person([double? sized, Color? color]) =>
-      _AppIconWidget('assets/icons/person.svg', color, sized);
-  static Widget search([double? sized, Color? color]) =>
-      _AppIconWidget('assets/icons/search.svg', color, sized);
-  static Widget phone([double? sized, Color? color]) =>
-      _AppIconWidget('assets/icons/phone.svg', color, sized);
-  static Widget more([double? sized, Color? color]) =>
-      _AppIconWidget('assets/icons/more.svg', color, sized);
+  static Widget close([double? sized, Color? color]) =>
+      _AppIconWidget('assets/icons/close.svg', color, sized);
+  static Widget down([double? sized, Color? color]) =>
+      _AppIconWidget('assets/icons/down.svg', color, sized);
+  static Widget field([double? sized, Color? color]) =>
+      _AppIconWidget('assets/icons/field.svg', color, sized);
+  static Widget filter([double? sized, Color? color]) =>
+      _AppIconWidget('assets/icons/filter.svg', color, sized);
   static Widget list([double? sized, Color? color]) =>
       _AppIconWidget('assets/icons/list.svg', color, sized);
-  static Widget language([double? sized, Color? color]) =>
-      _AppIconWidget('assets/icons/language.svg', color, sized);
-  static Widget inbox([double? sized, Color? color]) =>
-      _AppIconWidget('assets/icons/inbox.svg', color, sized);
-  static Widget howTo([double? sized, Color? color]) =>
-      _AppIconWidget('assets/icons/how_to.svg', color, sized);
-  static Widget home([double? sized, Color? color]) =>
-      _AppIconWidget('assets/icons/home.svg', color, sized);
-  static Widget exit([double? sized, Color? color]) =>
-      _AppIconWidget('assets/icons/exit.svg', color, sized);
-  static Widget edit([double? sized, Color? color]) =>
-      _AppIconWidget('assets/icons/edit.svg', color, sized);
-  static Widget directions([double? sized, Color? color]) =>
-      _AppIconWidget('assets/icons/directions.svg', color, sized);
-  static Widget back([double? sized, Color? color]) =>
-      _AppIconWidget('assets/icons/back.svg', color, sized);
-  static Widget add([double? sized, Color? color]) =>
-      _AppIconWidget('assets/icons/add.svg', color, sized);
-  static Widget add2([double? sized, Color? color]) =>
-      _AppIconWidget('assets/icons/add_2.svg', color, sized);
+  static Widget notification([double? sized, Color? color]) =>
+      _AppIconWidget('assets/icons/notification.svg', color, sized);
+  static Widget plus([double? sized, Color? color]) =>
+      _AppIconWidget('assets/icons/plus.svg', color, sized);
+  static Widget profile([double? sized, Color? color]) =>
+      _AppIconWidget('assets/icons/profile.svg', color, sized);
+  static Widget support([double? sized, Color? color]) =>
+      _AppIconWidget('assets/icons/support.svg', color, sized);
+  static Widget tractor([double? sized, Color? color]) =>
+      _AppIconWidget('assets/icons/tractor.svg', color, sized);
+  static Widget wallet([double? sized, Color? color]) =>
+      _AppIconWidget('assets/icons/wallet.svg', color, sized);
   static Widget profilePic([double? sized, Color? color]) =>
       _AppIconWidget('assets/icons/profile_pic.svg', color, sized);
   static Widget nfsIcon([double? sized, Color? color]) =>
       _AppIconWidget('assets/icons/nfc_icon.svg', color, sized);
   static Widget bgNfcIcon([double? sized, Color? color]) =>
       _AppIconWidget('assets/icons/bg_nfs_icon.svg', color, sized);
+  static Widget exit([double? sized, Color? color]) =>
+      _AppIconWidget('assets/icons/exit.svg', color, sized);
+  static Widget edit([double? sized, Color? color]) =>
+      _AppIconWidget('assets/icons/edit.svg', color, sized);
 }
 
 class _AppIconWidget extends StatelessWidget {

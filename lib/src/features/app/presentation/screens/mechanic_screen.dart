@@ -29,32 +29,32 @@ class _MechanicScreenState extends State<MechanicScreen> {
       AppNavBarItem(
         initialLocation: '/m_task',
         label: 'Задачи',
-        icon: AppIcons.inbox(null, AppColors.blue),
-        activeIcon: AppIcons.inbox(null, AppColors.lightBlue),
+        icon: AppIcons.list(null, AppColors.grey),
+        activeIcon: AppIcons.list(null, AppColors.primary),
       ),
       AppNavBarItem(
         initialLocation: '/m_vehicle',
         label: 'Техника',
-        icon: AppIcons.inbox(null, AppColors.blue),
-        activeIcon: AppIcons.home(null, AppColors.lightBlue),
+        icon: AppIcons.tractor(null, AppColors.grey),
+        activeIcon: AppIcons.tractor(null, AppColors.primary),
       ),
       AppNavBarItem(
         initialLocation: '/m_revenue',
         label: 'Доход',
-        icon: AppIcons.inbox(null, AppColors.blue),
-        activeIcon: AppIcons.home(null, AppColors.lightBlue),
+        icon: AppIcons.wallet(null, AppColors.grey),
+        activeIcon: AppIcons.wallet(null, AppColors.primary),
       ),
       AppNavBarItem(
         initialLocation: '/m_support',
         label: 'Поддержка',
-        icon: AppIcons.inbox(null, AppColors.blue),
-        activeIcon: AppIcons.inbox(null, AppColors.lightBlue),
+        icon: AppIcons.support(null, AppColors.grey),
+        activeIcon: AppIcons.support(null, AppColors.primary),
       ),
       AppNavBarItem(
         initialLocation: '/m_profile',
         label: 'Профиль',
-        icon: AppIcons.person(null, AppColors.blue),
-        activeIcon: AppIcons.person(null, AppColors.lightBlue),
+        icon: AppIcons.profile(null, AppColors.grey),
+        activeIcon: AppIcons.profile(null, AppColors.primary),
       ),
     ];
     super.initState();
@@ -69,8 +69,8 @@ class _MechanicScreenState extends State<MechanicScreen> {
         onTap: (int index) => _goOtherTab(context, index),
         currentIndex: switchCurrentIndex(widget.location),
         backgroundColor: AppColors.white,
-        selectedItemColor: AppColors.lightBlue,
-        unselectedItemColor: AppColors.blue,
+        selectedItemColor: AppColors.primary,
+        unselectedItemColor: AppColors.grey,
         items: tabs,
       ),
     );

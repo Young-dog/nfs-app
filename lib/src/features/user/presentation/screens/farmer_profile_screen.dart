@@ -34,28 +34,13 @@ class FarmerProfileScreen extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   children: [
                     _DocCardWidget(
-                      icon: AppIcons.howTo(24, AppColors.blue),
-                      title: 'Паспорт РФ',
-                      value: '87 35 ---22',
-                    ),
-                    _DocCardWidget(
-                      icon: AppIcons.list(24, AppColors.blue),
+                      icon: AppIcons.list(24, AppColors.black),
                       title: 'ИНН',
                       value: null,
                     ),
                     _DocCardWidget(
-                      icon: AppIcons.list(24, AppColors.blue),
+                      icon: AppIcons.list(24, AppColors.black),
                       title: 'СНИЛС',
-                      value: null,
-                    ),
-                    _DocCardWidget(
-                      icon: AppIcons.directions(24, AppColors.blue),
-                      title: 'Водительское удостоверение',
-                      value: null,
-                    ),
-                    _DocCardWidget(
-                      icon: AppIcons.language(24, AppColors.blue),
-                      title: 'Загранпаспорт',
                       value: null,
                     ),
                   ],
@@ -105,7 +90,7 @@ class SectionTitleWidget extends StatelessWidget {
       child: Text(
         title,
         style: AppTextStyles.headline1Style.copyWith(
-          color: AppColors.greyishBlue,
+          color: AppColors.grey,
         ),
       ),
     );
@@ -126,13 +111,13 @@ class _TileWidget extends StatelessWidget {
         Text(
           title,
           style: AppTextStyles.textSmallStyle.copyWith(
-            color: AppColors.blue,
+            color: AppColors.black,
           ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0),
           child: Divider(
-            color: AppColors.greyishBlue,
+            color: AppColors.grey,
             thickness: 1,
           ),
         ),
@@ -160,10 +145,10 @@ class _ContactTileWidget extends StatelessWidget {
               Text(
                 title,
                 style: AppTextStyles.textSmallStyle.copyWith(
-                  color: AppColors.blue,
+                  color: AppColors.black,
                 ),
               ),
-              AppIcons.add(16, AppColors.blue)
+              AppIcons.plus(16, AppColors.black)
             ],
           ),
         ),
@@ -175,7 +160,7 @@ class _ContactTileWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0),
           child: Divider(
-            color: AppColors.greyishBlue,
+            color: AppColors.grey,
             thickness: 1,
           ),
         ),
@@ -221,7 +206,7 @@ class _DocCardWidget extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: AppTextStyles.textSmallStyle.copyWith(
-                color: AppColors.blue,
+                color: AppColors.black,
               ),
             ),
           ),
@@ -230,7 +215,7 @@ class _DocCardWidget extends StatelessWidget {
             child: Text(
               value ?? '',
               style: AppTextStyles.footnoteStyle.copyWith(
-                color: AppColors.greyishBlue,
+                color: AppColors.grey,
               ),
             ),
           ),
@@ -238,7 +223,7 @@ class _DocCardWidget extends StatelessWidget {
           if (value == null)
             Align(
               alignment: Alignment.bottomRight,
-              child: AppIcons.add2(24, AppColors.blue),
+              child: AppIcons.plus(24, AppColors.black),
             ),
         ],
       ),
@@ -281,12 +266,12 @@ class _LogoutButtonWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              AppIcons.exit(24, AppColors.lightBlue),
+              AppIcons.exit(24, AppColors.secondary),
               const SizedBox(width: 8),
               Text(
                 'Выйти из приложения',
                 style: AppTextStyles.textStyle.copyWith(
-                  color: AppColors.lightBlue,
+                  color: AppColors.secondary,
                 ),
               ),
             ],
@@ -331,14 +316,14 @@ class _ProfileInfoWidget extends StatelessWidget {
                     Align(
                       alignment: Alignment.topRight,
                       child: SizedBox(
-                        child: AppIcons.edit(24, AppColors.blue),
+                        child: AppIcons.edit(24, AppColors.black),
                       ),
                     ),
                     const SizedBox(height: 22),
                     Text(
                       'Александр\nСергеевич Яровцев',
                       style: AppTextStyles.headline2Style.copyWith(
-                        color: AppColors.darkBlue,
+                        color: AppColors.primary,
                       ),
                     )
                   ],
