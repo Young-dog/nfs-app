@@ -1,9 +1,12 @@
 import 'package:app/src/config/app_colors.dart';
+import 'package:app/src/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:app/src/features/auth/presentation/widgets/dropdown_field.dart';
 import 'package:app/src/features/auth/presentation/widgets/filled_input.dart';
 import 'package:app/src/features/task/presentation/blocs/add_task/add_task_cubit.dart';
-import 'package:app/src/features/task/presentation/blocs/add_task_bloc.dart';
+import 'package:app/src/features/task/presentation/blocs/task_bloc.dart';
 import 'package:app/src/features/task/presentation/widgets/date_time_field.dart';
+import 'package:app/src/shared/domain/entities/task.dart';
+import 'package:app/src/shared/domain/entities/user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -18,7 +21,7 @@ class FarmerNewTaskScreen extends StatelessWidget {
     final theme = Theme.of(context);
 
     return BlocProvider(
-      create: (context) => AddTaskBloc(),
+      create: (context) => TaskBloc(),
       child: GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();
@@ -49,7 +52,7 @@ class FarmerNewTaskScreen extends StatelessWidget {
           ),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
-            child: BlocConsumer<AddTaskBloc, AddTaskState>(
+            child: BlocConsumer<TaskBloc, TaskState>(
               builder: (context, state) {
                 return ListView(
                   children: [
@@ -57,10 +60,10 @@ class FarmerNewTaskScreen extends StatelessWidget {
                       height: 24,
                     ),
                     FilledInput(
-                      labelText: 'Название здачи',
+                      labelText: 'Название задачи',
                       initialValue: state.title.value,
                       onChanged: (value) {
-                        context.read<AddTaskBloc>().add(
+                        context.read<TaskBloc>().add(
                               ChangeTitleTaskEvent(
                                 title: value,
                               ),
@@ -78,7 +81,7 @@ class FarmerNewTaskScreen extends StatelessWidget {
                           initialValue: state.date.value,
                           labelText: 'Дата',
                           onChanged: (DateTime value) {
-                            context.read<AddTaskBloc>().add(
+                            context.read<TaskBloc>().add(
                                   ChangeDateTaskEvent(
                                     date: value,
                                   ),
@@ -91,7 +94,7 @@ class FarmerNewTaskScreen extends StatelessWidget {
                         Expanded(
                             child: DropdownField(
                           onChanged: (value) {
-                            context.read<AddTaskBloc>().add(
+                            context.read<TaskBloc>().add(
                                   ChangeLandTaskEvent(
                                     land: value,
                                   ),
@@ -105,7 +108,7 @@ class FarmerNewTaskScreen extends StatelessWidget {
                     ),
                     DropdownField(
                       onChanged: (value) {
-                        context.read<AddTaskBloc>().add(
+                        context.read<TaskBloc>().add(
                               ChangeAssignedTaskEvent(
                                 assigned: value,
                               ),
@@ -117,7 +120,7 @@ class FarmerNewTaskScreen extends StatelessWidget {
                     ),
                     DropdownField(
                       onChanged: (value) {
-                        context.read<AddTaskBloc>().add(
+                        context.read<TaskBloc>().add(
                               ChangeVehicleTaskEvent(
                                 vehicle: value,
                               ),
@@ -129,7 +132,7 @@ class FarmerNewTaskScreen extends StatelessWidget {
                     ),
                     DropdownField(
                       onChanged: (value) {
-                        context.read<AddTaskBloc>().add(
+                        context.read<TaskBloc>().add(
                               ChangeUnitTaskEvent(
                                 unit: value,
                               ),
@@ -180,7 +183,7 @@ class FarmerNewTaskScreen extends StatelessWidget {
                       labelText: 'Описание задачи',
                       suffixIcon: Icon(Icons.keyboard_voice_outlined),
                       onChanged: (value) {
-                        context.read<AddTaskBloc>().add(
+                        context.read<TaskBloc>().add(
                               ChangeDescriptionTaskEvent(
                                 description: value,
                               ),
@@ -193,7 +196,7 @@ class FarmerNewTaskScreen extends StatelessWidget {
                     CheckboxField(
                       value: state.time,
                       onChanged: ({value}) {
-                        context.read<AddTaskBloc>().add(
+                        context.read<TaskBloc>().add(
                               ChangeTimeTaskEvent(
                                 value: value ?? false,
                               ),
@@ -207,7 +210,7 @@ class FarmerNewTaskScreen extends StatelessWidget {
                     CheckboxField(
                       value: state.priority,
                       onChanged: ({value}) {
-                        context.read<AddTaskBloc>().add(
+                        context.read<TaskBloc>().add(
                               ChangePriorityTaskEvent(
                                 value: value ?? false,
                               ),
@@ -235,7 +238,7 @@ class FarmerNewTaskScreen extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          context.read<AddTaskBloc>().add(
+                          context.read<TaskBloc>().add(
                                 SubmitTaskEvent(),
                               );
                         },
@@ -254,13 +257,32 @@ class FarmerNewTaskScreen extends StatelessWidget {
                   ],
                 );
               },
-              listener: (BuildContext context, AddTaskState state) {
+              listener: (BuildContext context, TaskState state) {
                 if (state.statusTask.isFailure) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text('Не все обязательные поля заполнены')));
                 }
+
+                final user = context.read<AuthBloc>().state.loggedInUser;
                 if (state.statusTask.isSubmitted) {
-                  context.read<AddTaskCubit>().
+                  final task = Task(
+                    taskId: '',
+                    title: state.title.value,
+                    description: state.description.value,
+                    landId: state.landId.value,
+                    createdBy: UserInfo(
+                      id: user.userId,
+                      name: '${user.lastName} ${user.firstName}',
+                    ),
+                    status: state.status,
+                    isTimeTracking: state.time,
+                    isPriorite: state.priority,
+                  );
+                  context.read<AddTaskCubit>().submit(
+                        taskR: task,
+                        user: user,
+                      );
+                }
               },
             ),
           ),

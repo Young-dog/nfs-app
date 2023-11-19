@@ -1,13 +1,13 @@
-part of 'add_task_bloc.dart';
+part of 'task_bloc.dart';
 
-abstract class AddTaskEvent extends Equatable {
-  const AddTaskEvent();
+abstract class TaskEvent extends Equatable {
+  const TaskEvent();
 
   @override
   List<Object?> get props => [];
 }
 
-class ChangeTitleTaskEvent extends AddTaskEvent {
+class ChangeTitleTaskEvent extends TaskEvent {
   const ChangeTitleTaskEvent({
     required this.title,
   });
@@ -20,7 +20,7 @@ class ChangeTitleTaskEvent extends AddTaskEvent {
       ];
 }
 
-class ChangeDescriptionTaskEvent extends AddTaskEvent {
+class ChangeDescriptionTaskEvent extends TaskEvent {
   const ChangeDescriptionTaskEvent({
     required this.description,
   });
@@ -33,7 +33,7 @@ class ChangeDescriptionTaskEvent extends AddTaskEvent {
       ];
 }
 
-class ChangeLandTaskEvent extends AddTaskEvent {
+class ChangeLandTaskEvent extends TaskEvent {
   const ChangeLandTaskEvent({
     required this.land,
   });
@@ -46,7 +46,7 @@ class ChangeLandTaskEvent extends AddTaskEvent {
       ];
 }
 
-class ChangeAssignedTaskEvent extends AddTaskEvent {
+class ChangeAssignedTaskEvent extends TaskEvent {
   const ChangeAssignedTaskEvent({
     required this.assigned,
   });
@@ -59,7 +59,7 @@ class ChangeAssignedTaskEvent extends AddTaskEvent {
       ];
 }
 
-class ChangeVehicleTaskEvent extends AddTaskEvent {
+class ChangeVehicleTaskEvent extends TaskEvent {
   const ChangeVehicleTaskEvent({
     required this.vehicle,
   });
@@ -72,7 +72,7 @@ class ChangeVehicleTaskEvent extends AddTaskEvent {
       ];
 }
 
-class ChangeUnitTaskEvent extends AddTaskEvent {
+class ChangeUnitTaskEvent extends TaskEvent {
   const ChangeUnitTaskEvent({
     required this.unit,
   });
@@ -85,7 +85,7 @@ class ChangeUnitTaskEvent extends AddTaskEvent {
       ];
 }
 
-class ChangeDateTaskEvent extends AddTaskEvent {
+class ChangeDateTaskEvent extends TaskEvent {
   const ChangeDateTaskEvent({
     required this.date,
   });
@@ -98,7 +98,7 @@ class ChangeDateTaskEvent extends AddTaskEvent {
       ];
 }
 
-class ChangeTimeTaskEvent extends AddTaskEvent {
+class ChangeTimeTaskEvent extends TaskEvent {
   const ChangeTimeTaskEvent({
     required this.value,
   });
@@ -111,7 +111,7 @@ class ChangeTimeTaskEvent extends AddTaskEvent {
   ];
 }
 
-class ChangePriorityTaskEvent extends AddTaskEvent {
+class ChangePriorityTaskEvent extends TaskEvent {
   const ChangePriorityTaskEvent({
     required this.value,
   });
@@ -124,6 +124,6 @@ class ChangePriorityTaskEvent extends AddTaskEvent {
   ];
 }
 
-class SubmitTaskEvent extends AddTaskEvent {
+class SubmitTaskEvent extends TaskEvent {
   const SubmitTaskEvent();
 }

@@ -32,12 +32,12 @@ class FirestoreTaskDataSourceImpl extends FirestoreTaskDataSource {
   @override
   Future<void> addTask(Task task) async {
     var ref = _firebaseFirestore.collection('tasks');
+
     await ref.add(task.toDocument()).then((doc) {
       var docId = doc.id;
       ref.doc(docId).update({
         'id': docId,
       });
     });
-    debugPrint('Записан в firestore');
   }
 }

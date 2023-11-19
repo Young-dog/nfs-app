@@ -51,7 +51,7 @@ class AppRouter {
           return customTransitionPage<void>(
             context: context,
             state: state,
-            child: const FarmerNewTaskScreen(),
+            child: const LoginScreen(),
           );
         },
       ),
@@ -67,7 +67,6 @@ class AppRouter {
         },
       ),
       ShellRoute(
-
         navigatorKey: _shellNavigatorKey,
         builder: (context, state, child) {
           var userRole = authBloc.state.loggedInUser.role.toLowerCase();
@@ -112,9 +111,10 @@ class AppRouter {
                 path: "f_new_land",
                 name: "f_new_land",
                 pageBuilder: (BuildContext context, GoRouterState state) {
-                  return const MaterialPage(
-                    fullscreenDialog: true,
-                    child: FarmerNewLandScreen(),
+                  return customTransitionPage<void>(
+                    context: context,
+                    state: state,
+                    child: const FarmerNewLandScreen(),
                   );
                 },
               ),

@@ -1,6 +1,6 @@
-part of 'add_task_bloc.dart';
+part of 'task_bloc.dart';
 
-enum AddTaskStatus {
+enum TaskStatus {
   initial,
   submitted,
   failure;
@@ -12,8 +12,8 @@ enum AddTaskStatus {
   bool get isFailure => this == failure;
 }
 
-class AddTaskState extends Equatable with FormzMixin{
-  const AddTaskState({
+class TaskState extends Equatable with FormzMixin{
+  const TaskState({
     required this.statusTask,
     required this.title,
     required this.description,
@@ -27,11 +27,11 @@ class AddTaskState extends Equatable with FormzMixin{
     required this.priority,
   });
 
-  AddTaskState.initial({
+  TaskState.initial({
     this.assignedTo,
     this.vehicle,
     this.unit,
-  })  : statusTask = AddTaskStatus.initial,
+  })  : statusTask = TaskStatus.initial,
         title = const TextInput.pure(isRequired: true),
         description = const TextInput.pure(isRequired: true),
         landId = TextInput.pure(isRequired: true),
@@ -40,7 +40,7 @@ class AddTaskState extends Equatable with FormzMixin{
         time = false,
         priority = false;
 
-  final AddTaskStatus statusTask;
+  final TaskStatus statusTask;
   final TextInput title;
   final TextInput description;
   final TextInput landId;
@@ -52,8 +52,8 @@ class AddTaskState extends Equatable with FormzMixin{
   final bool time;
   final bool priority;
 
-  AddTaskState copyWith({
-    AddTaskStatus? statusTask,
+  TaskState copyWith({
+    TaskStatus? statusTask,
     TextInput? title,
     TextInput? description,
     TextInput? landId,
@@ -65,7 +65,7 @@ class AddTaskState extends Equatable with FormzMixin{
     bool? time,
     bool? priority,
   }) {
-    return AddTaskState(
+    return TaskState(
       statusTask: statusTask ?? this.statusTask,
       title: title ?? this.title,
       description: description ?? this.description,

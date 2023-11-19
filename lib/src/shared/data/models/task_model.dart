@@ -32,6 +32,16 @@ class TaskModel {
   @HiveField(8)
   final DateTime? updatedAt;
 
+  @HiveField(9)
+  final DateTime? assignedAt;
+  @HiveField(10)
+  final bool isTimeTracking;
+  @HiveField(11)
+  final bool isPriorite;
+
+  @HiveField(12)
+  final DateTime? closedAt;
+
 
   TaskModel({
     required this.taskId,
@@ -43,6 +53,10 @@ class TaskModel {
     required this.status,
     this.createdAt,
     this.updatedAt,
+    this.assignedAt,
+    required this.isTimeTracking,
+    required this.isPriorite,
+    this.closedAt,
   });
 
   factory TaskModel.fromJson(Map<String, dynamic> json) {
@@ -56,6 +70,10 @@ class TaskModel {
       status: json['status'],
       createdAt: json['createdAt'].toDate(),
       updatedAt: json['updatedAt'].toDate(),
+      assignedAt: json['assignedAt'].toDate(),
+      isTimeTracking: json['isTimeTracking'],
+      isPriorite: json['isPriorite'],
+      closedAt: json['closedAt'].toDate(),
     );
   }
 
@@ -82,6 +100,14 @@ class TaskModel {
       updatedAt: snap.data().toString().contains('updatedAt')
           ? snap['updatedAt'].toDate()
           : null,
+      assignedAt: snap.data().toString().contains('assignedAt')
+          ? snap['assignedAt'].toDate()
+          : null,
+      closedAt: snap.data().toString().contains('closedAt')
+          ? snap['closedAt'].toDate()
+          : null,
+      isTimeTracking: snap['isTimeTracking'],
+      isPriorite: snap['isPriorite'],
     );
   }
 
@@ -96,6 +122,10 @@ class TaskModel {
       status: task.status,
       createdAt: task.createdAt,
       updatedAt: task.updatedAt,
+      isPriorite: task.isPriorite,
+      isTimeTracking: task.isTimeTracking,
+      assignedAt: task.assignedAt,
+      closedAt: task.closedAt,
     );
   }
 
@@ -110,6 +140,10 @@ class TaskModel {
       status: status,
       createdAt: createdAt,
       updatedAt: updatedAt,
+      isTimeTracking: isTimeTracking,
+      isPriorite: isPriorite,
+      assignedAt: assignedAt,
+      closedAt: closedAt,
     );
   }
 }

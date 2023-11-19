@@ -11,12 +11,12 @@ import '../../../../shared/domain/entities/unit.dart';
 import '../../../../shared/domain/entities/vehicle.dart';
 import '../../../../shared/widgets/date_time_input.dart';
 
-part 'add_task_event.dart';
+part 'task_event.dart';
 
-part 'add_task_state.dart';
+part 'task_state.dart';
 
-class AddTaskBloc extends Bloc<AddTaskEvent, AddTaskState> {
-  AddTaskBloc() : super(AddTaskState.initial()) {
+class TaskBloc extends Bloc<TaskEvent, TaskState> {
+  TaskBloc() : super(TaskState.initial()) {
     on<ChangeTitleTaskEvent>(_onChangeTitle);
     on<ChangeDescriptionTaskEvent>(_onChangeDescription);
     on<ChangeLandTaskEvent>(_onChangeLand);
@@ -31,7 +31,7 @@ class AddTaskBloc extends Bloc<AddTaskEvent, AddTaskState> {
 
   void _onChangeTitle(
     ChangeTitleTaskEvent event,
-    Emitter<AddTaskState> emit,
+    Emitter<TaskState> emit,
   ) {
     emit(state.copyWith(
       title: TextInput.dirty(
@@ -43,7 +43,7 @@ class AddTaskBloc extends Bloc<AddTaskEvent, AddTaskState> {
 
   void _onChangeDescription(
     ChangeDescriptionTaskEvent event,
-    Emitter<AddTaskState> emit,
+    Emitter<TaskState> emit,
   ) {
     emit(state.copyWith(
       description: TextInput.dirty(
@@ -55,7 +55,7 @@ class AddTaskBloc extends Bloc<AddTaskEvent, AddTaskState> {
 
   void _onChangeLand(
     ChangeLandTaskEvent event,
-    Emitter<AddTaskState> emit,
+    Emitter<TaskState> emit,
   ) {
     emit(state.copyWith(
       landId: TextInput.dirty(
@@ -67,7 +67,7 @@ class AddTaskBloc extends Bloc<AddTaskEvent, AddTaskState> {
 
   void _onChangeAssigned(
     ChangeAssignedTaskEvent event,
-    Emitter<AddTaskState> emit,
+    Emitter<TaskState> emit,
   ) {
     emit(state.copyWith(
       assignedTo: event.assigned,
@@ -76,7 +76,7 @@ class AddTaskBloc extends Bloc<AddTaskEvent, AddTaskState> {
 
   void _onChangeVehicle(
     ChangeVehicleTaskEvent event,
-    Emitter<AddTaskState> emit,
+    Emitter<TaskState> emit,
   ) {
     emit(state.copyWith(
       vehicle: event.vehicle,
@@ -85,7 +85,7 @@ class AddTaskBloc extends Bloc<AddTaskEvent, AddTaskState> {
 
   void _onChangeUnit(
     ChangeUnitTaskEvent event,
-    Emitter<AddTaskState> emit,
+    Emitter<TaskState> emit,
   ) {
     emit(state.copyWith(
       unit: event.unit,
@@ -94,7 +94,7 @@ class AddTaskBloc extends Bloc<AddTaskEvent, AddTaskState> {
 
   void _onChangeDate(
     ChangeDateTaskEvent event,
-    Emitter<AddTaskState> emit,
+    Emitter<TaskState> emit,
   ) {
     emit(state.copyWith(
       date: DateTimeInput.dirty(
@@ -106,7 +106,7 @@ class AddTaskBloc extends Bloc<AddTaskEvent, AddTaskState> {
 
   void _onChangeTime(
     ChangeTimeTaskEvent event,
-    Emitter<AddTaskState> emit,
+    Emitter<TaskState> emit,
   ) {
     emit(state.copyWith(
       time: event.value,
@@ -115,7 +115,7 @@ class AddTaskBloc extends Bloc<AddTaskEvent, AddTaskState> {
 
   void _onChangePriority(
     ChangePriorityTaskEvent event,
-    Emitter<AddTaskState> emit,
+    Emitter<TaskState> emit,
   ) {
     emit(state.copyWith(
       priority: event.value,
@@ -124,21 +124,21 @@ class AddTaskBloc extends Bloc<AddTaskEvent, AddTaskState> {
 
   void _onSubmitted(
     SubmitTaskEvent event,
-    Emitter<AddTaskState> emit,
+    Emitter<TaskState> emit,
   ) {
     emit(state.copyWith(
-      statusTask: AddTaskStatus.initial,
+      statusTask: TaskStatus.initial,
     ));
 
     if (state.isNotValid) {
       emit(state.copyWith(
-        statusTask: AddTaskStatus.failure,
+        statusTask: TaskStatus.failure,
       ));
       return;
     }
 
     emit(state.copyWith(
-      statusTask: AddTaskStatus.submitted,
+      statusTask: TaskStatus.submitted,
     ));
   }
 }
