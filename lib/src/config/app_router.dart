@@ -15,6 +15,7 @@ import '../features/auth/presentation/screens/login_screen.dart';
 import '../features/issue/presentation/screens/controller_support_screen.dart';
 import '../features/issue/presentation/screens/farmer_support_screen.dart';
 import '../features/issue/presentation/screens/mechanic_support_screen.dart';
+import '../features/land/presentation/screens/farmer_new_land_screen.dart';
 import '../features/revenue/presentation/screens/mechanic_revenue_screen.dart';
 import '../features/task/presentation/screens/farmer_tasks_screen.dart';
 import '../features/task/presentation/screens/mechanic_task_screen.dart';
@@ -109,10 +110,9 @@ class AppRouter {
                 path: "f_new_land",
                 name: "f_new_land",
                 pageBuilder: (BuildContext context, GoRouterState state) {
-                  return customTransitionPage<void>(
-                    context: context,
-                    state: state,
-                    child: const FarmerNewLandScreen(),
+                  return const MaterialPage(
+                    fullscreenDialog: true,
+                    child: FarmerNewLandScreen(),
                   );
                 },
               ),

@@ -13,10 +13,15 @@ class FarmerLandScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: FloatingActionButton.small(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(45),
+          ),
+        ),
         backgroundColor: AppColors.secondary,
         onPressed: () => context.goNamed('f_new_land'),
         child: AppIcons.plus(null, AppColors.white),
@@ -54,11 +59,9 @@ class _AddButton extends StatelessWidget {
         }
         return CustomButton(
           text: 'Добавить',
-          onPressed: () =>
-              context.read<AddLandCubit>().submit(),
+          onPressed: () => context.read<AddLandCubit>().submit(),
         );
       },
     );
   }
 }
-
