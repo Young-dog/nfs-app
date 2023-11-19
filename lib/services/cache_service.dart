@@ -18,10 +18,10 @@ class CacheService {
   }) : _firestoreLandDataSource = firestoreLandDataSource,
         _firestoreTaskDataSource = firestoreTaskDataSource;
 
-  final String _tasksBoxName = 'tasks';
-  final String _landsBoxName = 'lands';
-  final String _issuesBoxName = 'issues';
-  final String _vehiclesBoxName = 'vehicles';
+  final String _tasksBoxName = 'cached_tasks';
+  final String _landsBoxName = 'cached_lands';
+  final String _issuesBoxName = 'cached_issues';
+  final String _vehiclesBoxName = 'cached_vehicles';
 
   late Box _tasksBox;
   late Box _landsBox;
