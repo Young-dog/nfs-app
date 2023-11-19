@@ -26,6 +26,7 @@ class IssueModelAdapter extends TypeAdapter<IssueModel> {
       createdBy: fields[4] as UserInfoModel,
       assignedTo: fields[5] as UserInfoModel?,
       closedAt: fields[6] as DateTime?,
+      
     );
   }
 

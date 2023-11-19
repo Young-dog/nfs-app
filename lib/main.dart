@@ -1,10 +1,8 @@
 import 'package:app/src/features/app/presentation/blocs/navigation/navigation_cubit.dart';
 import 'package:app/src/features/auth/domain/use_cases/login_with_nfs.dart';
 import 'package:app/src/shared/data/models/issue_model.dart';
-import 'package:app/src/shared/data/models/point_adapter.dart';
 import 'package:app/src/shared/data/models/unit_model.dart';
 import 'package:app/src/shared/data/models/vehicle_model.dart';
-import 'package:app/src/features/land/domain/repositories/land_repository.dart';
 import 'package:app/src/features/land/presentation/blocs/add_land/add_land_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

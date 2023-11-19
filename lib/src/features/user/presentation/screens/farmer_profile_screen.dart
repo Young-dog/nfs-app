@@ -7,8 +7,8 @@ import '../../../../config/app_text_styles.dart';
 import '../../../../shared/widgets/custom_indicator.dart';
 import '../../../auth/presentation/blocs/logout/logout_cubit.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+class FarmerProfileScreen extends StatelessWidget {
+  const FarmerProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
