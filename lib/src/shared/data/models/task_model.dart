@@ -78,6 +78,10 @@ class TaskModel {
   }
 
   factory TaskModel.fromSnapshot(DocumentSnapshot snap) {
+
+
+
+
     return TaskModel(
       taskId: snap.data().toString().contains('taskId') ? snap.get('taskId') : '',
       title: snap.data().toString().contains('title')
@@ -89,9 +93,9 @@ class TaskModel {
       landId: snap.data().toString().contains('landId')
           ? snap['landId']
           : 'No landId',
-      createdBy: UserInfoModel.fromSnapshot(snap['createdBy']),
+      createdBy: UserInfoModel.fromJson(snap['createdBy']),
       assignedTo: snap.data().toString().contains('assignedTo')
-          ? UserInfoModel.fromSnapshot(snap['assignedTo'])
+          ? snap['assignedTo'] != null ? UserInfoModel.fromJson(snap['assignedTo']) : null
           : null,
       status: snap.data().toString().contains('status') ? snap['status'] : 'No status',
       createdAt: snap.data().toString().contains('createdAt')
