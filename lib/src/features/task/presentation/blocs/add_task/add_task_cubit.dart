@@ -46,6 +46,10 @@ class AddTaskCubit extends Cubit<AddTaskState> {
         assignedTo: null,
         updatedAt: now,
         createdAt: now,
+        isPriorite: false,
+        isTimeTracking: true,
+        assignedAt: now,
+        closedAt: null,
       );
 
       await _addTask(
