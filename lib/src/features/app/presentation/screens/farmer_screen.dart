@@ -29,26 +29,26 @@ class _FarmerScreenState extends State<FarmerScreen> {
       AppNavBarItem(
         initialLocation: '/f_task',
         label: 'Задачи',
-        icon: AppIcons.inbox(null, AppColors.blue),
-        activeIcon: AppIcons.inbox(null, AppColors.lightBlue),
+        icon: AppIcons.list(null, AppColors.blue),
+        activeIcon: AppIcons.list(null, AppColors.lightBlue),
       ),
       AppNavBarItem(
         initialLocation: '/f_land',
-        label: 'Техника',
-        icon: AppIcons.inbox(null, AppColors.blue),
-        activeIcon: AppIcons.inbox(null, AppColors.lightBlue),
+        label: 'Поле',
+        icon: AppIcons.field(null, AppColors.blue),
+        activeIcon: AppIcons.field(null, AppColors.lightBlue),
       ),
       AppNavBarItem(
         initialLocation: '/f_support',
         label: 'Поддержка',
-        icon: AppIcons.inbox(null, AppColors.blue),
-        activeIcon: AppIcons.inbox(null, AppColors.lightBlue),
+        icon: AppIcons.support(null, AppColors.blue),
+        activeIcon: AppIcons.support(null, AppColors.lightBlue),
       ),
       AppNavBarItem(
         initialLocation: '/f_profile',
         label: 'Профиль',
-        icon: AppIcons.person(null, AppColors.blue),
-        activeIcon: AppIcons.person(null, AppColors.lightBlue),
+        icon: AppIcons.profile(null, AppColors.blue),
+        activeIcon: AppIcons.profile(null, AppColors.lightBlue),
       ),
     ];
     super.initState();

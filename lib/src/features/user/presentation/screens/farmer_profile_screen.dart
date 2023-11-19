@@ -34,11 +34,6 @@ class FarmerProfileScreen extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   children: [
                     _DocCardWidget(
-                      icon: AppIcons.howTo(24, AppColors.blue),
-                      title: 'Паспорт РФ',
-                      value: '87 35 ---22',
-                    ),
-                    _DocCardWidget(
                       icon: AppIcons.list(24, AppColors.blue),
                       title: 'ИНН',
                       value: null,
@@ -46,16 +41,6 @@ class FarmerProfileScreen extends StatelessWidget {
                     _DocCardWidget(
                       icon: AppIcons.list(24, AppColors.blue),
                       title: 'СНИЛС',
-                      value: null,
-                    ),
-                    _DocCardWidget(
-                      icon: AppIcons.directions(24, AppColors.blue),
-                      title: 'Водительское удостоверение',
-                      value: null,
-                    ),
-                    _DocCardWidget(
-                      icon: AppIcons.language(24, AppColors.blue),
-                      title: 'Загранпаспорт',
                       value: null,
                     ),
                   ],
@@ -163,7 +148,7 @@ class _ContactTileWidget extends StatelessWidget {
                   color: AppColors.blue,
                 ),
               ),
-              AppIcons.add(16, AppColors.blue)
+              AppIcons.plus(16, AppColors.blue)
             ],
           ),
         ),
@@ -238,7 +223,7 @@ class _DocCardWidget extends StatelessWidget {
           if (value == null)
             Align(
               alignment: Alignment.bottomRight,
-              child: AppIcons.add2(24, AppColors.blue),
+              child: AppIcons.plus(24, AppColors.blue),
             ),
         ],
       ),
