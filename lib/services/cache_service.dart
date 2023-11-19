@@ -5,15 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../src/features/land/data/data_sources/firestore_land_data_source.dart';
-import '../src/shared/data/models/land_model.dart';
+import '../src/features/task/data/data_sources/firestore_task_data_source.dart';
 
 class CacheService {
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
   final FirestoreLandDataSourceImpl _firestoreLandDataSource;
+  final FirestoreTaskDataSource _firestoreTaskDataSource;
 
   CacheService({
     required FirestoreLandDataSourceImpl firestoreLandDataSource,
-  }) : _firestoreLandDataSource = firestoreLandDataSource;
+    required FirestoreTaskDataSource firestoreTaskDataSource,
+  }) : _firestoreLandDataSource = firestoreLandDataSource,
+        _firestoreTaskDataSource = firestoreTaskDataSource;
 
   final String _tasksBoxName = 'tasks';
   final String _landsBoxName = 'lands';
@@ -38,7 +41,7 @@ class CacheService {
       if (result == ConnectivityResult.mobile ||
           result == ConnectivityResult.wifi) {
 
-        debugPrint('--> Got Internet');
+        debugPrint('--> Got Internet !!!');
 
         await _sendCachedData();
       }
@@ -47,8 +50,12 @@ class CacheService {
 
 
   Future<void> _sendCachedData() async {
+
     final List<dynamic> cachedLands =
         List<dynamic>.from(_landsBox.values.toList());
+
+    final List<dynamic> cachedTasks =
+        List<dynamic>.from(_tasksBox.values.toList());
 
     if (cachedLands.isNotEmpty) {
       for (var land in cachedLands) {
@@ -64,10 +71,27 @@ class CacheService {
       // Once the data is sent successfully, you can clear the cache
       await _landsBox.clear();
     }
+
+    if (cachedTasks.isNotEmpty) {
+      for (var task in cachedTasks) {
+        try {
+          await _firestoreTaskDataSource.addTask(task.toEntity());
+        } catch (e, s) {
+          debugPrintStack(
+            label: '$e',
+            stackTrace: s,
+          );
+        }
+      }
+      // Once the data is sent successfully, you can clear the cache
+      await _landsBox.clear();
+      await _tasksBox.clear();
+    }
   }
 
   Future<void> dispose() async {
     await _connectivitySubscription.cancel();
     await _landsBox.close();
+    await _tasksBox.close();
   }
 }
