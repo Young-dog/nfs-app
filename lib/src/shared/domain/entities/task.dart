@@ -12,6 +12,10 @@ class Task extends Equatable {
   final String status;
   final DateTime? createdAt;
   final DateTime? updatedAt;
+  final DateTime? assignedAt;
+  final bool isTimeTracking;
+  final bool isPriorite;
+  final DateTime? closedAt;
 
   const Task({
     required this.taskId,
@@ -23,6 +27,10 @@ class Task extends Equatable {
     required this.status,
     this.createdAt,
     this.updatedAt,
+    this.assignedAt,
+    required this.isTimeTracking,
+    required this.isPriorite,
+    this.closedAt,
   });
 
   Map<String, dynamic> toDocument() {
@@ -35,13 +43,19 @@ class Task extends Equatable {
         'id': createdBy.id,
         'name': createdBy.name,
       },
-      'assignedTo': assignedTo != null ? {
-        'id': assignedTo?.id,
-        'name': assignedTo?.name,
-      } : null,
+      'assignedTo': assignedTo != null
+          ? {
+              'id': assignedTo?.id,
+              'name': assignedTo?.name,
+            }
+          : null,
       'status': status,
       'createdAt': Timestamp.fromDate(createdAt ?? DateTime.now()),
       'updatedAt': Timestamp.fromDate(updatedAt ?? DateTime.now()),
+      'assignedAt': Timestamp.fromDate(assignedAt ?? DateTime.now()),
+      'isTimeTracking': isTimeTracking,
+      'isPriorite': isPriorite,
+      'closedAt': Timestamp.fromDate(closedAt ?? DateTime.now()),
     };
   }
 
@@ -52,9 +66,13 @@ class Task extends Equatable {
         description,
         landId,
         createdBy,
-      assignedTo,
+        assignedTo,
         status,
         createdAt,
         updatedAt,
+        assignedAt,
+        isTimeTracking,
+        isPriorite,
+        closedAt,
       ];
 }
