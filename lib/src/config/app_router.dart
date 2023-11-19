@@ -68,7 +68,6 @@ class AppRouter {
         navigatorKey: _shellNavigatorKey,
         builder: (context, state, child) {
           var userRole = context.read<AuthBloc>().state.loggedInUser.role.toLowerCase();
-
           switch(userRole) {
             case 'агроном':
               return FarmerScreen(
