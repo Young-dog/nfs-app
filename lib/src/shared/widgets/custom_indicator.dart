@@ -6,14 +6,16 @@ class CustomIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
-      height: 25,
-      width: 25,
-      child: Center(
-        child: CircularProgressIndicator(
-          strokeWidth: 1,
-        ),
-      )
+    return const Center(
+      child: SizedBox(
+        height: 25,
+        width: 25,
+        child: Center(
+          child: CircularProgressIndicator(
+            strokeWidth: 1,
+          ),
+        )
+      ),
     );
   }
 }
