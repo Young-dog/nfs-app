@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart' as fire_base_auth;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:app/src/shared/domain/entities/user.dart' as user_entity;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../shared/data/models/user_model.dart';
 
@@ -44,15 +45,19 @@ class AuthDataSourceImpl extends AuthDataSource {
 
   @override
   Future<user_entity.User> get user {
-    return Future.delayed(const Duration(milliseconds: 300), () {
-      if (_firebaseAuth.currentUser != null) {
-        return _firebaseFirestore
+    return Future.delayed(const Duration(milliseconds: 300), () async {
+      var rfid = await getRfid();
+
+      if (rfid != '') {
+        var loggedInUser = _firebaseFirestore
             .collection('users')
-            .doc(_firebaseAuth.currentUser!.uid)
+            .doc(rfid)
             .get()
             .then((snapshot) {
           return UserModel.fromSnapshot(snapshot).toEntity();
         });
+
+        return loggedInUser;
       } else {
         return user_entity.User.empty;
       }
@@ -127,8 +132,10 @@ class AuthDataSourceImpl extends AuthDataSource {
         } else {
           var now = DateTime.now();
 
+          await saveRfid(rfidId!);
+
           final newUser = user_entity.User(
-            userId: rfidId!,
+            userId: rfidId,
             lastName: 'No lastName',
             firstName: user.displayName ?? 'No name',
             middleName: 'No middleName',
@@ -172,6 +179,18 @@ class AuthDataSourceImpl extends AuthDataSource {
       );
       throw Exception(e.toString());
     }
+  }
+
+  Future<String> getRfid() async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    final cachedRfid = sharedPreferences.getString("RFID");
+    debugPrint('cachedRfid= $cachedRfid');
+    return cachedRfid ?? '';
+  }
+
+  Future<void> saveRfid(String rfid) async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString("RFID", rfid);
   }
 }
 

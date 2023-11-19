@@ -3,15 +3,24 @@ import 'dart:async';
 import 'package:app/src/features/auth/presentation/screens/sign_up_screen.dart';
 import 'package:app/src/features/land/presentation/screens/land_list_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../features/app/presentation/screens/app_core_screen.dart';
+import '../features/app/presentation/screens/farmer_screen.dart';
+import '../features/app/presentation/screens/manager_screen.dart';
+import '../features/app/presentation/screens/mechanic_screen.dart';
 import '../features/auth/data/data_sources/auth_data_source.dart';
 import '../features/auth/presentation/blocs/auth/auth_bloc.dart';
 import '../features/auth/presentation/screens/login_screen.dart';
-import '../features/issue/presentation/screens/issue_list_screen.dart';
-import '../features/task/presentation/screens/task_list_screen.dart';
-import '../features/user/presentation/screens/profile_screen.dart';
+import '../features/issue/presentation/screens/farmer_support_screen.dart';
+import '../features/issue/presentation/screens/mechanic_support_screen.dart';
+import '../features/revenue/presentation/screens/mechanic_revenue_screen.dart';
+import '../features/task/presentation/screens/farmer_tasks_screen.dart';
+import '../features/task/presentation/screens/mechanic_task_screen.dart';
+import '../features/user/presentation/screens/farmer_profile_screen.dart';
+import '../features/user/presentation/screens/mechanic_profile_screen.dart';
+import '../features/vehicle/presentation/screens/farmer_vehciles_screen.dart';
+import '../features/vehicle/presentation/screens/mechanic_vehicle_screen.dart';
 
 
 class AppRouter {
@@ -56,10 +65,31 @@ class AppRouter {
       ShellRoute(
         navigatorKey: _shellNavigatorKey,
         builder: (context, state, child) {
-          return AppCoreScreen(
-            location: state.matchedLocation,
-            child: child,
-          );
+          var userRole = context.read<AuthBloc>().state.loggedInUser.role.toLowerCase();
+
+          switch(userRole) {
+            case 'агроном':
+              return FarmerScreen(
+                location: state.matchedLocation,
+                child: child,
+              );
+            case 'механизатор':
+              return MechanicScreen(
+                location: state.matchedLocation,
+                child: child,
+              );
+            case 'диспетчер':
+              return ManagerScreen(
+                location: state.matchedLocation,
+                child: child,
+              );
+            default:
+              return const Scaffold(
+                body: Center(
+                  child: Text('Вы не выбрали роль!'),
+                ),
+              );
+          }
         },
         routes: [
           GoRoute(
@@ -74,35 +104,101 @@ class AppRouter {
               },
           ),
           GoRoute(
-            path: "/tasks",
-            name: "tasks",
+            path: "/m_task",
+            name: "m_task",
             pageBuilder: (BuildContext context, GoRouterState state) {
               return customTransitionPage<void>(
                 context: context,
                 state: state,
-                child: const TaskListScreen(),
+                child: const MechanicTaskScreen(),
               );
             },
           ),
           GoRoute(
-            path: "/issues",
-            name: "issues",
+            path: "/f_tasks",
+            name: "f_tasks",
             pageBuilder: (BuildContext context, GoRouterState state) {
               return customTransitionPage<void>(
                 context: context,
                 state: state,
-                child: const IssueListScreen(),
+                child: const FarmerTasksScreen(),
               );
             },
           ),
           GoRoute(
-            path: "/profile",
-            name: "profile",
+            path: "/f_vehicles",
+            name: "f_vehicles",
             pageBuilder: (BuildContext context, GoRouterState state) {
               return customTransitionPage<void>(
                 context: context,
                 state: state,
-                child: const ProfileScreen(),
+                child: const FarmerVehiclesScreen(),
+              );
+            },
+          ),
+          GoRoute(
+            path: "/m_vehicle",
+            name: "m_vehicle",
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return customTransitionPage<void>(
+                context: context,
+                state: state,
+                child: const MechanicVehicleScreen(),
+              );
+            },
+          ),
+          GoRoute(
+            path: "/m_revenue",
+            name: "m_revenue",
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return customTransitionPage<void>(
+                context: context,
+                state: state,
+                child: const MechanicRevenueScreen(),
+              );
+            },
+          ),
+          GoRoute(
+            path: "/f_support",
+            name: "f_support",
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return customTransitionPage<void>(
+                context: context,
+                state: state,
+                child: const FarmerSupportScreen(),
+              );
+            },
+          ),
+          GoRoute(
+            path: "/m_support",
+            name: "m_support",
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return customTransitionPage<void>(
+                context: context,
+                state: state,
+                child: const MechanicSupportScreen(),
+              );
+            },
+          ),
+          GoRoute(
+            path: "/m_profile",
+            name: "m_profile",
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return customTransitionPage<void>(
+                context: context,
+                state: state,
+                child: const MechanicProfileScreen(),
+              );
+            },
+          ),
+          GoRoute(
+            path: "/f_profile",
+            name: "f_profile",
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return customTransitionPage<void>(
+                context: context,
+                state: state,
+                child: const FarmerProfileScreen(),
               );
             },
           ),
