@@ -145,6 +145,8 @@ class AuthDataSourceImpl extends AuthDataSource {
             rfidId: rfidId,
           );
 
+
+
           await _firebaseFirestore.collection('users').doc(newUser.userId).set(
                 newUser.toDocument(),
               );

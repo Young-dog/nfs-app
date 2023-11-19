@@ -67,7 +67,7 @@ class AppRouter {
       ShellRoute(
         navigatorKey: _shellNavigatorKey,
         builder: (context, state, child) {
-          var userRole = context.read<AuthBloc>().state.loggedInUser.role.toLowerCase();
+          var userRole = authBloc.state.loggedInUser.role.toLowerCase();
 
           switch(userRole) {
             case 'агроном':
@@ -104,6 +104,19 @@ class AppRouter {
                 child: const FarmerLandScreen(),
               );
             },
+            routes: [
+              GoRoute(
+                path: "f_new_land",
+                name: "f_new_land",
+                pageBuilder: (BuildContext context, GoRouterState state) {
+                  return customTransitionPage<void>(
+                    context: context,
+                    state: state,
+                    child: const FarmerNewLandScreen(),
+                  );
+                },
+              ),
+            ],
           ),
           GoRoute(
             path: "/m_task",
