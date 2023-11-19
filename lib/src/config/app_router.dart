@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:app/src/features/auth/presentation/screens/sign_up_screen.dart';
-import 'package:app/src/features/land/presentation/screens/land_list_screen.dart';
+import 'package:app/src/features/land/presentation/screens/farmer_land_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -95,15 +95,15 @@ class AppRouter {
         },
         routes: [
           GoRoute(
-              path: "/",
-              name: "home",
-              pageBuilder: (BuildContext context, GoRouterState state) {
-                return customTransitionPage<void>(
-                  context: context,
-                  state: state,
-                  child: const LandListScreen(),
-                );
-              },
+            path: "/f_land",
+            name: "f_land",
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return customTransitionPage<void>(
+                context: context,
+                state: state,
+                child: const FarmerLandScreen(),
+              );
+            },
           ),
           GoRoute(
             path: "/m_task",
@@ -117,8 +117,8 @@ class AppRouter {
             },
           ),
           GoRoute(
-            path: "/f_tasks",
-            name: "f_tasks",
+            path: "/f_task",
+            name: "f_task",
             pageBuilder: (BuildContext context, GoRouterState state) {
               return customTransitionPage<void>(
                 context: context,
@@ -128,8 +128,8 @@ class AppRouter {
             },
           ),
           GoRoute(
-            path: "/f_vehicles",
-            name: "f_vehicles",
+            path: "/f_vehicle",
+            name: "f_vehicle",
             pageBuilder: (BuildContext context, GoRouterState state) {
               return customTransitionPage<void>(
                 context: context,
@@ -249,7 +249,17 @@ class AppRouter {
       }
 
       if (isLoggedIn && onLoginScreen) {
-        return '/';
+        var role = authBloc.state.loggedInUser.role.toLowerCase();
+        switch(role) {
+          case 'агроном':
+            return '/f_task';
+          case 'механизатор':
+            return '/m_task';
+          case 'диспетчер':
+            return '/c_support';
+          default:
+            return '/';
+        }
       }
 
 

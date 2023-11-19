@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../shared/widgets/custom_indicator.dart';
 import '../../../../shared/widgets/custom_widget.dart';
 
-class LandListScreen extends StatelessWidget {
-  const LandListScreen({Key? key}) : super(key: key);
+class FarmerLandScreen extends StatelessWidget {
+  const FarmerLandScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
