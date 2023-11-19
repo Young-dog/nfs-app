@@ -1,7 +1,6 @@
+import 'package:app/src/shared/data/models/user_info_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
-
-import '../../domain/entities/assigned_user.dart';
 
 part 'issue_model.g.dart';
 
@@ -28,9 +27,9 @@ class IssueModel {
   @HiveField(3)
   final String description;
   @HiveField(4)
-  final AssignedUser createdBy;
+  final UserInfoModel createdBy;
   @HiveField(5)
-  final AssignedUser? assignedTo;
+  final UserInfoModel? assignedTo;
   @HiveField(6)
   final DateTime? closedAt;
   @HiveField(7)

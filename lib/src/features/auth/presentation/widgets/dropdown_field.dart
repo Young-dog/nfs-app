@@ -27,6 +27,8 @@ class DropdownField<T> extends StatelessWidget {
         Stack(
           children: [
             DropdownButtonFormField<T>(
+              elevation: 8,
+              borderRadius: BorderRadius.circular(32),
               menuMaxHeight: mq.size.height / 2,
               isExpanded: true,
               iconSize: 0,
@@ -34,6 +36,7 @@ class DropdownField<T> extends StatelessWidget {
               onChanged: onChanged,
               style: theme.textTheme.bodyMedium,
               decoration: InputDecoration(
+                fillColor: AppColors.bgPrimary,
                 labelText: labelText,
                 iconColor: MaterialStateColor.resolveWith(
                   (Set<MaterialState> states) {
@@ -44,9 +47,17 @@ class DropdownField<T> extends StatelessWidget {
                     return AppColors.greyishBlue;
                   },
                 ),
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(8),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: AppColors.grey,
+                  ),
+                  borderRadius: BorderRadius.circular(32),
+                ),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: AppColors.grey,
+                  ),
+                  borderRadius: BorderRadius.circular(32),
                 ),
                 filled: true,
                 labelStyle: theme.textTheme.bodyLarge,

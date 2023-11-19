@@ -34,6 +34,10 @@ class AppIcons {
       _AppIconWidget('assets/icons/add_2.svg', color, sized);
   static Widget profilePic([double? sized, Color? color]) =>
       _AppIconWidget('assets/icons/profile_pic.svg', color, sized);
+  static Widget nfsIcon([double? sized, Color? color]) =>
+      _AppIconWidget('assets/icons/nfc_icon.svg', color, sized);
+  static Widget bgNfcIcon([double? sized, Color? color]) =>
+      _AppIconWidget('assets/icons/bg_nfs_icon.svg', color, sized);
 }
 
 class _AppIconWidget extends StatelessWidget {

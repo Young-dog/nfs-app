@@ -92,7 +92,6 @@ class LoginWithNfsCubit extends Cubit<LoginWithNfsState> {
       await NfcManager.instance.startSession(onDiscovered: (NfcTag tag) async {
         var nfca = tag.data['nfca'];
 
-
         if (nfca == null) {
           emit(
             state.copyWith(

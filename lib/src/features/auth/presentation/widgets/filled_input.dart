@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 
 import '../../../../config/app_colors.dart';
 
-
 class FilledInput extends StatelessWidget {
   const FilledInput({
     this.labelText,
@@ -73,8 +72,9 @@ class FilledInput extends StatelessWidget {
         hintText: hintText,
         suffixIcon: suffixIcon,
         suffix: suffix,
+        fillColor: AppColors.bgPrimary,
         iconColor: MaterialStateColor.resolveWith(
-              (Set<MaterialState> states) {
+          (Set<MaterialState> states) {
             if (states.contains(MaterialState.focused)) {
               return AppColors.grey;
             }
@@ -82,16 +82,30 @@ class FilledInput extends StatelessWidget {
             return AppColors.greyishBlue;
           },
         ),
-        border: UnderlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(8),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: AppColors.grey,
+          ),
+          borderRadius: BorderRadius.circular(32),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: AppColors.grey,
+          ),
+          borderRadius: BorderRadius.circular(32),
+        ),
+        border: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: AppColors.grey,
+          ),
+          borderRadius: BorderRadius.circular(32),
         ),
         filled: true,
         labelStyle: theme.textTheme.bodyLarge,
         floatingLabelStyle: theme.textTheme.bodyLarge,
         contentPadding: const EdgeInsets.symmetric(
-          vertical: 12,
-          horizontal: 12,
+          vertical: 10,
+          horizontal: 20,
         ),
       ),
     );
