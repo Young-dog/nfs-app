@@ -1,8 +1,8 @@
+import 'package:app/src/shared/data/models/user_info_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
 import '../../domain/entities/issue.dart';
 import 'user_info_model.dart';
-
 part 'issue_model.g.dart';
 
 @HiveType(typeId: 11)

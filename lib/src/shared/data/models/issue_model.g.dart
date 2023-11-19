@@ -21,11 +21,12 @@ class IssueModelAdapter extends TypeAdapter<IssueModel> {
       state: fields[1] as String,
       title: fields[2] as String,
       description: fields[3] as String,
-      createdAt: fields[7] as DateTime?,
-      updatedAt: fields[8] as DateTime?,
-      closedAt: fields[6] as DateTime?,
+      createdAt: fields[7] as DateTime,
+      updatedAt: fields[8] as DateTime,
       createdBy: fields[4] as UserInfoModel,
       assignedTo: fields[5] as UserInfoModel?,
+      closedAt: fields[6] as DateTime?,
+      
     );
   }
 
