@@ -1,24 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../../domain/entities/unit.dart';
+
 part 'unit_model.g.dart';
 
 @HiveType(typeId: 9)
-class UnitModel {
-  const UnitModel({
-    required this.name,
-    required this.depth,
-    required this.consumptionSolution,
-  });
 
+class UnitModel {
   @HiveField(0)
   final String name;
-
   @HiveField(1)
   final String? depth;
-
   @HiveField(2)
   final String? consumptionSolution;
+
+  const UnitModel({
+    required this.name,
+    this.depth,
+    this.consumptionSolution,
+  });
 
   factory UnitModel.fromJson(Map<String, dynamic> json) {
     return UnitModel(
@@ -41,7 +42,7 @@ class UnitModel {
     );
   }
 
-  factory UnitModel.fromEntity(UnitModel unit) {
+  factory UnitModel.fromEntity(Unit unit) {
     return UnitModel(
       name: unit.name,
       depth: unit.depth,
@@ -49,8 +50,8 @@ class UnitModel {
     );
   }
 
-  UnitModel toEntity() {
-    return UnitModel(
+  Unit toEntity() {
+    return Unit(
       name: name,
       depth: depth,
       consumptionSolution: consumptionSolution,

@@ -1,4 +1,4 @@
-import 'package:app/src/shared/domain/entities/assigned_user.dart';
+import 'package:app/src/shared/domain/entities/user_info.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
@@ -8,10 +8,11 @@ class Issue extends Equatable {
     required this.state,
     required this.title,
     required this.description,
-    required this.createdBy,
-    required this.createdAt,
-    required this.updatedAt,
+
+    this.createdAt,
+    this.updatedAt,
     this.closedAt,
+    required this.createdBy,
     this.assignedTo,
   });
 
@@ -19,11 +20,11 @@ class Issue extends Equatable {
   final String state;
   final String title;
   final String description;
-  final AssignedUser createdBy;
-  final AssignedUser? assignedTo;
+  final UserInfo createdBy;
+  final UserInfo? assignedTo;
   final DateTime? closedAt;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
 
   Map<String, dynamic> toDocument() {
     return {
@@ -31,11 +32,17 @@ class Issue extends Equatable {
       'state': state,
       'title': title,
       'description': description,
-      'createdBy': createdBy,
-      'assignedTo': assignedTo,
+      'createdBy': {
+        'id': createdBy.id,
+        'name': createdBy.name,
+      },
+      'assignedTo': assignedTo != null ? {
+        'id': assignedTo!.id,
+        'name': assignedTo!.name,
+      } : null,
       'closedAt': closedAt != null ? Timestamp.fromDate(closedAt!) : null,
-      'createdAt': Timestamp.fromDate(createdAt),
-      'updatedAt': Timestamp.fromDate(updatedAt),
+      'createdAt':  createdAt != null ? Timestamp.fromDate(createdAt!) : null,
+      'updatedAt':  updatedAt != null ? Timestamp.fromDate(updatedAt!) : null,
     };
   }
 
