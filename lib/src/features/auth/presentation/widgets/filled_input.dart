@@ -21,6 +21,7 @@ class FilledInput extends StatelessWidget {
     this.autofillHints,
     this.suffixIcon,
     this.suffix,
+    this.onTap,
     this.textAlign = TextAlign.start,
     super.key,
   });
@@ -31,6 +32,7 @@ class FilledInput extends StatelessWidget {
   final TextStyle? style;
   final int? numLines;
   final int? maxLength;
+  final void Function()? onTap;
   final TextInputType? keyboardType;
   final void Function(String value)? onChanged;
   final void Function(String value)? onSubmit;
@@ -62,6 +64,7 @@ class FilledInput extends StatelessWidget {
       onFieldSubmitted: onSubmit,
       onChanged: onChanged,
       initialValue: initialValue,
+      onTap: onTap,
       autofocus: autoFocus,
       minLines: numLines,
       maxLines: numLines,
@@ -72,7 +75,7 @@ class FilledInput extends StatelessWidget {
         hintText: hintText,
         suffixIcon: suffixIcon,
         suffix: suffix,
-        fillColor: AppColors.primary,
+        fillColor: Colors.transparent,
         iconColor: MaterialStateColor.resolveWith(
           (Set<MaterialState> states) {
             if (states.contains(MaterialState.focused)) {

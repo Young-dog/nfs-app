@@ -15,7 +15,9 @@ import '../features/auth/presentation/screens/login_screen.dart';
 import '../features/issue/presentation/screens/controller_support_screen.dart';
 import '../features/issue/presentation/screens/farmer_support_screen.dart';
 import '../features/issue/presentation/screens/mechanic_support_screen.dart';
+import '../features/land/presentation/screens/farmer_new_land_screen.dart';
 import '../features/revenue/presentation/screens/mechanic_revenue_screen.dart';
+import '../features/task/presentation/screens/farmer_new_task_screen.dart';
 import '../features/task/presentation/screens/farmer_tasks_screen.dart';
 import '../features/task/presentation/screens/mechanic_task_screen.dart';
 import '../features/user/presentation/screens/controller_profile_screen.dart';
@@ -49,7 +51,7 @@ class AppRouter {
           return customTransitionPage<void>(
             context: context,
             state: state,
-            child: const LoginScreen(),
+            child: const FarmerNewTaskScreen(),
           );
         },
       ),
@@ -65,9 +67,11 @@ class AppRouter {
         },
       ),
       ShellRoute(
+
         navigatorKey: _shellNavigatorKey,
         builder: (context, state, child) {
-          var userRole = context.read<AuthBloc>().state.loggedInUser.role.toLowerCase();
+          var userRole = authBloc.state.loggedInUser.role.toLowerCase();
+
           switch(userRole) {
             case 'агроном':
               return FarmerScreen(
@@ -103,6 +107,19 @@ class AppRouter {
                 child: const FarmerLandScreen(),
               );
             },
+            routes: [
+              GoRoute(
+                path: "f_new_land",
+                name: "f_new_land",
+                pageBuilder: (BuildContext context, GoRouterState state) {
+                  return customTransitionPage<void>(
+                    context: context,
+                    state: state,
+                    child: const FarmerNewLandScreen(),
+                  );
+                },
+              ),
+            ],
           ),
           GoRoute(
             path: "/m_task",
@@ -125,6 +142,19 @@ class AppRouter {
                 child: const FarmerTasksScreen(),
               );
             },
+            routes: [
+              GoRoute(
+                path: "f_new_task",
+                name: "f_new_task",
+                pageBuilder: (BuildContext context, GoRouterState state) {
+                  return customTransitionPage<void>(
+                    context: context,
+                    state: state,
+                    child: const FarmerNewTaskScreen(),
+                  );
+                },
+              ),
+            ],
           ),
           GoRoute(
             path: "/f_vehicle",

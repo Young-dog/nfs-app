@@ -3,6 +3,7 @@ import 'package:app/src/features/land/presentation/blocs/add_land/add_land_cubit
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../config/app_colors.dart';
 import '../../../../shared/widgets/custom_indicator.dart';
 import '../../../../shared/widgets/custom_widget.dart';
@@ -16,9 +17,9 @@ class FarmerLandScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.chips,
-        onPressed: () {},
-        child: AppIcons.plus(null, AppColors.primary),
+        backgroundColor: AppColors.secondary,
+        onPressed: () => context.goNamed('f_new_land'),
+        child: AppIcons.plus(null, AppColors.white),
       ),
       body: const Center(
         child: _AddButton(),
